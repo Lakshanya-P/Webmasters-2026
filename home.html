@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+
+<!--fonts-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+<!--linking css & js-->	
+	<script src="main.js"></script>
+
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<header>
+	<div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+
+		 <button class="navbuttons" onclick="home()">Home</button>
+		 <button class="navbuttons" onclick="resource()">Resource Hub</button>
+		 <button class="navbuttons" onclick="highlights()">Highlights</button>
+		 <button class="navbuttons" onclick="references()">References</button>
+		 
+		 <!-- clipPath for heart shape (kept hidden) -->
+		<svg style="width:0;height:0;position:absolute" aria-hidden="true">
+		  <defs>
+		    <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+		      <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+		    </clipPath>
+		  </defs>
+		</svg>
+
+		<!-- Heart (existing) placed between More and O to match requested position -->
+		<div class="heart" role="button" tabindex="0" title="Heart">
+			<!-- fill element -->
+			<div class="tank"></div>
+			<!-- wave curve -->
+			<svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+				</defs>
+				<g>
+				<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+				<use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+				<use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+				</g>
+			</svg>
+		</div>
+
+		 <div class="dropdown">
+		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+		     <button class="dropdown-item" onclick="openFAQs()">FAQs</button>
+		     <button class="dropdown-item" onclick="openAbout()">About Us</button>
+		   </div>
+		 </div>
+
+		 
+	</div>
+  <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+<body>
+
+  <!-- Full-screen header collage (covers first viewport) [22 images] -->
+  <section id="header-collage" class="collage-wrapper" aria-label="Header Collage">
+    <div class="collage-container">
+      <div class="col c-1">
+        <div class="item"><img src="./assets/img1.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img2.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img3.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img4.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img5.jpg" alt="" /></div>
+      </div>
+      <div class="col c-2">
+        <div class="item"><img src="./assets/img6.webp" alt="" /></div>
+        <div class="item"><img src="./assets/img7.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img8.webp" alt="" /></div>
+        <div class="item"><img src="./assets/img9.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img10.webp" alt="" /></div>
+      </div>
+      <div class="col c-3">
+        <div class="item"><img src="./assets/img11.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img12.webp" alt="" /></div>
+        <div class="item" id="heroimg"><img src="assets/galaxy_bg.PNG" alt="" data-video="assets/final.mp4" /></div>
+        <div class="item"><img src="./assets/img13.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img14.jpg" alt="" /></div>
+      </div>
+      <div class="col c-4">
+        <div class="item"><img src="./assets/img15.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img16.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img17.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img18.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img19.jpg" alt="" /></div>
+      </div>
+      <div class="col c-5">
+        <div class="item"><img src="./assets/img20.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img21.png" alt="" /></div>
+        <div class="item"><img src="./assets/img22.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img23.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img1.jpg" alt="" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- spacer so the header covers the first full screen and allows scrolling -->
+  <div class="post-header-spacer" aria-hidden="true"></div>
+
+  <!-- GSAP (animation) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Wait for images and DOM to be fully ready before starting animation
+      setTimeout(() => {
+        const tl = gsap.timeline({delay: 1.0});
+
+        // Prepare hero video so the collage zooms into the video (frozen on first frame)
+        let heroVideo = null;
+        const heroImg = document.querySelector('#heroimg img');
+        if (heroImg) {
+          const videoSrc = heroImg.getAttribute('data-video');
+          if (videoSrc) {
+            heroVideo = document.createElement('video');
+            heroVideo.src = videoSrc;
+            heroVideo.muted = true;
+            heroVideo.playsInline = true;
+            heroVideo.preload = 'auto';
+            heroVideo.style.width = '100%';
+            heroVideo.style.height = '100%';
+            heroVideo.style.objectFit = 'cover';
+            heroVideo.style.objectPosition = 'bottom';
+            heroVideo.style.display = 'block';
+
+            heroVideo.addEventListener('loadeddata', () => {
+              heroVideo.currentTime = 0;
+              heroVideo.pause();
+              heroImg.style.opacity = '0';
+            });
+
+            heroImg.parentElement.insertBefore(heroVideo, heroImg);
+          }
+        }
+
+      // Column entrance (alternate directions for a dynamic feel)
+      tl.to('.c-1, .c-3, .c-5', {y: '0%', duration: 1.2, ease: 'power3.inOut'});
+
+      // Stagger items per column for a flowing scroll
+      tl.to('.c-1 .item', {y: '0%', stagger: 0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.0');
+      tl.to('.c-2 .item', {y: '0%', stagger: -0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.4');
+      tl.to('.c-3 .item', {y: '0%', stagger: 0.22, duration: 1.6, ease: 'power4.inOut'}, '-=1.6');
+      tl.to('.c-4 .item', {y: '0%', stagger: -0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.8');
+      tl.to('.c-5 .item', {y: '0%', stagger: 0.18, duration: 1.6, ease: 'power4.inOut'}, '-=2.0');
+
+      // Zoom the whole collage slightly to draw focus
+      tl.to('.collage-container', {scale: 5.485, duration: 1.5, transformOrigin: 'center center', ease: 'power4.inOut'}, '-=1.6');
+
+      // Make the middle (3rd column, 3rd item) become the hero image and freeze
+      tl.call(() => {
+        const midItem = document.querySelector('.c-3 .item:nth-child(3)');
+        const container = document.querySelector('.collage-container');
+        if (!midItem || !container) return;
+
+        // Move the item to body so it's completely independent
+        if (midItem.parentElement) {
+          midItem.parentElement.removeChild(midItem);
+          document.body.appendChild(midItem);
+        }
+
+        // promote to hero (fixed full-viewport) and bump z-index so it dominates but stays below topnav
+        midItem.classList.add('hero-item');
+        midItem.style.position = 'absolute';
+        midItem.style.top = '0';
+        midItem.style.left = '0';
+        midItem.style.right = '0';
+        midItem.style.width = '100%';
+        midItem.style.height = '100vh';
+        midItem.style.zIndex = 20; // keep behind content sections (z-index 20)
+        // fade out columns (hero is now separate)
+        container.classList.add('collage-fade');
+
+        // ensure no margin/padding causes gaps
+        midItem.style.margin = '0';
+
+        // --- Video playback with auto-play and freeze on last frame ---
+        const img = midItem.querySelector('img');
+        const video = midItem.querySelector('video');
+        if (img) {
+          // Ensure the image matches the video sizing/margins when it fills the screen
+          img.style.position = 'absolute';
+          img.style.top = '0';
+          img.style.left = '0';
+          img.style.bottom = '0';
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'bottom';
+          img.style.display = 'block';
+        }
+
+        if (video) {
+          // Ensure the video matches the image sizing/margins and stays on first frame
+          video.style.position = 'absolute';
+          video.style.top = '0';
+          video.style.left = '0';
+          video.style.bottom = '0';
+          video.style.width = '100%';
+          video.style.height = '100%';
+          video.style.objectFit = 'cover';
+          video.style.objectPosition = 'bottom';
+          video.style.display = 'block';
+          video.pause();
+          video.currentTime = 0;
+
+          // Add video to the same container as image
+          midItem.style.position = 'relative';
+          console.info('Prepared hero video for collage zoom');
+        }
+
+      });
+
+      // Slight final polish zoom on the hero image
+      // tl.to('.hero-item img', {scale: 1.12, duration: 1.6, ease: 'power3.inOut'}, '+=0.05');
+
+      // Reset container scale to 1 while hero remains pinned, leaving final state clean
+      tl.to('.collage-container', {scale: 1, duration: 0.8, ease: 'power3.inOut'});
+
+      // Keep final state; the hero item stays visible and other columns are hidden
+      tl.set('.collage-container', {clearProps: 'transform'});
+
+      // Start video playback once the hero fully covers the screen
+      tl.call(() => {
+        if (heroVideo) {
+          heroVideo.play().catch(() => {});
+        }
+      });
+
+      // Create animated wave washover overlay for scroll transition using canvas
+      // This is independent and doesn't depend on heroItem
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.zIndex = '99999';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.backgroundColor = 'rgba(0,0,0,0)';
+      document.body.appendChild(canvas);
+      console.log('Canvas created and appended:', canvas);
+
+      const ctx = canvas.getContext('2d');
+      let scrollProgress = 0;
+      let headerCollageVisibility = 1; // 0 to 1
+      let section2Visibility = 0; // 0 to 1
+
+      // Set canvas size to match viewport
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        console.log('Canvas resized to:', canvas.width, 'x', canvas.height);
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Track visibility of header-collage
+      const headerCollage = document.getElementById('header-collage');
+      if (headerCollage) {
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: headerCollage,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+            onUpdate: (self) => {
+              headerCollageVisibility = 1 - self.progress;
+            }
+          },
+          duration: 0.1
+        });
+      }
+
+      // Track visibility of section2
+      const section2El = document.getElementById('section2');
+      if (section2El) {
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: section2El,
+            start: 'top bottom',
+            end: 'top top',
+            scrub: true,
+            onUpdate: (self) => {
+              section2Visibility = self.progress;
+            }
+          },
+          duration: 0.1
+        });
+      }
+
+      // Function to draw animated sparkling stars shooting up from bottom
+      function drawWaves(progress, timeSeconds) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Smooth fade in from 0 to 20% and fade out from 80% to 100%
+        let overallOpacity = 1;
+        if (progress < 0.2) {
+          overallOpacity = progress / 0.2; // Smooth fade in over 20%
+        } else if (progress > 0.8) {
+          overallOpacity = (1 - progress) / 0.2; // Smooth fade out over 20%
+        }
+
+        // Dynamic particle count based on visibility - much more dramatic variation
+        // Maximum when transitioning between sections, minimum at top/bottom
+        const combinedVisibility = headerCollageVisibility + section2Visibility;
+        // Use power of 3 for more dramatic effect - peaks sharply in the middle
+        const densityMultiplier = Math.pow(Math.sin(combinedVisibility * Math.PI * 0.5), 3);
+        const baseParticleCount = 10000; // Increased for even more stars
+        const particleCount = Math.round(baseParticleCount * densityMultiplier);
+        
+        // Helper function to draw a star
+        function drawStar(cx, cy, size, rotation) {
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(rotation);
+          
+          ctx.beginPath();
+          for (let i = 0; i < 5; i++) {
+            const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+            const x = Math.cos(angle) * size;
+            const y = Math.sin(angle) * size;
+            if (i === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+          ctx.closePath();
+          ctx.fill();
+          
+          ctx.restore();
+        }
+        
+        for (let i = 0; i < particleCount; i++) {
+          // Use a more complex hash to avoid patterns
+          const seed = (i * 73856093) ^ ((i * 19349663) >> 16);
+          const hashX = Math.sin(seed * 0.0001) * 10000;
+          const hashY = Math.cos(seed * 0.00012) * 10000;
+          
+          // Truly random positions (hash-based)
+          const randomX = (hashX - Math.floor(hashX));
+          const randomY = (hashY - Math.floor(hashY));
+          
+          // X position - randomly scattered across width
+          const x = randomX * canvas.width;
+          
+          // Calculate spawn time for this star based on particle index and progress
+          const spawnWave = (i / particleCount); // When this star spawns (0 to 1)
+          const starBornAtProgress = spawnWave * progress; // When in the scroll this star was born
+          
+          // Age of this star (how long since it spawned)
+          const starAge = progress - starBornAtProgress;
+          
+          // Only draw stars that have been born
+          if (starAge >= 0) {
+            // Speed varies by seed - some fast, some slow
+            const speed = 0.8 + (randomY * 1.2); // Speed multiplier 0.8-2.0
+            
+            // Y position: starts at bottom, shoots upward
+            const travelDistance = starAge * canvas.height * speed;
+            const y = canvas.height - travelDistance;
+            
+            // Only draw if star hasn't gone off top of screen
+            if (y > -100) {
+              // Calculate travel ratio for size and fade effects
+              const travelRatio = Math.min(1, travelDistance / (canvas.height * speed));
+              
+              // Stars vary in size - continuous gradient from bottom to top
+              const sizeVariation = (1 - travelRatio); // 1.0 at bottom, 0.0 at top
+              // Smooth exponential falloff - bigger at bottom, tiny at top
+              const sizeMultiplier = Math.pow(sizeVariation, 1.8);
+              const baseStar = 0.05 + (sizeMultiplier * 10); // Wider range for dramatic effect
+              const starSize = baseStar * (1 + progress * 4);
+              
+              // Continuous density gradient - very dense at bottom, very sparse at top
+              const densityAtHeight = Math.pow(sizeVariation, 3); // Steep continuous falloff
+              const skipThreshold = densityAtHeight * 0.99; // Keep 99% at bottom, fewer at top
+              if ((seed % 100) / 100 > skipThreshold) {
+                // Skip drawing this star - creates spacing based on height
+                continue;
+              }
+              
+              // Sparkling effect - intense twinkle (time-based for continuous twinkling)
+              const twinkleFactor = Math.sin(timeSeconds * 6 + progress * Math.PI * 6 + randomX * 20 + randomY * 20);
+              let starOpacity = overallOpacity * (0.4 + twinkleFactor * 0.6);
+              
+              // Fade out as star rises
+              const fadeStart = 0.5; // Start fading at 50% traveled
+              if (travelRatio > fadeStart) {
+                starOpacity *= (1 - ((travelRatio - fadeStart) / (1 - fadeStart)));
+              }
+              
+              starOpacity *= (0.5 + randomY * 0.5); // Base opacity variation
+              
+              // Star rotation for visual interest
+              const rotation = progress * Math.PI * 2 + randomX * 6.28;
+              
+              ctx.save();
+              ctx.globalAlpha = Math.max(0, starOpacity); // Clamp to 0-1
+              ctx.fillStyle = '#ffffff';
+              
+              // Draw the star
+              drawStar(x, y, Math.max(0.1, starSize), rotation);
+              
+              ctx.restore();
+            }
+          }
+        }
+      }
+
+      // Initial draw
+      drawWaves(0, 0);
+
+      // Scroll trigger for wave animation - trigger 200px earlier than section2
+      const section2 = document.getElementById('section2');
+      gsap.to({}, {
+        scrollTrigger: {
+          trigger: section2,
+          start: 'top bottom+=200',
+          end: 'top center',
+          scrub: 1,
+          markers: false,
+          onUpdate: (self) => {
+            scrollProgress = self.progress;
+            console.log('ScrollTrigger progress:', scrollProgress);
+            drawWaves(scrollProgress, performance.now() * 0.001);
+          }
+        },
+        duration: 0.1
+      });
+      console.log('Canvas scroll trigger created for section2:', section2);
+
+      // Continuous twinkling even without scrolling
+      function animateStars(time) {
+        drawWaves(scrollProgress, time * 0.001);
+        requestAnimationFrame(animateStars);
+      }
+      requestAnimationFrame(animateStars);
+
+      // Keep final state; the hero item stays visible and other columns are hidden
+
+      // Section 2 scroll animations - pixelate build-up effect
+      gsap.to('#section2 h1', {
+        scrollTrigger: {
+          trigger: '#section2 h1',
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const blurAmount = 20 * (1 - progress);
+            document.querySelector('#section2 h1').style.filter = `blur(${blurAmount}px)`;
+          }
+        },
+        opacity: 1,
+        y: 0,
+        ease: 'power2.out'
+      });
+
+      gsap.to('#section2 p', {
+        scrollTrigger: {
+          trigger: '#section2 p',
+          start: 'top 80%',
+          end: 'bottom 10%',
+          scrub: 0.5,
+        },
+        opacity: 1,
+        y: 0,
+        ease: 'power3.out'
+      });
+
+      gsap.to('#section2 img', {
+        scrollTrigger: {
+          trigger: '#section2 img',
+          start: 'top 80%',
+          end: 'bottom 10%',
+          scrub: 0.5,
+        },
+        opacity: 1,
+        y: 0,
+        ease: 'power3.out'
+      });
+
+      // Section 2.6 fade in on scroll
+      const section26Element = document.getElementById('section2.6');
+      if (section26Element) {
+        gsap.fromTo(section26Element, {
+          opacity: 0,
+          y: 50
+        }, {
+          scrollTrigger: {
+            trigger: section26Element,
+            start: 'top 85%',
+            end: 'top 40%',
+            scrub: 0.5,
+            markers: false
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out'
+        });
+      }
+      }, 900); // 500ms delay to ensure all resources are loaded
+    });
+
+    // Galaxy gradient follows mouse movement with smooth interpolation
+    document.addEventListener('DOMContentLoaded', function() {
+      const section2H1 = document.querySelector('#section2 h1');
+      if (section2H1) {
+        let currentX = 50, currentY = 50;
+        let targetX = 50, targetY = 50;
+        let isHovering = false;
+        
+        section2H1.addEventListener('mousemove', function(e) {
+          const rect = this.getBoundingClientRect();
+          targetX = ((e.clientX - rect.left) / rect.width) * 100;
+          targetY = ((e.clientY - rect.top) / rect.height) * 100;
+          isHovering = true;
+        });
+        
+        section2H1.addEventListener('mouseleave', function() {
+          targetX = 50;
+          targetY = 50;
+          isHovering = false;
+        });
+        
+        // Smooth interpolation using requestAnimationFrame
+        function animate() {
+          const easing = 0.1; // Lower = smoother but slower
+          currentX += (targetX - currentX) * easing;
+          currentY += (targetY - currentY) * easing;
+          
+          section2H1.style.backgroundPosition = `${currentX}% ${currentY}%`;
+          requestAnimationFrame(animate);
+        }
+        animate();
+      }
+    });
+  </script>
+
+  <!--Section 2: Text Content -->
+  <div id="section2">
+	<h1> Welcome to Starpath! </h1>
+	<div class="section2-body">
+	  <p> We welcome everyone to a community hub hosted by students, for students! Through this website, you’re free to explore all kinds of tips, advice, and sources across the nation while having the ability of sharing your own posts as well. We aim to connect our nation’s students by making useful student sources more accessible for all across America.  </p>
+    <img src="assets/img1.jpg">
+	</div>
+
+  <div id="section2.5">
+    <h2> A Look Through Our Site... </h2>
+    <div class="features-grid">
+      <p class="feature-item community">
+        <span class="icon">👥</span>
+        <span class="text">a community of students supported by students</span>
+      </p>
+      <p class="feature-item scholarship">
+        <span class="icon">💰</span>
+        <span class="text">scholarship opportunities</span>
+      </p>
+      <p class="feature-item wellness">
+        <span class="icon">💚</span>
+        <span class="text">mental health & self care tips</span>
+      </p>
+      <p class="feature-item guidance">
+        <span class="icon">🎓</span>
+        <span class="text">college application guidance</span>
+      </p>
+    </div>
+  </div>
+
+  <div id="section2.555">
+    <div class="stars-divider">
+      <svg width="100%" height="350" viewBox="0 0 2800 350" preserveAspectRatio="xMidYMid meet">
+        <g id="dancing-stars">
+          <polygon class="dancing-star" points="0,100 15,140 60,140 25,175 40,215 0,180 -40,215 -25,175 -60,140 -15,140" style="animation-delay: 0s"></polygon>
+          <polygon class="dancing-star" points="142,100 157,140 202,140 167,175 182,215 142,180 102,215 117,175 82,140 127,140" style="animation-delay: 0.1s"></polygon>
+          <polygon class="dancing-star" points="284,100 299,140 344,140 309,175 324,215 284,180 244,215 259,175 224,140 269,140" style="animation-delay: 0.2s"></polygon>
+          <polygon class="dancing-star" points="426,100 441,140 486,140 451,175 466,215 426,180 386,215 401,175 366,140 411,140" style="animation-delay: 0.3s"></polygon>
+          <polygon class="dancing-star" points="568,100 583,140 628,140 593,175 608,215 568,180 528,215 543,175 508,140 553,140" style="animation-delay: 0.4s"></polygon>
+          <polygon class="dancing-star" points="710,100 725,140 770,140 735,175 750,215 710,180 670,215 685,175 650,140 695,140" style="animation-delay: 0.5s"></polygon>
+          <polygon class="dancing-star" points="852,100 867,140 912,140 877,175 892,215 852,180 812,215 827,175 792,140 837,140" style="animation-delay: 0.6s"></polygon>
+          <polygon class="dancing-star" points="994,100 1009,140 1054,140 1019,175 1034,215 994,180 954,215 969,175 934,140 979,140" style="animation-delay: 0.7s"></polygon>
+          <polygon class="dancing-star" points="1136,100 1151,140 1196,140 1161,175 1176,215 1136,180 1096,215 1111,175 1076,140 1121,140" style="animation-delay: 0.8s"></polygon>
+          <polygon class="dancing-star" points="1278,100 1293,140 1338,140 1303,175 1318,215 1278,180 1238,215 1253,175 1218,140 1263,140" style="animation-delay: 0.9s"></polygon>
+          <polygon class="dancing-star" points="1420,100 1435,140 1480,140 1445,175 1460,215 1420,180 1380,215 1395,175 1360,140 1405,140" style="animation-delay: 1s"></polygon>
+          <polygon class="dancing-star" points="1562,100 1577,140 1622,140 1587,175 1602,215 1562,180 1522,215 1537,175 1502,140 1547,140" style="animation-delay: 1.1s"></polygon>
+          <polygon class="dancing-star" points="1704,100 1719,140 1764,140 1729,175 1744,215 1704,180 1664,215 1679,175 1644,140 1689,140" style="animation-delay: 1.2s"></polygon>
+          <polygon class="dancing-star" points="1846,100 1861,140 1906,140 1871,175 1886,215 1846,180 1806,215 1821,175 1786,140 1831,140" style="animation-delay: 1.3s"></polygon>
+          <polygon class="dancing-star" points="1988,100 2003,140 2048,140 2013,175 2028,215 1988,180 1948,215 1963,175 1928,140 1973,140" style="animation-delay: 1.4s"></polygon>
+          <polygon class="dancing-star" points="2130,100 2145,140 2190,140 2155,175 2170,215 2130,180 2090,215 2105,175 2070,140 2115,140" style="animation-delay: 1.5s"></polygon>
+          <polygon class="dancing-star" points="2272,100 2287,140 2332,140 2297,175 2312,215 2272,180 2232,215 2247,175 2212,140 2257,140" style="animation-delay: 1.6s"></polygon>
+          <polygon class="dancing-star" points="2414,100 2429,140 2474,140 2439,175 2454,215 2414,180 2374,215 2389,175 2354,140 2399,140" style="animation-delay: 1.7s"></polygon>
+          <polygon class="dancing-star" points="2556,100 2571,140 2616,140 2581,175 2596,215 2556,180 2516,215 2531,175 2496,140 2541,140" style="animation-delay: 1.8s"></polygon>
+          <polygon class="dancing-star" points="2698,100 2713,140 2758,140 2723,175 2738,215 2698,180 2658,215 2673,175 2638,140 2683,140" style="animation-delay: 1.9s"></polygon>
+          <polygon class="dancing-star" points="2840,100 2855,140 2900,140 2865,175 2880,215 2840,180 2800,215 2815,175 2780,140 2825,140" style="animation-delay: 2s"></polygon>
+          <polygon class="dancing-star" points="2982,100 2997,140 3042,140 3007,175 3022,215 2982,180 2942,215 2957,175 2922,140 2967,140" style="animation-delay: 2.1s"></polygon>
+          <polygon class="dancing-star" points="3124,100 3139,140 3184,140 3149,175 3164,215 3124,180 3084,215 3099,175 3064,140 3109,140" style="animation-delay: 2.2s"></polygon>
+          <polygon class="dancing-star" points="3266,100 3281,140 3326,140 3291,175 3306,215 3266,180 3226,215 3241,175 3206,140 3251,140" style="animation-delay: 2.3s"></polygon>
+          <polygon class="dancing-star" points="3408,100 3423,140 3468,140 3433,175 3448,215 3408,180 3368,215 3383,175 3348,140 3393,140" style="animation-delay: 2.4s"></polygon>
+          <polygon class="dancing-star" points="3550,100 3565,140 3610,140 3575,175 3590,215 3550,180 3510,215 3525,175 3490,140 3535,140" style="animation-delay: 2.5s"></polygon>
+          <!-- Duplicate stars for seamless wrapping -->
+          <polygon class="dancing-star" points="2556,100 2571,140 2616,140 2581,175 2596,215 2556,180 2516,215 2531,175 2496,140 2541,140" style="animation-delay: 0s"></polygon>
+          <polygon class="dancing-star" points="2698,100 2713,140 2758,140 2723,175 2738,215 2698,180 2658,215 2673,175 2638,140 2683,140" style="animation-delay: 0.1s"></polygon>
+          <polygon class="dancing-star" points="2840,100 2855,140 2900,140 2865,175 2880,215 2840,180 2800,215 2815,175 2780,140 2825,140" style="animation-delay: 0.2s"></polygon>
+          <polygon class="dancing-star" points="2982,100 2997,140 3042,140 3007,175 3022,215 2982,180 2942,215 2957,175 2922,140 2967,140" style="animation-delay: 0.3s"></polygon>
+          <polygon class="dancing-star" points="3124,100 3139,140 3184,140 3149,175 3164,215 3124,180 3084,215 3099,175 3064,140 3109,140" style="animation-delay: 0.4s"></polygon>
+          <polygon class="dancing-star" points="3266,100 3281,140 3326,140 3291,175 3306,215 3266,180 3226,215 3241,175 3206,140 3251,140" style="animation-delay: 0.5s"></polygon>
+          <polygon class="dancing-star" points="3408,100 3423,140 3468,140 3433,175 3448,215 3408,180 3368,215 3383,175 3348,140 3393,140" style="animation-delay: 0.6s"></polygon>
+          <polygon class="dancing-star" points="3550,100 3565,140 3610,140 3575,175 3590,215 3550,180 3510,215 3525,175 3490,140 3535,140" style="animation-delay: 0.7s"></polygon>
+          <polygon class="dancing-star" points="3692,100 3707,140 3752,140 3717,175 3732,215 3692,180 3652,215 3667,175 3632,140 3677,140" style="animation-delay: 0.8s"></polygon>
+          <polygon class="dancing-star" points="3834,100 3849,140 3894,140 3859,175 3874,215 3834,180 3794,215 3809,175 3774,140 3819,140" style="animation-delay: 0.9s"></polygon>
+          <polygon class="dancing-star" points="3976,100 3991,140 4036,140 4001,175 4016,215 3976,180 3936,215 3951,175 3916,140 3961,140" style="animation-delay: 1s"></polygon>
+          <polygon class="dancing-star" points="4118,100 4133,140 4178,140 4143,175 4158,215 4118,180 4078,215 4093,175 4058,140 4103,140" style="animation-delay: 1.1s"></polygon>
+          <polygon class="dancing-star" points="4260,100 4275,140 4320,140 4285,175 4300,215 4260,180 4220,215 4235,175 4200,140 4245,140" style="animation-delay: 1.2s"></polygon>
+          <polygon class="dancing-star" points="4402,100 4417,140 4462,140 4427,175 4442,215 4402,180 4362,215 4377,175 4342,140 4387,140" style="animation-delay: 1.3s"></polygon>
+          <polygon class="dancing-star" points="4544,100 4559,140 4604,140 4569,175 4584,215 4544,180 4504,215 4519,175 4484,140 4529,140" style="animation-delay: 1.4s"></polygon>
+          <polygon class="dancing-star" points="4686,100 4701,140 4746,140 4711,175 4726,215 4686,180 4646,215 4661,175 4626,140 4671,140" style="animation-delay: 1.5s"></polygon>
+          <polygon class="dancing-star" points="4828,100 4843,140 4888,140 4853,175 4868,215 4828,180 4788,215 4803,175 4768,140 4813,140" style="animation-delay: 1.6s"></polygon>
+          <polygon class="dancing-star" points="4970,100 4985,140 5030,140 4995,175 5010,215 4970,180 4930,215 4945,175 4910,140 4955,140" style="animation-delay: 1.7s"></polygon>
+          <polygon class="dancing-star" points="5112,100 5127,140 5172,140 5137,175 5152,215 5112,180 5072,215 5087,175 5052,140 5097,140" style="animation-delay: 1.8s"></polygon>
+          <polygon class="dancing-star" points="5254,100 5269,140 5314,140 5279,175 5294,215 5254,180 5214,215 5229,175 5194,140 5239,140" style="animation-delay: 1.9s"></polygon>
+          <polygon class="dancing-star" points="5396,100 5411,140 5456,140 5421,175 5436,215 5396,180 5356,215 5371,175 5336,140 5381,140" style="animation-delay: 2s"></polygon>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div id="section2.6">
+    <div class="reviews-effects" aria-hidden="true">
+      <span class="shooting-star shooting-star--detailed star-1"></span>
+      <span class="sparkle sp-1"></span>
+      <span class="sparkle sp-2"></span>
+      <span class="sparkle sp-3"></span>
+      <span class="sparkle sp-4"></span>
+      <span class="sparkle sp-5"></span>
+      <span class="sparkle sp-6"></span>
+    </div>
+    <div class="reviews-container">
+      <h2 class="reviews-title">Student Reviews ✨</h2>
+      <p class="reviews-subtitle">See what students love about our resources</p>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"This website completely changed how I approach my college applications. The guidance is clear, accessible, and incredibly helpful!"</p>
+          <p class="review-author">— Sarah Chen, Senior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The mental health resources here are amazing. I feel so supported and less alone in my struggles."</p>
+          <p class="review-author">— Marcus Johnson, Junior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Finally found all my scholarship opportunities in one place! Saved me so much time searching."</p>
+          <p class="review-author">— Alex Rodriguez, Sophomore</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The community aspect is what I love most. Getting advice from other students who get it is invaluable."</p>
+          <p class="review-author">— Jordan Williams, Senior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Best study resource hub I've found. The tips actually work and the advice is from real students."</p>
+          <p class="review-author">— Emma Thompson, Junior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"I shared this with all my friends. It's genuinely helpful and makes navigating student life easier."</p>
+          <p class="review-author">— David Kim, Freshman</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mouse trail ombre background effect
+    const section26 = document.getElementById('section2.6');
+    
+    // Store mouse position history for trailing effect
+    const trailPositions = [
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 }
+    ];
+    
+    document.addEventListener('mousemove', (e) => {
+      const rect = section26.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+      
+      // Shift trail positions and add new one
+      trailPositions.pop();
+      trailPositions.unshift({ x: xPercent, y: yPercent, opacity: 1 });
+      
+      // Update all trail positions
+      trailPositions.forEach((pos, index) => {
+        const opacityFade = (1 - (index / trailPositions.length)) * 0.8;
+        section26.style.setProperty(`--trail-x-${index}`, pos.x + '%');
+        section26.style.setProperty(`--trail-y-${index}`, pos.y + '%');
+        section26.style.setProperty(`--trail-opacity-${index}`, opacityFade);
+      });
+      
+      // Also set main mouse position
+      section26.style.setProperty('--mouse-x', xPercent + '%');
+      section26.style.setProperty('--mouse-y', yPercent + '%');
+    });
+  </script>
+  </div>
+
+  <script>
+    // Section 2.5 - Fade in on scroll
+    gsap.registerPlugin(ScrollTrigger);
+    const section25 = document.getElementById('section2.5');
+    
+    if (section25) {
+      gsap.fromTo(section25, {
+        opacity: 0
+      }, {
+        scrollTrigger: {
+          trigger: section25,
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: 0.5,
+          markers: false
+        },
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.out'
+      });
+    }
+  </script>
+
+  <script>
+    // Section 2.5 - Interactive galaxy background
+    const section25Bg = document.getElementById('section2.5');
+    if (section25Bg) {
+      let targetX = 50;
+      let targetY = 50;
+      let currentX = 50;
+      let currentY = 50;
+      let targetIntensity = 1;
+      let currentIntensity = 1;
+
+      section25Bg.addEventListener('mousemove', (e) => {
+        const rect = section25Bg.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width) * 100;
+        targetY = ((e.clientY - rect.top) / rect.height) * 100;
+        targetIntensity = 1.35;
+      });
+
+      section25Bg.addEventListener('mouseleave', () => {
+        targetX = 50;
+        targetY = 50;
+        targetIntensity = 1;
+      });
+
+      function animateGalaxy() {
+        const ease = 0.08;
+        currentX += (targetX - currentX) * ease;
+        currentY += (targetY - currentY) * ease;
+        currentIntensity += (targetIntensity - currentIntensity) * ease;
+
+        section25Bg.style.setProperty('--g-x', `${currentX}%`);
+        section25Bg.style.setProperty('--g-y', `${currentY}%`);
+        section25Bg.style.setProperty('--g-intensity', currentIntensity.toFixed(2));
+
+        requestAnimationFrame(animateGalaxy);
+      }
+      animateGalaxy();
+    }
+  </script>
+
+  <script>
+    // Section 2.555 - Stars scroll animation with moving ombre gradient
+    const starsContainer = document.getElementById('section2.555');
+    const starsGroup = document.getElementById('dancing-stars');
+    const dancingStars = document.querySelectorAll('.dancing-star');
+    
+    // Galaxy color scheme
+    const galaxyColors = [
+      '#53507b', '#4a5c8e', '#8aaceb', '#8d88ca', '#bccafb', 
+      '#0e2654', '#a29dd7', '#688aca', '#02133e', '#a29dd7', 
+      '#355495', '#dee2fd', '#7b74c1', '#1b366d', '#404471', 
+      '#6c61af', '#7a99da', '#7778a6', '#171431', '#28457f', 
+      '#5677ba', '#36355d', '#5b4d9a', '#4766a7', '#676594', 
+      '#2c225f', '#a5baf3', '#272646', '#3b3074'
+    ];
+    
+    // Create scroll timeline
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Animate the entire stars group to move from left to right with wrapping
+    gsap.to(starsGroup, {
+      x: 2556,
+      scrollTrigger: {
+        trigger: starsContainer,
+        start: 'top 70%',
+        end: 'bottom 30%',
+        scrub: 6,
+        markers: false,
+        onUpdate: (self) => {
+          // Wrap stars that go off-screen back to the left for seamless looping
+          const wrapWidth = 2556; // Position where duplicates start
+          const currentX = 2556 * self.progress;
+          const wrappedX = currentX % wrapWidth;
+          gsap.set(starsGroup, { x: wrappedX });
+        }
+      }
+    });
+
+    // Animate moving ombre color gradient through stars
+    let colorOffset = 0;
+    let frameCounter = 0;
+    function animateStarGradient() {
+      // Slow down animation - update every 32 frames instead of every frame
+      frameCounter++;
+      if (frameCounter >= 32) {
+        frameCounter = 0;
+        colorOffset = (colorOffset + 1) % galaxyColors.length;
+      }
+
+      // Create ombre effect by mapping each star to a position in the color gradient
+      dancingStars.forEach((star, index) => {
+        // Calculate position in color palette (spread stars across the full palette)
+        const starPosition = (index / dancingStars.length) * galaxyColors.length;
+        // Apply offset to create moving effect
+        const colorIndex = Math.floor((starPosition + colorOffset) % galaxyColors.length);
+        const nextColorIndex = (colorIndex + 1) % galaxyColors.length;
+        
+        // Get interpolation factor for smooth color transitions
+        const interpolation = (starPosition + colorOffset) % 1;
+        
+        // For simplicity, just use the primary color (could interpolate between colors for smoother ombre)
+        const color = galaxyColors[colorIndex];
+        const strokeColor = galaxyColors[(colorIndex + 10) % galaxyColors.length];
+        
+        star.style.fill = color;
+        star.style.stroke = strokeColor;
+      });
+      
+      requestAnimationFrame(animateStarGradient);
+    }
+    
+    // Start the gradient animation
+    animateStarGradient();
+  </script>
+
+  <script>
+    // Shooting star animation
+    const subscribeForm = document.getElementById('subscribeForm');
+    const shootingStarCanvas = document.getElementById('shootingStarCanvas');
+    const ctx = shootingStarCanvas.getContext('2d');
+      
+      function resizeCanvas() {
+        shootingStarCanvas.width = shootingStarCanvas.offsetWidth;
+        shootingStarCanvas.height = shootingStarCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      subscribeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('emailInput').value;
+        
+        if (email) {
+          // Trigger shooting star animation and show message when complete
+          createShootingStar(() => {
+            // Show success message after animation completes
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            subscribeForm.reset();
+          });
+        }
+      });
+      
+      // Close button functionality
+      const closeBtn = document.getElementById('closeMessage');
+      const successMsg = document.getElementById('successMessage');
+      closeBtn.addEventListener('click', () => {
+        successMsg.classList.remove('show');
+      });
+      
+      function createShootingStar(onComplete) {
+        // Single detailed shooting star - arc from bottom left to top right
+        const startX = -100;
+        const startY = shootingStarCanvas.height + 50;
+        const endX = shootingStarCanvas.width + 100;
+        const endY = -50;
+        
+        const star = {
+          progress: 0,
+          x: startX,
+          y: startY,
+          prevX: startX,
+          prevY: startY,
+          length: 600,
+          speed: 0.012,
+          opacity: 1,
+          size: 15,
+          particles: [],
+          startX: startX,
+          startY: startY,
+          endX: endX,
+          endY: endY
+        };
+        
+        // Create trailing particles
+        for (let i = 0; i < 30; i++) {
+          star.particles.push({
+            x: star.x,
+            y: star.y,
+            size: 3 + Math.random() * 3,
+            opacity: 1 - (i * 0.033),
+            offsetX: (Math.random() - 0.5) * 20,
+            offsetY: (Math.random() - 0.5) * 20
+          });
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, shootingStarCanvas.width, shootingStarCanvas.height);
+          
+          if (star.progress < 1 && star.opacity > 0) {
+            // Calculate position along diagonal line (linear interpolation)
+            star.progress += star.speed;
+            const t = Math.min(star.progress, 1);
+            
+            // Linear interpolation for straight diagonal path
+            star.prevX = star.x;
+            star.prevY = star.y;
+            star.x = star.startX + (star.endX - star.startX) * t;
+            star.y = star.startY + (star.endY - star.startY) * t;
+            
+            // Calculate direction for trail (constant angle for diagonal)
+            const dx = star.endX - star.startX;
+            const dy = star.endY - star.startY;
+            const angle = Math.atan2(dy, dx);
+            
+            // Calculate trail end point
+            const trailEndX = star.x - Math.cos(angle) * star.length;
+            const trailEndY = star.y - Math.sin(angle) * star.length;
+            
+            // Draw main trail with ultra-detailed gradient
+            const gradient = ctx.createLinearGradient(
+              star.x, star.y,
+              trailEndX, trailEndY
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
+            gradient.addColorStop(0.1, `rgba(245, 248, 255, ${star.opacity * 0.95})`);
+            gradient.addColorStop(0.25, `rgba(222, 226, 253, ${star.opacity * 0.85})`);
+            gradient.addColorStop(0.4, `rgba(188, 202, 251, ${star.opacity * 0.65})`);
+            gradient.addColorStop(0.55, `rgba(165, 186, 243, ${star.opacity * 0.5})`);
+            gradient.addColorStop(0.7, `rgba(138, 172, 235, ${star.opacity * 0.35})`);
+            gradient.addColorStop(0.82, `rgba(108, 97, 175, ${star.opacity * 0.18})`);
+            gradient.addColorStop(0.92, `rgba(91, 77, 154, ${star.opacity * 0.08})`);
+            gradient.addColorStop(1, `rgba(91, 77, 154, 0)`);
+            
+            // Draw multiple trail layers for depth
+            // Outer glow layer
+            ctx.shadowBlur = 70;
+            ctx.shadowColor = `rgba(188, 202, 251, ${star.opacity * 0.7})`;
+            ctx.strokeStyle = `rgba(222, 226, 253, ${star.opacity * 0.2})`;
+            ctx.lineWidth = star.size * 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(trailEndX, trailEndY);
+            ctx.stroke();
+            
+            // Middle glow layer
+            ctx.shadowBlur = 45;
+            ctx.shadowColor = `rgba(222, 226, 253, ${star.opacity * 0.8})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${star.opacity * 0.4})`;
+            ctx.lineWidth = star.size * 3;
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(trailEndX + Math.cos(angle) * star.length * 0.2, trailEndY + Math.sin(angle) * star.length * 0.2);
+            ctx.stroke();
+            
+            // Main trail
+            ctx.shadowBlur = 25;
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = star.size * 1.8;
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(trailEndX, trailEndY);
+            ctx.stroke();
+            
+            // Draw trailing particles
+            star.particles.forEach((particle, i) => {
+              // Update particle positions to follow the star
+              if (i === 0) {
+                particle.x = star.prevX;
+                particle.y = star.prevY;
+              } else {
+                const lag = 0.3;
+                particle.x += (star.particles[i-1].x - particle.x) * lag;
+                particle.y += (star.particles[i-1].y - particle.y) * lag;
+              }
+              
+              ctx.shadowBlur = 20;
+              ctx.shadowColor = `rgba(188, 202, 251, ${particle.opacity * star.opacity})`;
+              ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity * star.opacity * 0.8})`;
+              ctx.beginPath();
+              ctx.arc(particle.x + particle.offsetX, particle.y + particle.offsetY, particle.size, 0, Math.PI * 2);
+              ctx.fill();
+            });
+            
+            // Draw bright star head with multiple layers
+            // Outer halo
+            ctx.shadowBlur = 80;
+            ctx.shadowColor = `rgba(138, 172, 235, ${star.opacity})`;
+            ctx.fillStyle = `rgba(188, 202, 251, ${star.opacity * 0.3})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Middle glow
+            ctx.shadowBlur = 55;
+            ctx.shadowColor = `rgba(222, 226, 253, ${star.opacity})`;
+            ctx.fillStyle = `rgba(245, 248, 255, ${star.opacity * 0.7})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Bright core
+            ctx.shadowBlur = 35;
+            ctx.shadowColor = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Ultra-bright center
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            
+            // Fade out slower for dramatic effect
+            if (star.progress > 0.7) {
+              star.opacity -= 0.008;
+            }
+            
+            requestAnimationFrame(animate);
+          } else {
+            ctx.clearRect(0, 0, shootingStarCanvas.width, shootingStarCanvas.height);
+            // Call callback when animation completes
+            if (onComplete) onComplete();
+          }
+        }
+        
+        animate();
+      }
+    
+  </script>
+
+  <div id="section3">
+    <canvas id="scrollCanvas"></canvas>
+    <div class="video-scroll-spacer"></div>
+    <div id="myText">Explore resources across the country!</div>
+  </div>
+
+  <div id="section4">
+    <h1 style="text-align:center; margin-top:0;">Explore by State</h1>
+
+    <div id="mapContainer" style="padding:24px; display:flex; justify-content:center;">
+      <!-- map grid inserted by main.js -->
+    </div>
+
+    <!-- Popup for state details (moved to body by JS when opened) -->
+    <div id="statePopup" class="state-popup" role="dialog" aria-hidden="true">
+      <button id="closeStatePopup" class="state-popup-close" aria-label="Close">✕</button>
+      <header class="state-popup-header">
+        <h2 id="statePopupTitle">State</h2>
+      </header>
+      <div id="stateCarousel" class="state-carousel" aria-hidden="true"></div>
+      <div id="statePopupContent"></div>
+      <div class="state-popup-actions">
+        <button id="addEntryFromMap" class="btn">Want to add an entry?</button>
+        <button id="discoverResourcesFromMap" class="btn secondary">Discover other Resources</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

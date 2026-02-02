@@ -1,0 +1,805 @@
+<HTML>
+
+<head>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #galaxyCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 0;
+        }
+
+        #content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+            box-sizing: border-box;
+        }
+
+        .folder-stage {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .folder {
+            position: relative;
+            width: 680px;
+            height: 420px;
+            perspective: 1500px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .folder-back {
+            position: absolute;
+            inset: 0;
+            background: #ffd24a;
+            border-radius: 30px 30px 26px 26px / 34px 34px 26px 26px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            z-index: 1;
+            transform-style: preserve-3d;
+        }
+
+        .folder-back::before {
+            content: '';
+            position: absolute;
+            top: -26px;
+            left: 0;
+            width: 38%;
+            height: 140px;
+            background: #ffd24a;
+            border-radius: 26px 26px 18px 18px;
+            border: none;
+            box-shadow: none;
+        }
+
+        .folder-front {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 21px;
+            bottom: 0;
+            background: #ffd24a;
+            border-radius: 28px;
+            border-top: none;
+            transform-origin: bottom center;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.8s ease-out, background 0.8s ease-out;
+            z-index: 4;
+            box-shadow: 0 -10px 22px rgba(255, 255, 255, 0.6) inset;
+            padding: 24px 28px;
+            box-sizing: border-box;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            transform-style: preserve-3d;
+        }
+
+        .folder.open .folder-front {
+            transform: rotateX(-85deg);
+            background: linear-gradient(180deg, #ffe78f 0%, #ffc93c 100%);
+            box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.2) inset, 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .folder-label {
+            color: #8c5f14;
+            font-size: 16px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+			text-align: center;
+			margin-left: 10px;
+			margin-top: 20px;
+        }
+
+        .folder-cards {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .card-sheet {
+            position: absolute;
+            left: calc(var(--index) * 14.28%);
+            top: -12px;
+            width: 14.28%;
+            height: auto;
+            pointer-events: none;
+        }
+
+        .card-tab {
+            position: relative;
+            width: 100%;
+            background: #ffd6e8;
+            color: #7a2149;
+            border: 2px solid #ff90b6;
+            border-bottom: none;
+            padding: 10px 8px;
+            border-radius: 12px 12px 0 0;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            pointer-events: auto;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, background 0.2s ease;
+            z-index: 10;
+        }
+
+        .folder.open .card-tab {
+            padding: 10px 8px;
+        }
+
+        .card-tab.active {
+            background: #ffd6e8;
+            z-index: 15;
+        }
+
+        .scrapbook {
+            position: absolute;
+            left: 0;
+            top: 22px;
+            width: 680px;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            background: #ffd6e8;
+            border-radius: 0 0 18px 18px;
+            padding: 24px;
+            padding-top: 32px;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+            border: 2px solid #ff90b6;
+            border-top: none;
+            color: #7a2149;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+
+        .folder.open .scrapbook {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            z-index: 13;
+        }
+
+        .scrap-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .scrap-desc {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .scrap-carousel {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .carousel-frame {
+            flex: 1;
+            height: 160px;
+            background: #d5d3e8;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 2px solid #9aa0c8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #505d9c;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #b7b0a2;
+            border: none;
+            cursor: pointer;
+        }
+
+        .carousel-dot.active {
+            background: #4f4a84;
+        }
+
+        .scrap-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .scrap-link {
+            background: #f2d5c8;
+            color: #5b2b1f;
+            padding: 6px 12px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-size: 12px;
+            border: 1px dashed #b18276;
+        }
+
+        @media (max-width: 760px) {
+            .folder {
+                width: 90vw;
+                height: 60vh;
+            }
+
+            .scrapbook {
+                left: 18px;
+                right: 18px;
+            }
+        }
+    </style>
+</head>
+
+
+<header>
+	<div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+
+		 <button class="navbuttons" onclick="home()">Home</button>
+		 <button class="navbuttons" onclick="resource()">Resource Hub</button>
+		 <button class="navbuttons" onclick="highlights()">Highlights</button>
+		 <button class="navbuttons" onclick="references()">References</button>
+		 
+		 <!-- clipPath for heart shape (kept hidden) -->
+		<svg style="width:0;height:0;position:absolute" aria-hidden="true">
+		  <defs>
+		    <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+		      <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+		    </clipPath>
+		  </defs>
+		</svg>
+
+		<!-- Heart (existing) placed between More and O to match requested position -->
+		<div class="heart" role="button" tabindex="0" title="Heart">
+			<!-- fill element -->
+			<div class="tank"></div>
+			<!-- wave curve -->
+			<svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+				</defs>
+				<g>
+				<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+				<use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+				<use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+				</g>
+			</svg>
+		</div>
+
+		 <div class="dropdown">
+		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+		     <button class="dropdown-item" onclick="openFAQs()">FAQs</button>
+		     <button class="dropdown-item" onclick="openAbout()">About Us</button>
+		   </div>
+		 </div>
+
+		 
+	</div>
+  <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+<body>
+    <canvas id="galaxyCanvas"></canvas>
+    <div id="content">
+        <div class="folder-stage">
+            <div class="folder" id="mainFolder" aria-expanded="false">
+                <div class="folder-back"></div>
+                <div class="folder-cards" aria-label="Highlights tabs">
+                    <div class="card-sheet" style="--index: 0;">
+                        <button class="card-tab active" data-index="0" style="--index: 0;">#1</button>
+                    </div>
+                    <div class="card-sheet" style="--index: 1;">
+                        <button class="card-tab" data-index="1" style="--index: 1;">#2</button>
+                    </div>
+                    <div class="card-sheet" style="--index: 2;">
+                        <button class="card-tab" data-index="2" style="--index: 2;">#3</button>
+                    </div>
+                    <div class="card-sheet" style="--index: 3;">
+                        <button class="card-tab" data-index="3" style="--index: 3;">#4</button>
+                    </div>
+                    <div class="card-sheet" style="--index: 4;">
+                        <button class="card-tab" data-index="4" style="--index: 4;">#5</button>
+                    </div>
+                    <div class="card-sheet" style="--index: 5;">
+                        <button class="card-tab" data-index="5" style="--index: 5;">#6</button>
+                    </div>
+                    <div class="card-sheet" style="--index: 6;">
+                        <button class="card-tab" data-index="6" style="--index: 6;">#7</button>
+                    </div>
+                </div>
+                <div class="scrapbook" id="scrapbook">
+                    <div class="scrap-title" id="scrapTitle"></div>
+                    <div class="scrap-desc" id="scrapDesc"></div>
+                    <div class="scrap-carousel">
+                        <button class="carousel-btn" id="carouselPrev" aria-label="Previous image">‹</button>
+                        <div class="carousel-frame">
+                            <img id="carouselImage" alt="Highlight image" />
+                        </div>
+                        <button class="carousel-btn" id="carouselNext" aria-label="Next image">›</button>
+                    </div>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                    <div class="scrap-links" id="scrapLinks"></div>
+                </div>
+                <div class="folder-front">
+                    <div class="folder-label">Highlights Folder</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class GalaxyAnimation {
+            constructor() {
+                this.canvas = document.getElementById('galaxyCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.sparkles = [];
+                this.stars = [];
+                this.mouseX = window.innerWidth / 2;
+                this.mouseY = window.innerHeight / 2;
+                
+                // Color palette
+                this.colors = [
+                    '#53507b', '#4a5c8e', '#8aaceb', '#8d88ca', '#bccafb',
+                    '#0e2654', '#a29dd7', '#688aca', '#02133e', '#a29dd7',
+                    '#355495', '#dee2fd', '#7b74c1', '#1b366d', '#404471',
+                    '#6c61af', '#7a99da', '#7778a6', '#171431', '#28457f',
+                    '#5677ba', '#36355d', '#5b4d9a', '#4766a7', '#676594',
+                    '#2c225f', '#a5baf3', '#272646', '#3b3074',
+                    '#0e2654', '#02133e', '#1b366d', '#171431', '#36355d',
+                    '#2c225f', '#272646', '#3b3074', '#0e2654', '#02133e'
+                ];
+                
+                this.setupCanvas();
+                this.setupEventListeners();
+                this.animate();
+            }
+
+            setupCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                window.addEventListener('resize', () => {
+                    this.canvas.width = window.innerWidth;
+                    this.canvas.height = window.innerHeight;
+                });
+            }
+
+            setupEventListeners() {
+                document.addEventListener('mousemove', (e) => {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                    this.createTrail();
+                });
+            }
+
+            getRandomColor() {
+                return this.colors[Math.floor(Math.random() * this.colors.length)];
+            }
+
+            createStars() {
+                // Create static background stars
+                for (let i = 0; i < 35; i++) {
+                    this.stars.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        radius: Math.random() * 0.8 + 0.2,
+                        opacity: Math.random() * 0.6 + 0.3,
+                        twinkleSpeed: Math.random() * 0.04 + 0.01
+                    });
+                }
+            }
+
+            drawStars() {
+                this.stars.forEach(star => {
+                    star.opacity += (Math.random() - 0.5) * star.twinkleSpeed;
+                    star.opacity = Math.max(0.1, Math.min(1, star.opacity));
+
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+
+            createTrail() {
+                // Create glowing glow effects
+                for (let i = 0; i < 4; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 50;
+                    
+                    this.particles.push({
+                        x: this.mouseX + Math.cos(angle) * distance,
+                        y: this.mouseY + Math.sin(angle) * distance,
+                        vx: (Math.random() - 0.5) * 2.5,
+                        vy: (Math.random() - 0.5) * 2.5,
+                        opacity: Math.random() * 0.4 + 0.3,
+                        life: 1,
+                        color: this.getRandomColor(),
+                        glow: Math.random() * 40 + 35
+                    });
+                }
+
+                // Create small sparkles
+                for (let i = 0; i < 1; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 70 + 15;
+                    
+                    this.sparkles.push({
+                        x: this.mouseX + Math.cos(angle) * distance,
+                        y: this.mouseY + Math.sin(angle) * distance,
+                        vx: (Math.random() - 0.5) * 2,
+                        vy: (Math.random() - 0.5) * 2,
+                        radius: Math.random() * 1.5 + 0.5,
+                        opacity: Math.random() * 0.8 + 0.4,
+                        life: 1,
+                        color: '#ffffff',
+                        glow: Math.random() * 5 + 3,
+                        sparklePhase: Math.random() * Math.PI * 2
+                    });
+                }
+            }
+
+            drawParticles() {
+                this.particles = this.particles.filter(p => p.life > 0);
+
+                this.particles.forEach(particle => {
+                    // Update position
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    // Apply friction
+                    particle.vx *= 0.96;
+                    particle.vy *= 0.96;
+                    
+                    // Fade out
+                    particle.life -= 0.012;
+                    particle.opacity = particle.life;
+
+                    // Draw glow effect only
+                    const gradient = this.ctx.createRadialGradient(
+                        particle.x, particle.y, 0,
+                        particle.x, particle.y, particle.glow
+                    );
+                    
+                    const rgb = this.hexToRgb(particle.color);
+                    gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${particle.opacity * 0.5})`);
+                    gradient.addColorStop(0.3, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${particle.opacity * 0.2})`);
+                    gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.glow, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+
+            drawSparkles() {
+                this.sparkles = this.sparkles.filter(s => s.life > 0);
+
+                this.sparkles.forEach(sparkle => {
+                    // Update position
+                    sparkle.x += sparkle.vx;
+                    sparkle.y += sparkle.vy;
+                    
+                    // Apply friction
+                    sparkle.vx *= 0.94;
+                    sparkle.vy *= 0.94;
+                    
+                    // Twinkling effect
+                    sparkle.sparklePhase += 0.1;
+                    const twinkle = Math.sin(sparkle.sparklePhase) * 0.3 + 0.7;
+                    
+                    // Fade out
+                    sparkle.life -= 0.015;
+                    sparkle.opacity = sparkle.life * twinkle;
+
+                    // Draw sparkle glow
+                    const gradient = this.ctx.createRadialGradient(
+                        sparkle.x, sparkle.y, 0,
+                        sparkle.x, sparkle.y, sparkle.glow
+                    );
+                    
+                    gradient.addColorStop(0, `rgba(255, 255, 255, ${sparkle.opacity * 0.7})`);
+                    gradient.addColorStop(0.5, `rgba(255, 255, 255, ${sparkle.opacity * 0.2})`);
+                    gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+
+                    this.ctx.fillStyle = gradient;
+                    this.ctx.beginPath();
+                    this.ctx.arc(sparkle.x, sparkle.y, sparkle.glow, 0, Math.PI * 2);
+                    this.ctx.fill();
+
+                    // Draw bright sparkle core
+                    this.ctx.fillStyle = `rgba(255, 255, 255, ${sparkle.opacity})`;
+                    this.ctx.beginPath();
+                    this.ctx.arc(sparkle.x, sparkle.y, sparkle.radius, 0, Math.PI * 2);
+                    this.ctx.fill();
+                });
+            }
+
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : { r: 100, g: 100, b: 180 };
+            }
+
+            animate() {
+                // Clear canvas with plain black background (no trail blur)
+                this.ctx.fillStyle = '#000000';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.drawParticles();
+                this.drawSparkles();
+
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Initialize animation when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new GalaxyAnimation();
+            initializeFolder();
+        });
+
+        function initializeFolder() {
+            const folder = document.getElementById('mainFolder');
+            const hint = document.getElementById('folderHint');
+            const tabs = Array.from(document.querySelectorAll('.card-tab'));
+            const titleEl = document.getElementById('scrapTitle');
+            const descEl = document.getElementById('scrapDesc');
+            const imgEl = document.getElementById('carouselImage');
+            const prevBtn = document.getElementById('carouselPrev');
+            const nextBtn = document.getElementById('carouselNext');
+            const dotsEl = document.getElementById('carouselDots');
+            const linksEl = document.getElementById('scrapLinks');
+
+            const makeImage = (text, colorA, colorB) => {
+                const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'>
+                    <defs>
+                        <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+                            <stop offset='0%' stop-color='${colorA}' />
+                            <stop offset='100%' stop-color='${colorB}' />
+                        </linearGradient>
+                    </defs>
+                    <rect width='800' height='500' fill='url(#g)' />
+                    <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle'
+                        font-size='40' fill='#ffffff' font-family='Arial, sans-serif'>${text}</text>
+                </svg>`;
+                return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+            };
+
+            const scrapbookData = [
+                {
+                    title: 'Highlight #1',
+                    description: 'A dreamy highlight showcasing our signature project moments, stitched together with handwritten notes and layered textures.',
+                    images: [
+                        makeImage('Highlight 1A', '#1b366d', '#8aaceb'),
+                        makeImage('Highlight 1B', '#171431', '#7a99da'),
+                        makeImage('Highlight 1C', '#2c225f', '#bccafb')
+                    ],
+                    links: [
+                        { label: 'Project Notes', url: '#' },
+                    ]
+                },
+                {
+                    title: 'Highlight #2',
+                    description: 'Layered sketches, taped receipts, and tiny captions to capture the vibe of this milestone.',
+                    images: [
+                        makeImage('Highlight 2A', '#0e2654', '#a5baf3'),
+                        makeImage('Highlight 2B', '#36355d', '#dee2fd'),
+                        makeImage('Highlight 2C', '#272646', '#8d88ca')
+                    ],
+                    links: [
+                        { label: 'Behind the Scenes', url: '#' },
+                    ]
+                },
+                {
+                    title: 'Highlight #3',
+                    description: 'A scrapbook spread with textured layers and bright accents to celebrate the team spotlight.',
+                    images: [
+                        makeImage('Highlight 3A', '#1b366d', '#a29dd7'),
+                        makeImage('Highlight 3B', '#404471', '#bccafb'),
+                        makeImage('Highlight 3C', '#3b3074', '#7a99da')
+                    ],
+                    links: [
+                        { label: 'Team Recap', url: '#' },
+                        { label: 'Photo Reel', url: '#' }
+                    ]
+                },
+                {
+                    title: 'Highlight #4',
+                    description: 'Soft torn-paper visuals with a glowing palette to capture the best moments.',
+                    images: [
+                        makeImage('Highlight 4A', '#171431', '#5677ba'),
+                        makeImage('Highlight 4B', '#2c225f', '#8aaceb'),
+                        makeImage('Highlight 4C', '#36355d', '#dee2fd')
+                    ],
+                    links: [
+                        { label: 'Highlights', url: '#' },
+                        { label: 'Media Kit', url: '#' }
+                    ]
+                },
+                {
+                    title: 'Highlight #5',
+                    description: 'A collage of photos and notes layered like a journal entry.',
+                    images: [
+                        makeImage('Highlight 5A', '#0e2654', '#7b74c1'),
+                        makeImage('Highlight 5B', '#28457f', '#bccafb'),
+                        makeImage('Highlight 5C', '#272646', '#a29dd7')
+                    ],
+                    links: [
+                        { label: 'Storyboard', url: '#' },
+                        { label: 'Timeline', url: '#' }
+                    ]
+                },
+                {
+                    title: 'Highlight #6',
+                    description: 'Vintage-inspired layout with taped edges and layered photo cards.',
+                    images: [
+                        makeImage('Highlight 6A', '#1b366d', '#7a99da'),
+                        makeImage('Highlight 6B', '#36355d', '#8d88ca'),
+                        makeImage('Highlight 6C', '#2c225f', '#dee2fd')
+                    ],
+                    links: [
+                        { label: 'Concept Sheet', url: '#' },
+                        { label: 'Press', url: '#' }
+                    ]
+                },
+                {
+                    title: 'Highlight #7',
+                    description: 'A calm finishing spread with soft borders and a polished look.',
+                    images: [
+                        makeImage('Highlight 7A', '#171431', '#a5baf3'),
+                        makeImage('Highlight 7B', '#404471', '#bccafb'),
+                        makeImage('Highlight 7C', '#272646', '#7b74c1')
+                    ],
+                    links: [
+                        { label: 'Final Notes', url: '#' },
+                        { label: 'Share', url: '#' }
+                    ]
+                }
+            ];
+
+            let activeCard = 0;
+            let activeImage = 0;
+
+            const renderDots = (images) => {
+                dotsEl.innerHTML = '';
+                images.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'carousel-dot' + (index === activeImage ? ' active' : '');
+                    dot.addEventListener('click', () => {
+                        activeImage = index;
+                        updateScrapbook();
+                    });
+                    dotsEl.appendChild(dot);
+                });
+            };
+
+            const updateScrapbook = () => {
+                const data = scrapbookData[activeCard];
+                titleEl.textContent = data.title;
+                descEl.textContent = data.description;
+                imgEl.src = data.images[activeImage];
+                imgEl.alt = data.title;
+
+                renderDots(data.images);
+
+                linksEl.innerHTML = '';
+                data.links.forEach(link => {
+                    const anchor = document.createElement('a');
+                    anchor.className = 'scrap-link';
+                    anchor.href = link.url;
+                    anchor.textContent = link.label;
+                    anchor.target = '_blank';
+                    anchor.rel = 'noopener noreferrer';
+                    linksEl.appendChild(anchor);
+                });
+            };
+
+            const setActiveTab = (index) => {
+                activeCard = index;
+                activeImage = 0;
+                tabs.forEach(tab => tab.classList.toggle('active', Number(tab.dataset.index) === index));
+                updateScrapbook();
+            };
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    setActiveTab(Number(tab.dataset.index));
+                    if (!folder.classList.contains('open')) {
+                        toggleFolder(true);
+                    }
+                });
+            });
+
+            const toggleFolder = (forceOpen) => {
+                const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : !folder.classList.contains('open');
+                folder.classList.toggle('open', shouldOpen);
+                folder.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+                hint.textContent = shouldOpen ? 'Click to close' : 'Click to open';
+            };
+
+            folder.addEventListener('click', (event) => {
+                const isInteractive = event.target.closest('.card-tab') || event.target.closest('.carousel-btn') || event.target.closest('.scrap-link');
+                if (isInteractive) {
+                    return;
+                }
+                toggleFolder();
+            });
+
+            prevBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const images = scrapbookData[activeCard].images;
+                activeImage = (activeImage - 1 + images.length) % images.length;
+                updateScrapbook();
+            });
+
+            nextBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const images = scrapbookData[activeCard].images;
+                activeImage = (activeImage + 1) % images.length;
+                updateScrapbook();
+            });
+
+            setActiveTab(0);
+        }
+    </script>
+</body>
+
+
+</HTML>

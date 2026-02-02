@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Directory</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<header>
+	<div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+
+		 <button class="navbuttons" onclick="home()">Home</button>
+		 <button class="navbuttons" onclick="resource()">Resource Hub</button>
+		 <button class="navbuttons" onclick="highlights()">Highlights</button>
+		 <button class="navbuttons" onclick="references()">References</button>
+		 
+		 <!-- clipPath for heart shape (kept hidden) -->
+		<svg style="width:0;height:0;position:absolute" aria-hidden="true">
+		  <defs>
+		    <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+		      <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+		    </clipPath>
+		  </defs>
+		</svg>
+
+		<!-- Heart (existing) placed between More and O to match requested position -->
+		<div class="heart" role="button" tabindex="0" title="Heart">
+			<!-- fill element -->
+			<div class="tank"></div>
+			<!-- wave curve -->
+			<svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+				</defs>
+				<g>
+				<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+				<use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+				<use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+				</g>
+			</svg>
+		</div>
+
+		 <div class="dropdown">
+		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+		     <button class="dropdown-item" onclick="openFAQs()">FAQs</button>
+		     <button class="dropdown-item" onclick="openAbout()">About Us</button>
+		   </div>
+		 </div>
+
+		 
+	</div>
+  <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+<body>
+    <div class="directory-container">
+        <!-- Control Bar -->
+        <div class="directory-controls">
+            <button id="addBtn" class="add-button" title="Add New Entry">
+                <ion-icon name="add-circle"></ion-icon>
+            </button>
+            
+            <div class="search-container">
+                <input type="text" id="searchBar" class="search-bar" placeholder="Search names...">
+                <button id="clearSearchBtn" class="clear-input-btn" title="Clear search" style="display: none;">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+                <button id="searchSubmitBtn" class="search-submit-btn" title="Search">
+                    <ion-icon name="arrow-up-circle"></ion-icon>
+                </button>
+                <div id="searchSuggestions" class="search-suggestions"></div>
+            </div>
+            
+            <div class="state-dropdown-container">
+                <input 
+                    type="text" 
+                    id="stateSearch" 
+                    class="state-search-input" 
+                    placeholder="Select or search state..."
+                    readonly
+                >
+                <button id="clearStateBtn" class="clear-input-btn" title="Clear state filter" style="display: none;">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+                <div id="stateDropdown" class="state-dropdown-list">
+                    <input 
+                        type="text" 
+                        id="stateFilterInput" 
+                        class="state-filter-input" 
+                        placeholder="Type to filter states..."
+                    >
+                    <div id="stateOptions" class="state-options"></div>
+                </div>
+            </div>
+
+            <div class="state-dropdown-container">
+                <input 
+                    type="text" 
+                    id="gradeLevelSearch" 
+                    class="state-search-input" 
+                    placeholder="Select grade level..."
+                    readonly
+                >
+                <button id="clearGradeLevelBtn" class="clear-input-btn" title="Clear grade level filter" style="display: none;">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+                <div id="gradeLevelDropdown" class="state-dropdown-list">
+                    <div class="state-options">
+                        <div class="state-option" data-value="9th grade">9th</div>
+                        <div class="state-option" data-value="10th grade">10th</div>
+                        <div class="state-option" data-value="11th grade">11th</div>
+                        <div class="state-option" data-value="12th grade">12th</div>
+                        <div class="state-option" data-value="Post-Highschool education">Post-highschool</div>
+                        <div class="state-option" data-value="All Highschool Grades">All Highschool Grades</div>
+                        <div class="state-option" data-value="Everyone">Everyone</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Directory Cards Container -->
+        <div id="cardsContainer" class="cards-container"></div>
+    </div>
+
+    <!-- Add Entry Modal -->
+    <div id="addModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Entry</h2>
+                <button class="modal-close" id="closeAddBtn">&times;</button>
+            </div>
+            <form id="addForm">
+                <div class="form-group">
+                    <label for="titleInput">Program Title:</label>
+                    <input type="text" id="titleInput" required placeholder="Enter program name">
+                </div>
+
+                <div class="form-group">
+                    <label for="gradeLevelsInput">Applicable Grade Levels:</label>
+                    <div class="multiselect-container">
+                        <div class="multiselect-button" id="gradeLevelsButton">
+                            <div id="selectedGradesBubbles" class="selected-bubbles"></div>
+                            <span id="gradeLevelsPlaceholder" class="multiselect-placeholder">Select grade levels...</span>
+                        </div>
+                        <div id="gradeLevelsDropdown" class="multiselect-dropdown">
+                            <label class="multiselect-option">
+                                <input type="checkbox" value="9th grade"> 9th grade
+                            </label>
+                            <label class="multiselect-option">
+                                <input type="checkbox" value="10th grade"> 10th grade
+                            </label>
+                            <label class="multiselect-option">
+                                <input type="checkbox" value="11th grade"> 11th grade
+                            </label>
+                            <label class="multiselect-option">
+                                <input type="checkbox" value="12th grade"> 12th grade
+                            </label>
+                            <label class="multiselect-option">
+                                <input type="checkbox" value="Post-Highschool education"> Post-Highschool education
+                            </label>
+                        </div>
+                        <input type="hidden" id="gradeLevelsValue" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Key Tags:</label>
+                    <div class="tags-input-container">
+                        <div id="tagsDisplay" class="tags-display"></div>
+                        <input 
+                            type="text" 
+                            id="tagsInput" 
+                            class="tags-input" 
+                            placeholder="type #niche about your extracurricular (hit space to add more)"
+                            autocomplete="off"
+                        >
+                        <div id="tagsAutocomplete" class="tags-autocomplete"></div>
+                    </div>
+                    <input type="hidden" id="tagsValue" required style="display:none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="formStateInput">State Location:</label>
+                    <div class="form-state-dropdown-container">
+                        <input 
+                            type="text" 
+                            id="formStateInput" 
+                            class="form-state-search-input" 
+                            placeholder="Select or search state..."
+                            required
+                        >
+                        <div id="formStateDropdown" class="form-state-dropdown-list">
+                            <input 
+                                type="text" 
+                                id="formStateFilterInput" 
+                                class="form-state-filter-input" 
+                                placeholder="Type to filter states..."
+                            >
+                            <div id="formStateOptions" class="form-state-options"></div>
+                        </div>
+                        <input type="hidden" id="formStateValue">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pictures/Media:</label>
+                    <div id="filesButton" class="files-button">
+                        <input type="file" id="picturesInput" multiple accept="image/*,video/*" />
+                        <div id="uploadedFilesDisplay" class="files-display"></div>
+                        <span id="filesPlaceholder" class="files-placeholder">Click or drag files here</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="linksInput">Links (Optional):</label>
+                    <textarea id="linksInput" placeholder="Enter links (one per line)" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="helpfulInfoInput">Helpful Information (Optional):</label>
+                    <textarea id="helpfulInfoInput" placeholder="Enter any additional information about the program" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Card Detail Modal -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-content detail-modal">
+            <button class="modal-close" id="closeDetailBtn">&times;</button>
+            
+            <!-- Image Carousel Section -->
+            <div id="carouselSection" class="carousel-section" style="display:none;">
+                <div class="carousel-container">
+                    <button class="carousel-nav carousel-prev" id="carouselPrev">&#8249;</button>
+                    <div class="carousel-images">
+                        <img id="carouselImage" src="" alt="Program image" class="carousel-image" />
+                    </div>
+                    <button class="carousel-nav carousel-next" id="carouselNext">&#8250;</button>
+                </div>
+                <div class="carousel-counter" id="carouselCounter"></div>
+            </div>
+            
+            <!-- Title and Info -->
+            <div class="modal-header">
+                <h2 id="detailTitle"></h2>
+            </div>
+            <div class="detail-content">
+                <p><strong>Grade Levels:</strong> <span id="detailGradeLevels"></span></p>
+                <p><strong>Key Tags:</strong> <span id="detailTags"></span></p>
+                <p><strong>State:</strong> <span id="detailState"></span></p>
+
+                <div id="detailLinksSection" style="display:none;">
+                    <strong style="display: block; margin-top: 15px;">Links:</strong>
+                    <div id="detailLinks" style="margin-top: 10px;"></div>
+                </div>
+
+                <div id="detailInfoSection" style="display:none;">
+                    <strong style="display: block; margin-top: 15px;">Helpful Information:</strong>
+                    <p id="detailInfo" style="margin-top: 10px;"></p>
+                </div>
+
+                <button class="delete-button" id="deleteBtn">Delete Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script type="module" src="directory.js"></script>
+</body>
+
+</html>
