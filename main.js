@@ -855,6 +855,16 @@ document.addEventListener('DOMContentLoaded', function() {
           myText.classList.remove('visible');
         }
       }
+      
+      // Newsletter section - only show at frame 2
+      const newsletterSection = document.getElementById('newsletterSection');
+      if (newsletterSection) {
+        if (targetFrame >= 1 && targetFrame <= 6) {
+          newsletterSection.classList.add('visible');
+        } else {
+          newsletterSection.classList.remove('visible');
+        }
+      }
     }
 
     rafId = requestAnimationFrame(renderLoop);
