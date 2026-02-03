@@ -510,26 +510,6 @@
         ease: 'power3.out'
       });
 
-      // Section 2.6 fade in on scroll
-      const section26Element = document.getElementById('section2.6');
-      if (section26Element) {
-        gsap.fromTo(section26Element, {
-          opacity: 0,
-          y: 50
-        }, {
-          scrollTrigger: {
-            trigger: section26Element,
-            start: 'top 85%',
-            end: 'top 40%',
-            scrub: 0.5,
-            markers: false
-          },
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power3.out'
-        });
-      }
       }, 1100); // 500ms delay to ensure all resources are loaded
     });
 
@@ -614,20 +594,12 @@
   </div>
 
   <div id="section2.6">
-    <div class="reviews-effects" aria-hidden="true">
-      <span class="shooting-star shooting-star--detailed star-1"></span>
-      <span class="sparkle sp-1"></span>
-      <span class="sparkle sp-2"></span>
-      <span class="sparkle sp-3"></span>
-      <span class="sparkle sp-4"></span>
-      <span class="sparkle sp-5"></span>
-      <span class="sparkle sp-6"></span>
-    </div>
     <div class="reviews-container">
-      <h2 class="reviews-title">Student Reviews ✨</h2>
-      <p class="reviews-subtitle">See what students love about our resources</p>
+      <h2 class="reviews-title">✨Student Reviews ✨</h2>
+      <p class="reviews-subtitle">Click on any planet <br>to read a full review!</p>
 
       <div class="reviews-grid">
+        <div class="sun-center"></div>
         <div class="review-card">
           <div class="review-stars">★★★★★</div>
           <p class="review-text">"This website completely changed how I approach my college applications. The guidance is clear, accessible, and incredibly helpful!"</p>
@@ -666,6 +638,64 @@
       </div>
     </div>
   </div>
+
+  <!-- Review Modal Popup -->
+  <div id="reviewModal" class="review-modal">
+    <div class="review-modal-content">
+      <button class="review-modal-close" id="reviewModalClose">&times;</button>
+      <div class="review-modal-stars" id="modalStars">★★★★★</div>
+      <p class="review-modal-text" id="modalText"></p>
+      <p class="review-modal-author" id="modalAuthor"></p>
+    </div>
+  </div>
+
+  <script>
+    // Review modal functionality
+    const reviewModal = document.getElementById('reviewModal');
+    const reviewModalClose = document.getElementById('reviewModalClose');
+    const modalStars = document.getElementById('modalStars');
+    const modalText = document.getElementById('modalText');
+    const modalAuthor = document.getElementById('modalAuthor');
+    
+    // Get all review cards
+    const reviewCards = document.querySelectorAll('.review-card');
+    
+    reviewCards.forEach(card => {
+      card.addEventListener('click', function() {
+        // Extract review data from the card
+        const starsElement = this.querySelector('.review-stars');
+        const textElement = this.querySelector('.review-text');
+        const authorElement = this.querySelector('.review-author');
+        
+        // Populate modal with review data
+        modalStars.textContent = starsElement.textContent;
+        modalText.textContent = textElement.textContent;
+        modalAuthor.textContent = authorElement.textContent;
+        
+        // Show modal
+        reviewModal.classList.add('active');
+      });
+    });
+    
+    // Close modal when X is clicked
+    reviewModalClose.addEventListener('click', function() {
+      reviewModal.classList.remove('active');
+    });
+    
+    // Close modal when clicking outside the modal content
+    reviewModal.addEventListener('click', function(e) {
+      if (e.target === reviewModal) {
+        reviewModal.classList.remove('active');
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && reviewModal.classList.contains('active')) {
+        reviewModal.classList.remove('active');
+      }
+    });
+  </script>
 
   <script>
     // Mouse trail ombre background effect
@@ -769,6 +799,12 @@
       animateGalaxy();
     }
   </script>
+
+  <div id="section3">
+    <canvas id="scrollCanvas"></canvas>
+    <div class="video-scroll-spacer"></div>
+    <div id="myText">Explore resources across the country!</div>
+  </div>
 
   <script>
     // Shooting star animation
@@ -980,12 +1016,6 @@
       }
     
   </script>
-
-  <div id="section3">
-    <canvas id="scrollCanvas"></canvas>
-    <div class="video-scroll-spacer"></div>
-    <div id="myText">Explore resources across the country!</div>
-  </div>
 
   <div id="section4">
     <h1 style="text-align:center; margin-top:0;">Explore by State</h1>
