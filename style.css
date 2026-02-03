@@ -389,6 +389,47 @@ html, body {
   width: 100%;
 }
 
+/* Scroll Down Arrow */
+.scroll-down-arrow {
+  position: fixed;
+  bottom: 30px;
+  left: calc(50% + 70px);
+  transform: translateX(-50%);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  animation: bounce 2s ease-in-out infinite;
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-down-arrow.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.scroll-down-arrow svg {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
 @media (max-width: 900px) {
   .collage-container {
     gap: 0.5em;
@@ -459,7 +500,7 @@ html, body {
   opacity: 0;
   transform: translateY(60px);
   z-index:30;
-  font-family: 'SN Pro', sans-serif;
+  font-family:Georgia, 'Times New Roman', Times, serif
   color: black;
 }
 

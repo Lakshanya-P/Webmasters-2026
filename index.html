@@ -123,6 +123,13 @@
   <!-- spacer so the header covers the first full screen and allows scrolling -->
   <div class="post-header-spacer" aria-hidden="true"></div>
 
+  <!-- Scroll Down Arrow Indicator -->
+  <div id="scrollDownArrow" class="scroll-down-arrow">
+    <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5 L20 30 M20 30 L12 22 M20 30 L28 22" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
   <!-- GSAP (animation) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -130,8 +137,8 @@
     // Register ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener('DOMContentLoaded', () => {
-      // Wait for images and DOM to be fully ready before starting animation
+    window.addEventListener('load', () => {
+      // Wait for all resources (images, fonts, etc.) to be fully loaded before starting animation
       setTimeout(() => {
         const tl = gsap.timeline({delay: 1.0});
 
@@ -252,6 +259,37 @@
       tl.call(() => {
         if (heroVideo) {
           heroVideo.play().catch(() => {});
+          
+          // Show scroll arrow when video ends
+          heroVideo.addEventListener('ended', () => {
+            const scrollArrow = document.getElementById('scrollDownArrow');
+            if (scrollArrow) {
+              scrollArrow.classList.add('visible');
+            }
+          });
+        } else {
+          // If no video, show arrow after animation completes
+          setTimeout(() => {
+            const scrollArrow = document.getElementById('scrollDownArrow');
+            if (scrollArrow) {
+              scrollArrow.classList.add('visible');
+            }
+          }, 2000);
+        }
+      });
+      
+      // Hide arrow when user starts scrolling
+      window.addEventListener('scroll', () => {
+        const scrollArrow = document.getElementById('scrollDownArrow');
+        if (scrollArrow) {
+          if (window.scrollY > 50) {
+            scrollArrow.classList.remove('visible');
+          } else {
+            // Show arrow again if user scrolls back to top
+            if (scrollArrow.classList.contains('visible') === false && window.scrollY < 50) {
+              scrollArrow.classList.add('visible');
+            }
+          }
         }
       });
 
