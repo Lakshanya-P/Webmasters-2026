@@ -20,6 +20,22 @@
   font-style: normal;
 }
 
+/* Google Sans - Google Font (loaded via HTML link) */
+.google-sans {
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "GRAD" 0;
+}
+
+p {
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "GRAD" 0;
+}
+
 /* TOP NAV STYLES*/
 html, body {
   overflow-x: hidden;
