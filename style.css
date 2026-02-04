@@ -72,9 +72,9 @@ html, body {
   position: relative;
   justify-content: center;
   align-items: center;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: "Google Sans", sans-serif;
   margin: 0 8px;
-  font-size: 15px;
+  font-size: 16px;
   color:white;
   border-width: 0px;
   height: 24px; /* reduced height */
@@ -147,16 +147,16 @@ html, body {
 
 	/* NAVBAR heart sizing to match .navbuttons: make it square and visible */
 	#topnav .heart {
-  --dim-y: 20px; /* a bit larger for visibility */
+  --dim-y: 28px; /* a bit larger for visibility */
   --dim-x: var(--dim-y);
-  --cruve-height: 8px;
+  --cruve-height: 11px;
   height: var(--dim-y);
   min-width: var(--dim-x);
   min-height: var(--dim-y);
   margin-top: 8px;
   margin-bottom: 8px;
   margin-right: 2px;
-  width: 25px;
+  width: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -167,6 +167,7 @@ html, body {
   overflow: hidden;
   position: relative;
   z-index: 10001; /* make sure it sits above the nav background */
+  animation: heartGlow 3s ease-in-out infinite;
 	}
 
 	/* outline SVG covers the heart and should not block pointer events */
@@ -307,6 +308,16 @@ html, body {
 	100% {
 		transform: translateX(85px);
 	}
+	}
+
+	/* Heart glow animation */
+	@keyframes heartGlow {
+		0%, 100% {
+			filter: drop-shadow(0 0 2px rgba(255, 105, 180, 0.3));
+		}
+		50% {
+			filter: drop-shadow(0 0 12px rgba(255, 105, 180, 0.8)) drop-shadow(0 0 20px rgba(255, 105, 180, 0.5));
+		}
 	}
 
 
