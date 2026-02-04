@@ -1290,6 +1290,12 @@ body:has(.directory-container)::after {
 .state-options {
   max-height: 250px;
   overflow-y: auto;
+  flex: 1;
+}
+
+/* Ensure grade level dropdown options are visible */
+#gradeLevelDropdown .state-options {
+  max-height: none;
 }
 
 .state-option {
