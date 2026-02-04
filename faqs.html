@@ -46,7 +46,6 @@
             <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
             <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
                 <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
-                <button class="dropdown-item" onclick="window.location.href='about.html'">About Us</button>
             </div>
         </div>
     </div>
@@ -283,6 +282,115 @@
         requestAnimationFrame(draw);
     }
     draw();
+    </script>
+    <script>
+    // Toolbar navigation
+    function home() { window.location.href = 'index.html'; }
+    function resource() { window.location.href = 'directory.html'; }
+    function highlights() { window.location.href = 'highlights.html'; }
+    function references() { window.location.href = 'refs.html'; }
+    // More dropdown functionality
+    const moreBtn = document.getElementById('moreBtn');
+    const moreMenu = document.getElementById('moreMenu');
+    if (moreBtn && moreMenu) {
+      moreBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const expanded = moreMenu.getAttribute('aria-hidden') !== 'false';
+        moreMenu.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+        moreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        moreMenu.classList.toggle('show', expanded);
+      });
+      document.addEventListener('click', function(e) {
+        if (!moreMenu.contains(e.target) && !moreBtn.contains(e.target)) {
+          moreMenu.setAttribute('aria-hidden', 'true');
+          moreBtn.setAttribute('aria-expanded', 'false');
+          moreMenu.classList.remove('show');
+        }
+      });
+    }
+    // Heart button logic (hold-to-fill + compliments)
+    document.addEventListener('DOMContentLoaded', function() {
+      const heart = document.querySelector('#topnav .heart');
+      if (!heart) return;
+      const tank = heart.querySelector('.tank');
+      const curve = heart.querySelector('.curve');
+      const complimentEl = document.getElementById('compliment');
+      const compliments = ["You're amazing!","You light up the room!","You're a star!","You do great work!","You make a difference!"];
+      const DURATION = 1500;
+      let progress = 0;
+      let isHeld = false;
+      let raf = null;
+      let startTime = 0;
+      let filled = false;
+      function setFill(p) {
+        progress = Math.max(0, Math.min(1, p));
+        if (tank) tank.style.height = (progress * 100) + '%';
+        const crhStr = getComputedStyle(heart).getPropertyValue('--cruve-height') || '8px';
+        const crh = parseFloat(crhStr);
+        if (curve) curve.style.bottom = (-crh + progress * crh) + 'px';
+      }
+      function showCompliment() {
+        if (!complimentEl) return;
+        const text = compliments[Math.floor(Math.random() * compliments.length)];
+        complimentEl.textContent = text;
+        complimentEl.classList.add('show');
+        setTimeout(() => complimentEl.classList.remove('show'), 3000);
+        setTimeout(() => { window.location.href = 'selfcare.html'; }, 1500);
+        setTimeout(() => { heart.classList.remove('full'); setFill(0); filled = false; }, 3500);
+      }
+      function step(ts) {
+        if (!isHeld) { raf = null; return; }
+        if (!startTime) startTime = ts;
+        const elapsed = ts - startTime;
+        const p = elapsed / DURATION;
+        if (p >= 1) {
+          setFill(1);
+          filled = true;
+          isHeld = false;
+          heart.classList.add('full');
+          showCompliment();
+          raf = null;
+          return;
+        } else {
+          setFill(p);
+          raf = requestAnimationFrame(step);
+        }
+      }
+      function startHold() {
+        if (filled) return;
+        isHeld = true;
+        startTime = 0;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(step);
+      }
+      function endHold() {
+        isHeld = false;
+        if (raf) cancelAnimationFrame(raf);
+        if (!filled) {
+          const startP = progress;
+          const t0 = performance.now();
+          const decayDur = 220;
+          function decay(ts) {
+            const t = Math.min(1, (ts - t0) / decayDur);
+            const np = startP * (1 - t);
+            setFill(np);
+            if (t < 1) requestAnimationFrame(decay);
+          }
+          requestAnimationFrame(decay);
+        }
+      }
+      heart.addEventListener('pointerdown', function(e) { 
+        e.preventDefault(); 
+        try { if (e.pointerId != null && heart.setPointerCapture) heart.setPointerCapture(e.pointerId); } catch (err) {}
+        startHold(); 
+      });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(evt => heart.addEventListener(evt, function(e) {
+        try { if (e.pointerId != null && heart.releasePointerCapture) heart.releasePointerCapture(e.pointerId); } catch (err) {}
+        endHold(e);
+      }));
+      heart.addEventListener('keydown', function(e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); startHold(); } });
+      heart.addEventListener('keyup', function(e) { if (e.key === ' ' || e.key === 'Enter') { endHold(e); } });
+    });
     </script>
 </body>
 
