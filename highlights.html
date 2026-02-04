@@ -3,6 +3,10 @@
 <head>
     <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Suika&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -99,13 +103,32 @@
 
         .folder-label {
             color: #8c5f14;
-            font-size: 16px;
+            font-size: 48px;
             letter-spacing: 3px;
             text-transform: uppercase;
             opacity: 0.7;
+            font-weight: bold;
 			text-align: center;
-			margin-left: 10px;
-			margin-top: 20px;
+			margin: 0;
+			position: absolute;
+			top: 40%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100%;
+        }
+
+        .folder-subtitle {
+            color: #8c5f14;
+            font-size: 28px;
+            font-family: 'Google Sans', sans-serif; 
+            opacity: 0.6;
+            text-align: center;
+            margin: 0;
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
         }
 
         .folder-cards {
@@ -131,8 +154,8 @@
             position: relative;
             width: 100%;
             background: #ffd6e8;
-            color: #7a2149;
-            border: 2px solid #ff90b6;
+            color: #333;
+            border: 2px solid rgba(0, 0, 0, 0.2);
             border-bottom: none;
             padding: 10px 8px;
             border-radius: 12px 12px 0 0;
@@ -145,12 +168,20 @@
             z-index: 10;
         }
 
+        /* Individual tab colors */
+        .card-tab[data-index="0"] { background: #8a87b3; }
+        .card-tab[data-index="1"] { background: #b7cdf2; }
+        .card-tab[data-index="2"] { background: #7e7ba2; }
+        .card-tab[data-index="3"] { background: #bbb6de; }
+        .card-tab[data-index="4"] { background: #dce4fb; }
+        .card-tab[data-index="5"] { background: #5f73a0; color: #fff; }
+        .card-tab[data-index="6"] { background: #c3bfe9; }
+
         .folder.open .card-tab {
             padding: 10px 8px;
         }
 
         .card-tab.active {
-            background: #ffd6e8;
             z-index: 15;
         }
 
@@ -162,18 +193,27 @@
             opacity: 0;
             transform: translateY(20px);
             pointer-events: none;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease, background 0.4s ease;
             background: #ffd6e8;
             border-radius: 0 0 18px 18px;
             padding: 24px;
             padding-top: 32px;
             box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-            border: 2px solid #ff90b6;
+            border: 2px solid rgba(0, 0, 0, 0.2);
             border-top: none;
-            color: #7a2149;
+            color: #333;
             z-index: 2;
             box-sizing: border-box;
         }
+
+        /* Scrapbook colors matching active tab */
+        .scrapbook[data-active="0"] { background: #8a87b3; }
+        .scrapbook[data-active="1"] { background: #b7cdf2; }
+        .scrapbook[data-active="2"] { background: #7e7ba2; }
+        .scrapbook[data-active="3"] { background: #bbb6de; }
+        .scrapbook[data-active="4"] { background: #dce4fb; }
+        .scrapbook[data-active="5"] { background: #5f73a0; color: #fff; }
+        .scrapbook[data-active="6"] { background: #c3bfe9; }
 
         .folder.open .scrapbook {
             opacity: 1;
@@ -373,6 +413,7 @@
                 </div>
                 <div class="folder-front">
                     <div class="folder-label">Highlights Folder</div>
+                    <div class="folder-subtitle">Click on the folder to discover!</div>
                 </div>
             </div>
         </div>
@@ -660,55 +701,53 @@
                     ]
                 },
                 {
-                    title: 'Highlight #4',
-                    description: 'Soft torn-paper visuals with a glowing palette to capture the best moments.',
+                    title: 'Council of Foundations',
+                    description: 'Check different organizations and communities that offer scholarships and opportunities available to you.',
                     images: [
-                        makeImage('Highlight 4A', '#171431', '#5677ba'),
-                        makeImage('Highlight 4B', '#2c225f', '#8aaceb'),
-                        makeImage('Highlight 4C', '#36355d', '#dee2fd')
+                        makeImage('Council of Foundations', '#171431', '#5677ba'),
+                        makeImage('Scholarships', '#2c225f', '#8aaceb'),
+                        makeImage('Opportunities', '#36355d', '#dee2fd')
                     ],
                     links: [
-                        { label: 'Highlights', url: '#' },
-                        { label: 'Media Kit', url: '#' }
+                        { label: 'cof.org', url: 'https://cof.org/' }
                     ]
                 },
                 {
-                    title: 'Highlight #5',
-                    description: 'A collage of photos and notes layered like a journal entry.',
+                    title: 'Horatio Alger Scholarship',
+                    description: 'Provides many different scholarships that focus on more than just merit.',
                     images: [
-                        makeImage('Highlight 5A', '#0e2654', '#7b74c1'),
-                        makeImage('Highlight 5B', '#28457f', '#bccafb'),
-                        makeImage('Highlight 5C', '#272646', '#a29dd7')
+                        makeImage('Horatio Alger', '#0e2654', '#7b74c1'),
+                        makeImage('Scholarships', '#28457f', '#bccafb'),
+                        makeImage('Merit Based', '#272646', '#a29dd7')
                     ],
                     links: [
-                        { label: 'Storyboard', url: '#' },
-                        { label: 'Timeline', url: '#' }
+                        { label: 'scholars.horatioalger.org', url: 'https://scholars.horatioalger.org/scholarships/' }
                     ]
                 },
                 {
-                    title: 'Highlight #6',
-                    description: 'Vintage-inspired layout with taped edges and layered photo cards.',
+                    title: 'NY Times Games',
+                    description: 'A collection of daily games, including the daily Wordle.',
                     images: [
-                        makeImage('Highlight 6A', '#1b366d', '#7a99da'),
-                        makeImage('Highlight 6B', '#36355d', '#8d88ca'),
-                        makeImage('Highlight 6C', '#2c225f', '#dee2fd')
+                        makeImage('NY Times Games', '#1b366d', '#7a99da'),
+                        makeImage('Daily Wordle', '#36355d', '#8d88ca'),
+                        makeImage('Puzzles', '#2c225f', '#dee2fd')
                     ],
                     links: [
-                        { label: 'Concept Sheet', url: '#' },
-                        { label: 'Press', url: '#' }
+                        { label: 'nytco.com/games', url: 'https://www.nytco.com/games/' },
+                        { label: '2048game.com', url: 'https://2048game.com' }
                     ]
                 },
                 {
-                    title: 'Highlight #7',
-                    description: 'A calm finishing spread with soft borders and a polished look.',
+                    title: '2048',
+                    description: 'The classic tile game, join numbers to get 2048.',
                     images: [
-                        makeImage('Highlight 7A', '#171431', '#a5baf3'),
-                        makeImage('Highlight 7B', '#404471', '#bccafb'),
-                        makeImage('Highlight 7C', '#272646', '#7b74c1')
+                        makeImage('2048 Game', '#171431', '#a5baf3'),
+                        makeImage('Join Tiles', '#404471', '#bccafb'),
+                        makeImage('Classic Puzzle', '#272646', '#7b74c1')
                     ],
                     links: [
-                        { label: 'Final Notes', url: '#' },
-                        { label: 'Share', url: '#' }
+                        { label: '2048game.com', url: 'https://2048game.com' },
+                        { label: 'Tetris', url: 'https://play.tetris.com' }
                     ]
                 }
             ];
@@ -735,6 +774,9 @@
                 descEl.textContent = data.description;
                 imgEl.src = data.images[activeImage];
                 imgEl.alt = data.title;
+
+                // Update scrapbook color to match active tab
+                document.getElementById('scrapbook').setAttribute('data-active', activeCard);
 
                 renderDots(data.images);
 
