@@ -3559,6 +3559,62 @@ body {
   overflow: hidden;
 }
 
+.selfcare-header {
+  position: fixed;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  text-align: center;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0);
+}
+
+.selfcare-header h1 {
+  font-family: 'Suika', sans-serif;
+  font-size: 3em;
+  color: #2d1b4e;
+  margin: 0;
+  padding: 10px 25px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  text-shadow: none;
+  letter-spacing: 2px;
+  animation: popupBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, headerGlow 3s ease-in-out infinite 0.6s;
+}
+
+.selfcare-subtitle {
+  font-family: 'Google Sans', 'Segoe UI', sans-serif;
+  font-size: 1.5em;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  margin: 10px 0 0 0;
+  padding: 5px 20px;
+  letter-spacing: 0.5px;
+  animation: popupBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards 0.1s;
+}
+
+@keyframes popupBounce {
+  0% {
+    transform: scale(0) translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes headerGlow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(193, 191, 233, 0.6), 0 0 40px rgba(159, 179, 227, 0.4);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(193, 191, 233, 0.9), 0 0 60px rgba(159, 179, 227, 0.6);
+  }
+}
+
 #flower-garden {
   position: fixed;
   top: 0;
