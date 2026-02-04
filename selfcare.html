@@ -1,0 +1,240 @@
+<HTML>
+
+<head>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<header>
+	<div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+
+		 <button class="navbuttons" onclick="home()">Home</button>
+		 <button class="navbuttons" onclick="resource()">Resource Hub</button>
+		 <button class="navbuttons" onclick="highlights()">Highlights</button>
+		 <button class="navbuttons" onclick="references()">References</button>
+		 
+		 <!-- clipPath for heart shape (kept hidden) -->
+		<svg style="width:0;height:0;position:absolute" aria-hidden="true">
+		  <defs>
+		    <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+		      <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+		    </clipPath>
+		  </defs>
+		</svg>
+
+		<!-- Heart (existing) placed between More and O to match requested position -->
+		<div class="heart" role="button" tabindex="0" title="Heart">
+			<!-- fill element -->
+			<div class="tank"></div>
+			<!-- wave curve -->
+			<svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+				</defs>
+				<g>
+				<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+				<use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+				<use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+				</g>
+			</svg>
+		</div>
+
+		 <div class="dropdown">
+		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+		     <button class="dropdown-item" onclick="openFAQs()">FAQs</button>
+		     <button class="dropdown-item" onclick="openAbout()">About Us</button>
+		   </div>
+		 </div>
+
+		 
+	</div>
+  <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+<body class="selfcare-body">
+    <div id="flower-garden"></div>
+    
+    <script>
+        // Create flower on click with sparkles and stars
+        const garden = document.getElementById('flower-garden');
+        
+        // Color palettes for flowers using the specified color scheme
+        const colorPalettes = [
+            { outer: ['#8a87b3', '#8792b8', '#b7cdf2'], inner: ['#c3bfe9', '#dce4fb', '#f1f3ff'], glow: 'rgba(138, 135, 179, 0.4)' },
+            { outer: ['#5f73a0', '#8fa3cf', '#b4c7eb'], inner: ['#bbb6de', '#ada6de', '#dce4fb'], glow: 'rgba(95, 115, 160, 0.4)' },
+            { outer: ['#9fb3e3', '#9db3e0', '#bccafb'], inner: ['#d3defa', '#dee2fd', '#f1f3ff'], glow: 'rgba(159, 179, 227, 0.4)' },
+            { outer: ['#6f86b8', '#7f97c7', '#8aaceb'], inner: ['#a5baf3', '#b7cdf2', '#dce4fb'], glow: 'rgba(111, 134, 184, 0.4)' },
+            { outer: ['#8a8db3', '#9bb0dc', '#b1b2cf'], inner: ['#bbb6de', '#c3bfe9', '#f1f3ff'], glow: 'rgba(138, 141, 179, 0.4)' },
+            { outer: ['#a39bdb', '#9f94d2', '#a29dd7'], inner: ['#dee2fd', '#dce4fb', '#f1f3ff'], glow: 'rgba(163, 155, 219, 0.4)' },
+            { outer: ['#5b6fa3', '#4a5c8e', '#355495'], inner: ['#8fa3cf', '#9fb3e3', '#b7cdf2'], glow: 'rgba(91, 111, 163, 0.4)' },
+            { outer: ['#7c74ad', '#8f86c2', '#a29dd7'], inner: ['#c3bfe9', '#d3defa', '#f1f3ff'], glow: 'rgba(124, 116, 173, 0.4)' },
+            { outer: ['#6c61af', '#7b74c1', '#8d88ca'], inner: ['#ada6de', '#bbb6de', '#dce4fb'], glow: 'rgba(108, 97, 175, 0.4)' },
+            { outer: ['#688aca', '#7a99da', '#8aaceb'], inner: ['#a5baf3', '#bccafb', '#dee2fd'], glow: 'rgba(104, 138, 202, 0.4)' },
+            { outer: ['#5b4d9a', '#6c61af', '#7c74ad'], inner: ['#9f94d2', '#a39bdb', '#c3bfe9'], glow: 'rgba(91, 77, 154, 0.4)' },
+            { outer: ['#4766a7', '#5677ba', '#688aca'], inner: ['#7f97c7', '#9fb3e3', '#b7cdf2'], glow: 'rgba(71, 102, 167, 0.4)' },
+            { outer: ['#8a89ad', '#a5a3c6', '#b1b2cf'], inner: ['#bbb6de', '#d3defa', '#f1f3ff'], glow: 'rgba(138, 137, 173, 0.4)' },
+            { outer: ['#28457f', '#355495', '#4a5c8e'], inner: ['#5f73a0', '#7f97c7', '#9fb3e3'], glow: 'rgba(40, 69, 127, 0.4)' },
+            { outer: ['#7778a6', '#8a8db3', '#9bb0dc'], inner: ['#b4c7eb', '#bccafb', '#dce4fb'], glow: 'rgba(119, 120, 166, 0.4)' },
+            { outer: ['#676594', '#7e7ba2', '#8a87b3'], inner: ['#a29dd7', '#ada6de', '#c3bfe9'], glow: 'rgba(103, 101, 148, 0.4)' },
+            { outer: ['#53507b', '#6c6a86', '#7778a6'], inner: ['#8a89ad', '#a5a3c6', '#bbb6de'], glow: 'rgba(83, 80, 123, 0.4)' },
+            { outer: ['#1b366d', '#28457f', '#355495'], inner: ['#4a5c8e', '#5f73a0', '#8fa3cf'], glow: 'rgba(27, 54, 109, 0.4)' }
+        ];
+        
+        document.body.addEventListener('click', function(e) {
+            // Don't create flowers if clicking on navbar
+            if (e.target.closest('#topnav')) return;
+            
+            const x = e.clientX;
+            const y = e.clientY;
+            const windowHeight = window.innerHeight;
+            const stemHeight = windowHeight - y + 20;
+            
+            // Pick random color palette
+            const colorPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+            
+            // Create flower container
+            const flowerContainer = document.createElement('div');
+            flowerContainer.className = 'flower-container permanent-flower';
+            flowerContainer.style.left = x + 'px';
+            flowerContainer.style.top = y + 'px';
+            
+            // Create stem
+            const stem = document.createElement('div');
+            stem.className = 'flower-stem';
+            stem.style.height = stemHeight + 'px';
+            flowerContainer.appendChild(stem);
+            
+            // Create variable number of leaves (3-6 leaves)
+            const numLeaves = 3 + Math.floor(Math.random() * 4);
+            for (let i = 0; i < numLeaves; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'flower-leaf';
+                
+                // Alternate sides
+                if (i % 2 === 0) {
+                    leaf.classList.add('leaf-left');
+                } else {
+                    leaf.classList.add('leaf-right');
+                }
+                
+                // Random position along stem (20% to 70% down the stem)
+                const minPos = Math.min(stemHeight * (0.2 + i * 0.12), stemHeight * 0.7);
+                leaf.style.top = (minPos + Math.random() * 20) + 'px';
+                
+                // Random size variation
+                const scale = 0.8 + Math.random() * 0.4;
+                leaf.style.transform = leaf.classList.contains('leaf-right') 
+                    ? `scaleX(-1) scale(${scale})` 
+                    : `scale(${scale})`;
+                
+                stem.appendChild(leaf);
+            }
+            
+            // Create flower with petals
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Create outer glow
+            const outerGlow = document.createElement('div');
+            outerGlow.className = 'flower-outer-glow';
+            outerGlow.style.background = `radial-gradient(circle, ${colorPalette.glow} 0%, transparent 70%)`;
+            flower.appendChild(outerGlow);
+            
+            // Create glow effect
+            const glow = document.createElement('div');
+            glow.className = 'flower-glow';
+            glow.style.background = `radial-gradient(circle, ${colorPalette.glow} 0%, transparent 70%)`;
+            flower.appendChild(glow);
+            
+            // Create inner petals layer
+            for (let i = 0; i < 8; i++) {
+                const innerPetal = document.createElement('div');
+                innerPetal.className = 'inner-petal';
+                innerPetal.style.background = `linear-gradient(135deg, ${colorPalette.inner[0]} 0%, ${colorPalette.inner[1]} 50%, ${colorPalette.inner[2]} 100%)`;
+                innerPetal.style.transform = `rotate(${i * 45 + 22.5}deg) translateY(-12px)`;
+                innerPetal.style.animationDelay = (i * 0.05 + 0.1) + 's';
+                flower.appendChild(innerPetal);
+            }
+            
+            // Create outer petals
+            for (let i = 0; i < 8; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                
+                // Alternate gradient direction for variety
+                if (i % 2 === 0) {
+                    petal.style.background = `linear-gradient(135deg, ${colorPalette.outer[0]} 0%, ${colorPalette.outer[1]} 50%, ${colorPalette.outer[2]} 100%)`;
+                } else {
+                    petal.style.background = `linear-gradient(135deg, ${colorPalette.outer[2]} 0%, ${colorPalette.outer[1]} 50%, ${colorPalette.outer[0]} 100%)`;
+                }
+                
+                petal.style.transform = `rotate(${i * 45}deg) translateY(-22px)`;
+                petal.style.animationDelay = (i * 0.05) + 's';
+                
+                // Add petal detail
+                const petalDetail = document.createElement('div');
+                petalDetail.className = 'petal-detail';
+                petal.appendChild(petalDetail);
+                
+                flower.appendChild(petal);
+            }
+            
+            // Create center ring
+            const centerRing = document.createElement('div');
+            centerRing.className = 'flower-center-ring';
+            flower.appendChild(centerRing);
+            
+            // Create center
+            const center = document.createElement('div');
+            center.className = 'flower-center';
+            
+            // Add center details
+            for (let i = 0; i < 6; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'center-dot';
+                dot.style.transform = `rotate(${i * 60}deg) translateY(-3px)`;
+                center.appendChild(dot);
+            }
+            
+            flower.appendChild(center);
+            
+            flowerContainer.appendChild(flower);
+            
+            // Create sparkles
+            for (let i = 0; i < 25; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle temp-particle';
+                const angle = (Math.PI * 2 * i) / 25;
+                const distance = 80 + Math.random() * 60;
+                sparkle.style.setProperty('--angle', angle + 'rad');
+                sparkle.style.setProperty('--distance', distance + 'px');
+                sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+                flowerContainer.appendChild(sparkle);
+            }
+            
+            // Create stars (4-pointed star shapes)
+            for (let i = 0; i < 15; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-particle temp-particle';
+                const angle = (Math.PI * 2 * i) / 15;
+                const distance = 90 + Math.random() * 70;
+                star.style.setProperty('--angle', angle + 'rad');
+                star.style.setProperty('--distance', distance + 'px');
+                star.style.animationDelay = (Math.random() * 0.2) + 's';
+                flowerContainer.appendChild(star);
+            }
+            
+            garden.appendChild(flowerContainer);
+            
+            // Remove only temporary particles after animation
+            setTimeout(() => {
+                const particles = flowerContainer.querySelectorAll('.temp-particle');
+                particles.forEach(p => p.remove());
+            }, 2000);
+        });
+    </script>
+</body>
+
+</HTML>

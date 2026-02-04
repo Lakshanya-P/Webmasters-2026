@@ -108,7 +108,10 @@ function references(){
         complimentEl.classList.add('show');
         setTimeout(() => complimentEl.classList.remove('show'), 3000);
         // reset visual after a short delay
-        // HEART OPEN TO NEW PAGE ADD HERE
+        // Navigate to selfcare page when heart is full
+        setTimeout(() => { 
+          window.location.href = 'selfcare.html';
+        }, 1500);
         setTimeout(() => { heart.classList.remove('full'); setFill(0); filled = false; }, 3500);
       }
 
