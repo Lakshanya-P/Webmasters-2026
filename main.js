@@ -900,3 +900,77 @@ document.addEventListener('DOMContentLoaded', function() {
   lastScrollTop = window.scrollY || document.documentElement.scrollTop;
   computeTargetFrame();
 });
+
+// Glowing moving stars for section 2.5
+document.addEventListener('DOMContentLoaded', function() {
+  const section25 = document.getElementById('section2.5');
+  const starsCanvas = document.getElementById('stars-bg');
+  if (section25 && starsCanvas) {
+    const ctx = starsCanvas.getContext('2d');
+    let stars = [];
+    const STAR_COUNT = 24;
+    const STAR_MIN_RADIUS = 1.2;
+    const STAR_MAX_RADIUS = 2.8;
+    const STAR_SPEED = 0.12;
+    let width = 0, height = 0;
+
+    function resizeCanvas() {
+      width = section25.offsetWidth;
+      height = section25.offsetHeight;
+      starsCanvas.width = width;
+      starsCanvas.height = height;
+    }
+
+    function randomStar() {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = STAR_SPEED * (0.5 + Math.random());
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: STAR_MIN_RADIUS + Math.random() * (STAR_MAX_RADIUS - STAR_MIN_RADIUS),
+        angle,
+        speed,
+        glow: 0.25 + Math.random() * 0.75
+      };
+    }
+
+    function createStars() {
+      stars = [];
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push(randomStar());
+      }
+    }
+
+    function animateStars() {
+      ctx.clearRect(0, 0, width, height);
+      for (const star of stars) {
+        // Move
+        star.x += Math.cos(star.angle) * star.speed;
+        star.y += Math.sin(star.angle) * star.speed;
+        // Bounce off edges
+        if (star.x < 0 || star.x > width) star.angle = Math.PI - star.angle;
+        if (star.y < 0 || star.y > height) star.angle = -star.angle;
+        // Draw
+        ctx.save();
+        ctx.globalAlpha = 0.7;
+        ctx.shadowColor = '#b5d1ff';
+        ctx.shadowBlur = 16 * star.glow;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.restore();
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    function initStars() {
+      resizeCanvas();
+      createStars();
+      animateStars();
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    initStars();
+  }
+});
