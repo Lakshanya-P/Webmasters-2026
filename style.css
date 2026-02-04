@@ -3227,3 +3227,284 @@ body:has(.directory-container)::after {
     height: 80px;
   }
 }
+/* GALAXY BACKGROUND WITH MOVING STARS */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  position: relative;
+}
+
+.galaxy-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.stars-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  animation: twinkle linear infinite, float linear infinite;
+}
+
+/* Twinkle animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Floating/moving animation */
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+  }
+  100% {
+    transform: translateY(-50px) translateX(-10px);
+  }
+}
+
+/* Different layers move at different speeds */
+.stars-layer-1 .star {
+  animation-duration: 3s, 20s;
+}
+
+.stars-layer-2 .star {
+  animation-duration: 5s, 30s;
+}
+
+.stars-layer-3 .star {
+  animation-duration: 7s, 40s;
+}
+
+/* Add some colorful stars for variety */
+.star:nth-child(3n) {
+  box-shadow: 0 0 10px rgba(173, 216, 230, 0.8);
+  background: rgba(173, 216, 230, 0.9);
+}
+
+.star:nth-child(5n) {
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+  background: rgba(255, 182, 193, 0.9);
+}
+
+.star:nth-child(7n) {
+  box-shadow: 0 0 10px rgba(255, 255, 150, 0.8);
+  background: rgba(255, 255, 150, 0.9);
+}
+
+/* REFERENCES PAGE STYLING */
+.references-container {
+  max-width: 900px;
+  margin: 150px auto 80px;
+  padding: 40px 60px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.references-title {
+  font-family: 'Astroz', sans-serif;
+  font-size: 3.5em;
+  text-align: center;
+  color: #1b2735;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #6782bf;
+}
+
+.references-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.citation-entry {
+  padding: 15px 20px;
+  background: rgba(240, 245, 255, 0.6);
+  border-left: 4px solid #6782bf;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.citation-entry:hover {
+  background: rgba(230, 240, 255, 0.9);
+  border-left-color: #4a68a8;
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(103, 130, 191, 0.2);
+}
+
+.citation-entry p {
+  margin: 0;
+  font-family: "Google Sans", sans-serif;
+  font-size: 1em;
+  line-height: 1.6;
+  color: #2c3e50;
+  text-indent: -1.5em;
+  padding-left: 1.5em;
+}
+
+.citation-entry em {
+  font-style: italic;
+}
+
+/* Frameworks & Technologies Section */
+.frameworks-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 3px solid #6782bf;
+}
+
+.frameworks-title {
+  font-family: 'Astroz', sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+  color: #1b2735;
+  margin-bottom: 30px;
+}
+
+.frameworks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.framework-item {
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(103, 130, 191, 0.1), rgba(103, 130, 191, 0.05));
+  border: 2px solid #6782bf;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.framework-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(103, 130, 191, 0.3);
+  background: linear-gradient(135deg, rgba(103, 130, 191, 0.2), rgba(103, 130, 191, 0.1));
+}
+
+.framework-item h3 {
+  font-family: 'Astroz', sans-serif;
+  font-size: 1.5em;
+  color: #4a68a8;
+  margin: 0 0 10px 0;
+}
+
+.framework-item p {
+  font-family: "Google Sans", sans-serif;
+  font-size: 0.95em;
+  color: #5a6c7d;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Required TSA Documentation Section */
+.tsa-documentation-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 3px solid #6782bf;
+}
+
+.tsa-documentation-title {
+  font-family: 'Astroz', sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+  color: #1b2735;
+  margin-bottom: 30px;
+}
+
+.documentation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.documentation-item {
+  display: flex;
+  align-items: center;
+  padding: 20px 25px;
+  background: linear-gradient(135deg, rgba(103, 130, 191, 0.15), rgba(103, 130, 191, 0.05));
+  border: 2px solid #6782bf;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.documentation-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 6px 20px rgba(103, 130, 191, 0.3);
+  background: linear-gradient(135deg, rgba(103, 130, 191, 0.25), rgba(103, 130, 191, 0.1));
+  border-color: #4a68a8;
+}
+
+.pdf-icon {
+  font-size: 3em;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.pdf-info {
+  flex-grow: 1;
+}
+
+.pdf-info h3 {
+  font-family: 'Astroz', sans-serif;
+  font-size: 1.4em;
+  color: #4a68a8;
+  margin: 0 0 5px 0;
+}
+
+.pdf-info p {
+  font-family: "Google Sans", sans-serif;
+  font-size: 0.95em;
+  color: #5a6c7d;
+  margin: 0;
+}
+
+/* Responsive design for references */
+@media (max-width: 768px) {
+  .references-container {
+    margin: 120px 20px 60px;
+    padding: 30px 25px;
+  }
+  
+  .references-title {
+    font-size: 2.5em;
+  }
+  
+  .citation-entry p {
+    font-size: 0.9em;
+  }
+}
