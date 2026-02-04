@@ -503,6 +503,20 @@ function setupEventListeners() {
     if (carouselNext) {
         carouselNext.addEventListener('click', nextCarouselImage);
     }
+
+    // Image enlarge modal
+    const closeEnlargeBtn = document.getElementById('closeEnlargeBtn');
+    const imageEnlargeModal = document.getElementById('imageEnlargeModal');
+    if (closeEnlargeBtn) {
+        closeEnlargeBtn.addEventListener('click', closeEnlargedImage);
+    }
+    if (imageEnlargeModal) {
+        imageEnlargeModal.addEventListener('click', (e) => {
+            if (e.target === imageEnlargeModal || e.target.classList.contains('image-enlarge-overlay')) {
+                closeEnlargedImage();
+            }
+        });
+    }
     
     if (addForm) {
         console.log('Add form found, attaching submit listener'); // Debug log
@@ -535,6 +549,10 @@ function updateCarouselDisplay() {
     if (carouselImages.length > 0) {
         img.src = carouselImages[currentCarouselImageIndex];
         counter.textContent = `${currentCarouselImageIndex + 1} / ${carouselImages.length}`;
+        
+        // Make image clickable to enlarge
+        img.style.cursor = 'pointer';
+        img.onclick = () => openEnlargedImage(carouselImages[currentCarouselImageIndex]);
     }
 }
 
@@ -775,6 +793,22 @@ function closeDetailModal() {
     currentDetailId = null;
 }
 
+// Open enlarged image view
+function openEnlargedImage(imageSrc) {
+    const modal = document.getElementById('imageEnlargeModal');
+    const img = document.getElementById('enlargedImage');
+    img.src = imageSrc;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+// Close enlarged image view
+function closeEnlargedImage() {
+    const modal = document.getElementById('imageEnlargeModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = ''; // Restore scrolling
+}
+
 // Handle file uploads
 function handleFileUpload(event) {
     const files = event.target.files;
@@ -894,6 +928,17 @@ async function submitForm(event) {
 
 // Load entries from Firebase
 async function loadEntries() {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const cardsContainer = document.getElementById('cardsContainer');
+    
+    // Show loading spinner
+    if (loadingSpinner) {
+        loadingSpinner.classList.remove('hidden');
+    }
+    if (cardsContainer) {
+        cardsContainer.style.display = 'none';
+    }
+    
     try {
         const snapshot = await get(child(ref(database), 'directory'));
         
@@ -918,6 +963,14 @@ async function loadEntries() {
         displayCards(allEntries);
     } catch (error) {
         console.error('Error loading entries:', error);
+    } finally {
+        // Hide loading spinner
+        if (loadingSpinner) {
+            loadingSpinner.classList.add('hidden');
+        }
+        if (cardsContainer) {
+            cardsContainer.style.display = '';
+        }
     }
 }
 

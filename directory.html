@@ -136,6 +136,12 @@
             </div>
         </div>
 
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading resources...</p>
+        </div>
+
         <!-- Directory Cards Container -->
         <div id="cardsContainer" class="cards-container"></div>
     </div>
@@ -279,10 +285,15 @@
                     <strong style="display: block; margin-top: 15px;">Helpful Information:</strong>
                     <p id="detailInfo" style="margin-top: 10px;"></p>
                 </div>
-
-                <button class="delete-button" id="deleteBtn">Delete Entry</button>
             </div>
         </div>
+    </div>
+
+    <!-- Image Enlarge Modal -->
+    <div id="imageEnlargeModal" class="image-enlarge-modal" style="display:none;">
+        <div class="image-enlarge-overlay"></div>
+        <button class="image-enlarge-close" id="closeEnlargeBtn">&times;</button>
+        <img id="enlargedImage" class="enlarged-image" src="" alt="Enlarged view" />
     </div>
 
     <script src="main.js"></script>
