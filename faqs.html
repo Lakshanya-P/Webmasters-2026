@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FAQs</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<header>
+    <div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+        <button class="navbuttons" onclick="home()">Home</button>
+        <button class="navbuttons" onclick="resource()">Resource Hub</button>
+        <button class="navbuttons" onclick="highlights()">Highlights</button>
+        <button class="navbuttons" onclick="references()">References</button>
+        <!-- clipPath for heart shape (kept hidden) -->
+        <svg style="width:0;height:0;position:absolute" aria-hidden="true">
+            <defs>
+                <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+                    <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+                </clipPath>
+            </defs>
+        </svg>
+        <div class="heart" role="button" tabindex="0" title="Heart">
+            <div class="tank"></div>
+            <svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g>
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+                </g>
+            </svg>
+        </div>
+        <div class="dropdown">
+            <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+            <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+                <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+                <button class="dropdown-item" onclick="window.location.href='about.html'">About Us</button>
+            </div>
+        </div>
+    </div>
+    <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+<body>
+    <canvas id="galaxy-bg" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;"></canvas>
+    <div class="faqs-header" style="text-align:center;margin-top:150px;">
+        <h1 id="dynamic-faqs" style="font-family:'Suika',cursive;font-size:6rem;letter-spacing:0.22em;color:#fff;text-shadow:0 8px 48px #6782bf,0 2px 0 #222;animation: faqs-glow 2.5s infinite alternate;">FAQS</h1>
+    </div>
+    <div class="faqs-sections" style="max-width:1000px;margin:40px auto 0 auto;">
+        <details class="faq-item" open>
+            <summary class="faq-question">Why does STARPATH ask for my state location and applicable grade level(s)?</summary>
+            <div class="faq-answer">
+                STARPATH does not track any sort of location and simply asks for a state location to make posted resources more specific to each community. Exact locations are not required and are not suggested to share online but state locations allow for people from each state to share sources from their state with others from the same state and across the nation. These resources will also be tagged per state (like hashtags) and will even show up on our state map on our homepage!<br><br>
+                Grade levels will be used like a hashtag to help narrow resources to students per grade level in high school and after graduation. This will help source finding to be more efficient especially for high school juniors and seniors looking for scholarships, volunteer opportunities, and more.
+                <div class="faq-graphic" style="margin-top:18px;text-align:center;">
+                  <svg width="130" height="80" viewBox="0 0 130 80">
+                    <!-- Map pin -->
+                    <ellipse cx="55" cy="32" rx="18" ry="22" fill="#6782bf" opacity="0.18"/>
+                    <path d="M55 12a14 14 0 0 1 14 14c0 10-14 28-14 28S41 36 41 26a14 14 0 0 1 14-14z" fill="#6782bf"/>
+                    <circle cx="55" cy="26" r="6" fill="#b5d1ff" stroke="#6782bf" stroke-width="2"/>
+                    <!-- Tag, moved lower and wider -->
+                    <rect x="40" y="60" width="60" height="18" rx="6" fill="#b5d1ff" stroke="#6782bf" stroke-width="2"/>
+                    <text x="70" y="74" font-size="15" font-family='Google Sans, Arial' fill="#6782bf" font-weight="bold" text-anchor="middle">STATE</text>
+                  </svg>
+                </div>
+            </div>
+        </details>
+        <details class="faq-item">
+            <summary class="faq-question">How do the hashtags work?</summary>
+            <div class="faq-answer">
+                Hashtags allow you to explore and post pages under a similar topic. If a hashtag isn’t already made as a preset, don’t hesitate to post it under a new hashtag! It’ll work just the same.
+                <div class="faq-graphic" style="margin-top:18px;text-align:center;">
+                  <svg width="70" height="50" viewBox="0 0 70 50">
+                    <text x="10" y="38" font-size="40" font-family='Google Sans, Arial' fill="#6782bf" font-weight="bold">#</text>
+                    <animateTransform attributeName="transform" type="rotate" from="-10 35 25" to="10 35 25" dur="1.5s" repeatCount="indefinite"/>
+                  </svg>
+                </div>
+            </div>
+        </details>
+        <details class="faq-item">
+            <summary class="faq-question">What should I caption my post?</summary>
+            <div class="faq-answer">
+                Captions/additional information is not required but is highly recommended as it’ll boost the outreach of the post. We suggest that your caption contains information related to what you are posting.
+                <div class="faq-graphic" style="margin-top:18px;text-align:center;">
+                  <svg width="80" height="50" viewBox="0 0 80 50">
+                    <rect x="10" y="10" width="60" height="28" rx="8" fill="#6782bf" opacity="0.18"/>
+                    <rect x="10" y="10" width="60" height="28" rx="8" fill="none" stroke="#6782bf" stroke-width="3"/>
+                    <polygon points="40,38 48,48 32,48" fill="#6782bf"/>
+                    <text x="20" y="30" font-size="16" font-family='Google Sans, Arial' fill="#b5d1ff">Aa</text>
+                  </svg>
+                </div>
+            </div>
+        </details>
+        <details class="faq-item">
+            <summary class="faq-question">How do upvotes work?</summary>
+            <div class="faq-answer">
+                Each post has an upvote button, more upvotes means that more people have found this post helpful, meaning that it is more reliable in the community! If any inappropriate content is found, don’t hesitate to report it by contacting us.
+                <div class="faq-graphic" style="margin-top:18px;text-align:center;">
+                  <svg width="70" height="50" viewBox="0 0 70 50">
+                    <polygon points="35,10 45,35 25,35" fill="#b5d1ff"/>
+                    <polygon points="35,10 45,35 25,35" fill="none" stroke="#6782bf" stroke-width="3"/>
+                    <text x="50" y="45" font-size="22" font-family='Google Sans, Arial' fill="#6782bf">↑</text>
+                  </svg>
+                </div>
+            </div>
+        </details>
+        <details class="faq-item">
+            <summary class="faq-question">My resource isn’t publishing correctly, what should I do?</summary>
+            <div class="faq-answer">
+                If a post is made incorrectly, reload the page and check again. If it won’t allow you to post, check if you’ve filled out required boxes and are not posting inappropriate content.
+                <div class="faq-graphic" style="margin-top:18px;text-align:center;">
+                  <svg width="70" height="60" viewBox="0 0 70 60">
+                    <!-- Alert triangle -->
+                    <polygon points="35,10 60,50 10,50" fill="#f6c" opacity="0.18"/>
+                    <polygon points="35,10 60,50 10,50" fill="none" stroke="#6782bf" stroke-width="3"/>
+                    <circle cx="35" cy="42" r="3" fill="#6782bf"/>
+                    <rect x="33.5" y="25" width="3" height="12" rx="1.5" fill="#6782bf"/>
+                  </svg>
+                </div>
+            </div>
+        </details>
+    </div>
+    <style>
+    @keyframes faqs-glow {
+      0% { text-shadow: 0 4px 32px #6782bf,0 1px 0 #222; color: #fff; }
+      50% { text-shadow: 0 8px 48px #fff,0 1px 0 #6782bf; color: #b5d1ff; }
+      100% { text-shadow: 0 4px 32px #6782bf,0 1px 0 #222; color: #fff; }
+    }
+    .faqs-sections {
+        background: rgba(30,40,60,0.7);
+        border-radius: 18px;
+        box-shadow: 0 4px 32px #2228, 0 1.5px 0 #6782bf44;
+        padding: 56px 48px 40px 48px;
+    }
+    .faq-item {
+        margin-bottom: 32px;
+        font-family: 'Google Sans', Arial, sans-serif;
+        border-bottom: 1px solid #6782bf33;
+        transition: background 0.2s;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+        font-family: 'Google Sans', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+        outline: none;
+        padding: 18px 0 10px 0;
+        transition: color 0.2s;
+    }
+    .faq-item[open] .faq-question {
+        color: #b5d1ff;
+    }
+    .faq-answer {
+        font-family: 'Google Sans', Arial, sans-serif;
+        font-size: 1.7rem;
+        color: #e3e8f7;
+        padding: 0 0 18px 0;
+        margin-left: 2px;
+        line-height: 1.8;
+        letter-spacing: 0.01em;
+        transition: color 0.2s;
+    }
+    details.faq-item summary::-webkit-details-marker {
+        display: none;
+    }
+    .faq-question:before {
+        content: '▶';
+        display: inline-block;
+        margin-right: 16px;
+        font-size: 1.3em;
+        color: #6782bf;
+        transition: transform 0.2s;
+    }
+    .faq-item[open] .faq-question:before {
+        transform: rotate(90deg);
+        color: #b5d1ff;
+    }
+    </style>
+    <script>
+    // Galaxy background animation
+    const canvas = document.getElementById('galaxy-bg');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Star and meteor objects only
+    const stars = Array.from({length: 180}, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.3,
+        speed: Math.random() * 0.2 + 0.05,
+        twinkle: Math.random() * Math.PI * 2
+    }));
+
+    function randomMeteor() {
+        const angle = Math.random() * Math.PI/3 - Math.PI/6;
+        // Randomly choose a starting edge: top, left, or right
+        const edge = Math.random();
+        let x, y, a;
+        if (edge < 0.33) { // top edge
+            x = Math.random() * canvas.width;
+            y = -40;
+            a = angle + Math.PI / 2 * (Math.random() < 0.5 ? 1 : -1); // randomize direction
+        } else if (edge < 0.66) { // left edge
+            x = -40;
+            y = Math.random() * canvas.height;
+            a = angle + Math.PI / 4;
+        } else { // right edge
+            x = canvas.width + 40;
+            y = Math.random() * canvas.height;
+            a = angle - Math.PI / 4;
+        }
+        return {
+            x,
+            y,
+            len: Math.random() * 80 + 60,
+            speed: Math.random() * 8 + 6,
+            angle: a,
+            alpha: 1
+        };
+    }
+    let meteors = [];
+    let meteorTimer = 0;
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Draw stars
+        for (const s of stars) {
+            ctx.save();
+            ctx.globalAlpha = 0.7 + 0.3 * Math.sin(Date.now()/700 + s.twinkle);
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, 2*Math.PI);
+            ctx.fillStyle = '#fff';
+            ctx.shadowColor = '#fff';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.restore();
+            s.x += s.speed;
+            if (s.x > canvas.width) s.x = 0;
+        }
+        // Draw meteors
+        for (const m of meteors) {
+            ctx.save();
+            ctx.globalAlpha = m.alpha;
+            ctx.strokeStyle = '#fff';
+            ctx.shadowColor = '#fff';
+            ctx.shadowBlur = 12;
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(m.x, m.y);
+            ctx.lineTo(m.x + Math.cos(m.angle) * m.len, m.y + Math.sin(m.angle) * m.len);
+            ctx.stroke();
+            ctx.restore();
+            m.x += Math.cos(m.angle) * m.speed;
+            m.y += Math.sin(m.angle) * m.speed;
+            m.alpha -= 0.012;
+        }
+        meteors = meteors.filter(m => m.alpha > 0 && m.y < canvas.height+100);
+        // Meteor spawn
+        meteorTimer--;
+        if (meteorTimer <= 0) {
+            meteors.push(randomMeteor());
+            meteorTimer = Math.random() * 80 + 60;
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+    </script>
+</body>
+
+</html>
