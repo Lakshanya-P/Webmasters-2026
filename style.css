@@ -887,6 +887,130 @@ html, body {
 
 /* DIRECTORY PAGE */
 
+/* Directory Page Background with Cosmic Elements */
+body:has(.directory-container) {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Large Nebula Clouds */
+body:has(.directory-container)::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse 800px 600px at 10% 20%, rgba(138, 172, 235, 0.15), transparent),
+    radial-gradient(ellipse 600px 800px at 85% 70%, rgba(162, 157, 215, 0.12), transparent),
+    radial-gradient(ellipse 700px 500px at 50% 90%, rgba(91, 77, 154, 0.1), transparent),
+    radial-gradient(circle 400px at 70% 15%, rgba(104, 138, 202, 0.08), transparent);
+  animation: nebulaFloat 30s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Stars and Glowing Orbs */
+body:has(.directory-container)::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    /* Large bright stars */
+    radial-gradient(circle 4px at 20% 30%, white, transparent 4px),
+    radial-gradient(circle 5px at 60% 70%, rgba(255, 255, 255, 0.9), transparent 5px),
+    radial-gradient(circle 3px at 50% 50%, white, transparent 3px),
+    radial-gradient(circle 4px at 80% 10%, rgba(255, 255, 255, 0.95), transparent 4px),
+    radial-gradient(circle 5px at 90% 60%, white, transparent 5px),
+    radial-gradient(circle 3px at 33% 80%, rgba(255, 255, 255, 0.9), transparent 3px),
+    radial-gradient(circle 4px at 75% 25%, white, transparent 4px),
+    radial-gradient(circle 3px at 15% 45%, rgba(255, 255, 255, 0.85), transparent 3px),
+    radial-gradient(circle 5px at 45% 15%, white, transparent 5px),
+    radial-gradient(circle 4px at 85% 85%, rgba(255, 255, 255, 0.9), transparent 4px),
+    /* Medium colored glowing stars */
+    radial-gradient(circle 6px at 25% 60%, rgba(138, 172, 235, 0.8), transparent 8px),
+    radial-gradient(circle 7px at 65% 40%, rgba(162, 157, 215, 0.7), transparent 9px),
+    radial-gradient(circle 5px at 40% 25%, rgba(188, 202, 251, 0.75), transparent 7px),
+    radial-gradient(circle 6px at 55% 80%, rgba(123, 116, 193, 0.8), transparent 8px),
+    /* Small twinkling stars */
+    radial-gradient(circle 2px at 10% 65%, rgba(255, 255, 255, 0.7), transparent 2px),
+    radial-gradient(circle 2px at 95% 35%, rgba(255, 255, 255, 0.6), transparent 2px),
+    radial-gradient(circle 2px at 30% 5%, rgba(255, 255, 255, 0.8), transparent 2px),
+    radial-gradient(circle 2px at 70% 95%, rgba(255, 255, 255, 0.7), transparent 2px);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  animation: starFloat 25s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Cosmic dust overlay */
+.directory-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(ellipse 300px 200px at 35% 45%, rgba(104, 138, 202, 0.05), transparent),
+    radial-gradient(ellipse 250px 300px at 80% 60%, rgba(138, 172, 235, 0.04), transparent),
+    radial-gradient(ellipse 200px 250px at 15% 75%, rgba(162, 157, 215, 0.03), transparent);
+  animation: dustDrift 40s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes nebulaFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-20px, 30px) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(20px, -20px) scale(0.95);
+    opacity: 0.7;
+  }
+}
+
+@keyframes starFloat {
+  0%, 100% {
+    background-position: 0% 0%, 100% 100%, 50% 50%, 80% 10%, 90% 60%, 33% 80%, 75% 25%, 15% 45%, 45% 15%, 85% 85%,
+                         25% 60%, 65% 40%, 40% 25%, 55% 80%, 10% 65%, 95% 35%, 30% 5%, 70% 95%;
+    opacity: 0.9;
+  }
+  33% {
+    background-position: 20% 30%, 80% 70%, 60% 40%, 70% 20%, 85% 55%, 40% 75%, 80% 30%, 20% 50%, 50% 20%, 80% 80%,
+                         30% 65%, 70% 45%, 45% 30%, 60% 85%, 15% 70%, 90% 30%, 35% 10%, 75% 90%;
+    opacity: 1;
+  }
+  66% {
+    background-position: 40% 60%, 60% 40%, 70% 30%, 60% 30%, 80% 50%, 47% 70%, 85% 35%, 25% 55%, 55% 25%, 75% 75%,
+                         35% 70%, 75% 50%, 50% 35%, 65% 90%, 20% 75%, 85% 25%, 40% 15%, 80% 85%;
+    opacity: 0.95;
+  }
+}
+
+@keyframes dustDrift {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(50px, -30px);
+    opacity: 0.5;
+  }
+}
+
 /* Directory Container */
 .directory-container {
   margin-top: 100px;
@@ -894,6 +1018,8 @@ html, body {
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
+  z-index: 1;
 }
 
 /* Control Bar */
@@ -910,7 +1036,7 @@ html, body {
 
 /* Add Button */
 .add-button {
-  background-color: #4CAF50;
+  background-color: #c8b4ff;
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -927,7 +1053,7 @@ html, body {
 }
 
 .add-button:hover {
-  background-color: #45a049;
+  background-color: #b39ef5;
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -953,8 +1079,8 @@ html, body {
 
 .search-bar:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  border-color: #c8b4ff;
+  box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
 .search-submit-btn {
@@ -964,7 +1090,7 @@ html, body {
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #4CAF50;
+  color: #c8b4ff;
   font-size: 28px;
   cursor: pointer;
   display: flex;
@@ -1059,7 +1185,7 @@ html, body {
 
 .search-suggestion-item:hover,
 .search-suggestion-item.highlight {
-  background-color: #e8f5e9;
+  background-color: #f0ebff;
 }
 
 .search-suggestion-item:last-child {
@@ -1080,22 +1206,22 @@ html, body {
 .search-tag-bubble {
   display: inline-flex;
   align-items: center;
-  background-color: #e8f5e9;
-  color: #2e7d32;
+  background-color: #f0ebff;
+  color: #6b4fc3;
   padding: 6px 12px;
   border-radius: 16px;
   font-size: 12px;
   font-family: 'Josefin Sans', sans-serif;
-  border: 1px solid #c8e6c9;
+  border: 1px solid #d4c5ff;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
 }
 
 .search-tag-bubble:hover {
-  background-color: #c8e6c9;
-  color: #1b5e20;
-  border-color: #a5d6a7;
+  background-color: #d4c5ff;
+  color: #5538a8;
+  border-color: #b39ef5;
 }
 
 /* State Dropdown Container */
@@ -1118,8 +1244,8 @@ html, body {
 
 .state-search-input:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  border-color: #c8b4ff;
+  box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
 .state-dropdown-list {
@@ -1189,52 +1315,94 @@ html, body {
   gap: 10px;
 }
 
+/* Letter Header */
+.letter-header {
+  grid-column: 1 / -1;
+  font-size: 48px;
+  font-weight: 700;
+  color: #c8b4ff;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-family: 'Suika', sans-serif;
+  text-shadow: 0 0 20px rgba(200, 180, 255, 0.5);
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.letter-header:first-child {
+  margin-top: 0;
+}
+
 /* Directory Card */
 .directory-card {
   background: white;
-  border-radius: 8px;
-  padding: 6px 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid transparent;
-  min-height: 100px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  opacity: 0.85;
 }
 
+/* Card Color Pattern - Cycles through 28 colors */
+.directory-card:nth-child(28n+1) { background: #8a87b3; }
+.directory-card:nth-child(28n+2) { background: #8792b8; }
+.directory-card:nth-child(28n+3) { background: #b7cdf2; }
+.directory-card:nth-child(28n+4) { background: #bbb6de; }
+.directory-card:nth-child(28n+5) { background: #dce4fb; }
+.directory-card:nth-child(28n+6) { background: #5f73a0; }
+.directory-card:nth-child(28n+7) { background: #c3bfe9; }
+.directory-card:nth-child(28n+8) { background: #9fb3e3; }
+.directory-card:nth-child(28n+9) { background: #5b6fa3; }
+.directory-card:nth-child(28n+10) { background: #8fa3cf; }
+.directory-card:nth-child(28n+11) { background: #f1f3ff; }
+.directory-card:nth-child(28n+12) { background: #ada6de; }
+.directory-card:nth-child(28n+13) { background: #6f86b8; }
+.directory-card:nth-child(28n+14) { background: #8a8db3; }
+.directory-card:nth-child(28n+15) { background: #a39bdb; }
+.directory-card:nth-child(28n+16) { background: #b4c7eb; }
+.directory-card:nth-child(28n+17) { background: #b1b2cf; }
+.directory-card:nth-child(28n+18) { background: #6c6a86; }
+.directory-card:nth-child(28n+19) { background: #7f97c7; }
+.directory-card:nth-child(28n+20) { background: #9db3e0; }
+.directory-card:nth-child(28n+21) { background: #8a89ad; }
+.directory-card:nth-child(28n+22) { background: #9f94d2; }
+.directory-card:nth-child(28n+23) { background: #9bb0dc; }
+.directory-card:nth-child(28n+24) { background: #a5a3c6; }
+.directory-card:nth-child(28n+25) { background: #7c74ad; }
+.directory-card:nth-child(28n+26) { background: #d3defa; }
+.directory-card:nth-child(28n+27) { background: #7e7ba2; }
+.directory-card:nth-child(28n+28) { background: #8f86c2; }
+
 .directory-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #4CAF50;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), 0 0 40px rgba(200, 180, 255, 0.8), 0 0 60px rgba(200, 180, 255, 0.4);
+  border-color: #c8b4ff;
 }
 
 .card-title {
-  font-size: 11px;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
   margin: 0;
   text-align: center;
   word-wrap: break-word;
-  line-height: 1.15;
+  line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  font-family: "Google Sans", sans-serif;
 }
 
 .card-subtitle {
-  font-size: 9px;
-  color: #666;
-  text-align: center;
-  margin-top: 2px;
-  line-height: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
+  display: none;
 }
 
 /* Modal Overlay */
@@ -1306,7 +1474,7 @@ html, body {
 }
 
 .carousel-nav {
-  background-color: #4CAF50;
+  background-color: #c8b4ff;
   color: white;
   border: none;
   border-radius: 50%;
@@ -1424,8 +1592,8 @@ html, body {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  border-color: #c8b4ff;
+  box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
 .form-group #tagsInput:focus {
@@ -1461,8 +1629,8 @@ html, body {
 
 .multiselect-button:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  border-color: #c8b4ff;
+  box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
 .multiselect-placeholder {
@@ -1530,7 +1698,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: #4CAF50;
+  background-color: #c8b4ff;
   color: white;
   padding: 4px 10px;
   border-radius: 20px;
@@ -1575,8 +1743,8 @@ html, body {
 }
 
 .tags-input-container:focus-within {
-  border-color: #4caf50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  border-color: #c8b4ff;
+  box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
 .tags-display {
@@ -1664,7 +1832,7 @@ html, body {
 .tag-autocomplete-option:hover,
 .tag-autocomplete-option.tag-option-selected {
   background-color: #f5f5f5;
-  color: #4caf50;
+  color: #c8b4ff;
 }
 
 /* File Upload */
@@ -1685,7 +1853,7 @@ html, body {
 
 .files-button:hover {
   background-color: #fff;
-  border-color: #4caf50;
+  border-color: #c8b4ff;
 }
 
 .files-button input[type="file"] {
@@ -1748,7 +1916,7 @@ html, body {
 .submit-button {
   width: 100%;
   padding: 8px;
-  background-color: #4CAF50;
+  background-color: #c8b4ff;
   color: white;
   border: none;
   border-radius: 6px;
@@ -1775,7 +1943,7 @@ html, body {
 }
 
 .detail-content strong {
-  color: #4CAF50;
+  color: #c8b4ff;
   font-weight: 600;
 }
 
@@ -1821,8 +1989,8 @@ html, body {
 
 .form-state-search-input:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+  border-color: #c8b4ff;
+  box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
 .form-state-dropdown-list {

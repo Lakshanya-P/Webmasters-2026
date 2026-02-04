@@ -951,17 +951,50 @@ function displayCards(entries) {
         return;
     }
 
-    entries.forEach(entry => {
-        const card = document.createElement('div');
-        card.className = 'directory-card';
-        card.innerHTML = `
-            <div class="card-title">${entry.title}</div>
-            <div class="card-subtitle">${entry.tags} | ${entry.state}</div>
-        `;
-        card.addEventListener('click', function() {
-            showDetailModal(entry);
+    // Sort entries alphabetically by title
+    const sortedEntries = [...entries].sort((a, b) => {
+        return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+    });
+
+    // Group entries by first letter
+    const grouped = {};
+    sortedEntries.forEach(entry => {
+        const firstChar = entry.title.charAt(0).toUpperCase();
+        const letter = /[A-Z]/.test(firstChar) ? firstChar : '#';
+        
+        if (!grouped[letter]) {
+            grouped[letter] = [];
+        }
+        grouped[letter].push(entry);
+    });
+
+    // Create sections for each letter
+    const letters = Object.keys(grouped).sort((a, b) => {
+        if (a === '#') return 1;
+        if (b === '#') return -1;
+        return a.localeCompare(b);
+    });
+
+    letters.forEach(letter => {
+        // Create letter header
+        const letterHeader = document.createElement('div');
+        letterHeader.className = 'letter-header';
+        letterHeader.textContent = '~ ' + letter + ' ~';
+        container.appendChild(letterHeader);
+
+        // Create cards for this letter
+        grouped[letter].forEach(entry => {
+            const card = document.createElement('div');
+            card.className = 'directory-card';
+            card.innerHTML = `
+                <div class="card-title">${entry.title}</div>
+                <div class="card-subtitle">${entry.tags} | ${entry.state}</div>
+            `;
+            card.addEventListener('click', function() {
+                showDetailModal(entry);
+            });
+            container.appendChild(card);
         });
-        container.appendChild(card);
     });
 }
 
