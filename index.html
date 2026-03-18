@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title> </title>
@@ -14,22 +14,11 @@
 
 	<meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-    ></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-
+    <link rel="stylesheet" href="newstyle.css" />
+    
 </head>
 
+<body>
 <header>
 	<div id="topnav">
         <img id="activepg" src="assets/hotbar logo.PNG">
@@ -69,1014 +58,848 @@
 		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
 		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
 		     <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+			 <button class="dropdown-item" onclick="window.location.href='references.html'">References</button>
 		   </div>
 		 </div>
 
 		 
 	</div>
-  <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+	<div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
 </header>
 
-<body>
-
-  <!-- Full-screen header collage (covers first viewport) [22 images] -->
-  <section id="header-collage" class="collage-wrapper" aria-label="Header Collage">
-    <div class="collage-container">
-      <div class="col c-1">
-        <div class="item"><img src="./assets/img1.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img2.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img3.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img4.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img5.jpg" alt="" /></div>
-      </div>
-      <div class="col c-2">
-        <div class="item"><img src="./assets/img6.webp" alt="" /></div>
-        <div class="item"><img src="./assets/img7.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img8.webp" alt="" /></div>
-        <div class="item"><img src="./assets/img9.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img10.webp" alt="" /></div>
-      </div>
-      <div class="col c-3">
-        <div class="item"><img src="./assets/img11.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img12.webp" alt="" /></div>
-        <div class="item" id="heroimg"><img src="assets/galaxy_bg.PNG" alt="" data-video="assets/final.mp4" /></div>
-        <div class="item"><img src="./assets/img13.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img14.jpg" alt="" /></div>
-      </div>
-      <div class="col c-4">
-        <div class="item"><img src="./assets/img15.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img16.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img17.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img18.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img19.jpg" alt="" /></div>
-      </div>
-      <div class="col c-5">
-        <div class="item"><img src="./assets/img20.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img21.png" alt="" /></div>
-        <div class="item"><img src="./assets/img22.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img23.jpg" alt="" /></div>
-        <div class="item"><img src="./assets/img1.jpg" alt="" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- spacer so the header covers the first full screen and allows scrolling -->
-  <div class="post-header-spacer" aria-hidden="true"></div>
-
-  <!-- Scroll Down Arrow Indicator -->
-  <div id="scrollDownArrow" class="scroll-down-arrow">
-    <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 5 L20 30 M20 30 L12 22 M20 30 L28 22" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-
-  <!-- GSAP (animation) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script>
-    // Register ScrollTrigger plugin
-    gsap.registerPlugin(ScrollTrigger);
-
-    window.addEventListener('load', () => {
-      // Wait for all resources (images, fonts, etc.) to be fully loaded before starting animation
-      setTimeout(() => {
-        const tl = gsap.timeline({delay: 1.0});
-
-        // Prepare hero video so the collage zooms into the video (frozen on first frame)
-        let heroVideo = null;
-        const heroImg = document.querySelector('#heroimg img');
-        if (heroImg) {
-          const videoSrc = heroImg.getAttribute('data-video');
-          if (videoSrc) {
-            heroVideo = document.createElement('video');
-            heroVideo.src = videoSrc;
-            heroVideo.muted = true;
-            heroVideo.playsInline = true;
-            heroVideo.preload = 'auto';
-            heroVideo.style.width = '100%';
-            heroVideo.style.height = '100%';
-            heroVideo.style.objectFit = 'cover';
-            heroVideo.style.objectPosition = 'bottom';
-            heroVideo.style.display = 'block';
-
-            heroVideo.addEventListener('loadeddata', () => {
-              heroVideo.currentTime = 0;
-              heroVideo.pause();
-              heroImg.style.opacity = '0';
-            });
-
-            heroImg.parentElement.insertBefore(heroVideo, heroImg);
-          }
-        }
-
-      // Column entrance (alternate directions for a dynamic feel)
-      tl.to('.c-1, .c-3, .c-5', {y: '0%', duration: 1.2, ease: 'power3.inOut'});
-
-      // Stagger items per column for a flowing scroll
-      tl.to('.c-1 .item', {y: '0%', stagger: 0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.0');
-      tl.to('.c-2 .item', {y: '0%', stagger: -0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.4');
-      tl.to('.c-3 .item', {y: '0%', stagger: 0.22, duration: 1.6, ease: 'power4.inOut'}, '-=1.6');
-      tl.to('.c-4 .item', {y: '0%', stagger: -0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.8');
-      tl.to('.c-5 .item', {y: '0%', stagger: 0.18, duration: 1.6, ease: 'power4.inOut'}, '-=2.0');
-
-      // Zoom the whole collage slightly to draw focus
-      tl.to('.collage-container', {scale: 5.485, duration: 1.5, transformOrigin: 'center center', ease: 'power4.inOut'}, '-=1.6');
-
-      // Make the middle (3rd column, 3rd item) become the hero image and freeze
-      tl.call(() => {
-        const midItem = document.querySelector('.c-3 .item:nth-child(3)');
-        const container = document.querySelector('.collage-container');
-        if (!midItem || !container) return;
-
-        // Move the item to body so it's completely independent
-        if (midItem.parentElement) {
-          midItem.parentElement.removeChild(midItem);
-          document.body.appendChild(midItem);
-        }
-
-        // promote to hero (fixed full-viewport) and bump z-index so it dominates but stays below topnav
-        midItem.classList.add('hero-item');
-        midItem.style.position = 'absolute';
-        midItem.style.top = '0';
-        midItem.style.left = '0';
-        midItem.style.right = '0';
-        midItem.style.width = '100%';
-        midItem.style.height = '100vh';
-        midItem.style.zIndex = 20; // keep behind content sections (z-index 20)
-        // fade out columns (hero is now separate)
-        container.classList.add('collage-fade');
-
-        // ensure no margin/padding causes gaps
-        midItem.style.margin = '0';
-
-        // --- Video playback with auto-play and freeze on last frame ---
-        const img = midItem.querySelector('img');
-        const video = midItem.querySelector('video');
-        if (img) {
-          // Ensure the image matches the video sizing/margins when it fills the screen
-          img.style.position = 'absolute';
-          img.style.top = '0';
-          img.style.left = '0';
-          img.style.bottom = '0';
-          img.style.width = '100%';
-          img.style.height = '100%';
-          img.style.objectFit = 'cover';
-          img.style.objectPosition = 'bottom';
-          img.style.display = 'block';
-        }
-
-        if (video) {
-          // Ensure the video matches the image sizing/margins and stays on first frame
-          video.style.position = 'absolute';
-          video.style.top = '0';
-          video.style.left = '0';
-          video.style.bottom = '0';
-          video.style.width = '100%';
-          video.style.height = '100%';
-          video.style.objectFit = 'cover';
-          video.style.objectPosition = 'bottom';
-          video.style.display = 'block';
-          video.pause();
-          video.currentTime = 0;
-
-          // Add video to the same container as image
-          midItem.style.position = 'relative';
-          console.info('Prepared hero video for collage zoom');
-        }
-
-      });
-
-      // Slight final polish zoom on the hero image
-      // tl.to('.hero-item img', {scale: 1.12, duration: 1.6, ease: 'power3.inOut'}, '+=0.05');
-
-      // Reset container scale to 1 while hero remains pinned, leaving final state clean
-      tl.to('.collage-container', {scale: 1, duration: 0.8, ease: 'power3.inOut'});
-
-      // Keep final state; the hero item stays visible and other columns are hidden
-      tl.set('.collage-container', {clearProps: 'transform'});
-
-      // Start video playback once the hero fully covers the screen
-      tl.call(() => {
-        if (heroVideo) {
-          heroVideo.play().catch(() => {});
-          
-          // Show scroll arrow when video ends
-          heroVideo.addEventListener('ended', () => {
-            const scrollArrow = document.getElementById('scrollDownArrow');
-            if (scrollArrow) {
-              scrollArrow.classList.add('visible');
-            }
-          });
-        } else {
-          // If no video, show arrow after animation completes
-          setTimeout(() => {
-            const scrollArrow = document.getElementById('scrollDownArrow');
-            if (scrollArrow) {
-              scrollArrow.classList.add('visible');
-            }
-          }, 2000);
-        }
-      });
-      
-      // Hide arrow when user starts scrolling
-      window.addEventListener('scroll', () => {
-        const scrollArrow = document.getElementById('scrollDownArrow');
-        if (scrollArrow) {
-          if (window.scrollY > 50) {
-            scrollArrow.classList.remove('visible');
-          } else {
-            // Show arrow again if user scrolls back to top
-            if (scrollArrow.classList.contains('visible') === false && window.scrollY < 50) {
-              scrollArrow.classList.add('visible');
-            }
-          }
-        }
-      });
-
-      // Create animated wave washover overlay for scroll transition using canvas
-      // This is independent and doesn't depend on heroItem
-      const canvas = document.createElement('canvas');
-      canvas.style.position = 'fixed';
-      canvas.style.top = '0';
-      canvas.style.left = '10px';
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      canvas.style.zIndex = '99999';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.backgroundColor = 'rgba(0,0,0,0)';
-      document.body.appendChild(canvas);
-      console.log('Canvas created and appended:', canvas);
-
-      const ctx = canvas.getContext('2d');
-      let scrollProgress = 0;
-      let headerCollageVisibility = 1; // 0 to 1
-      let section2Visibility = 0; // 0 to 1
-
-      // Set canvas size to match viewport
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        console.log('Canvas resized to:', canvas.width, 'x', canvas.height);
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-
-      // Track visibility of header-collage
-      const headerCollage = document.getElementById('header-collage');
-      if (headerCollage) {
-        gsap.to({}, {
-          scrollTrigger: {
-            trigger: headerCollage,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-            onUpdate: (self) => {
-              headerCollageVisibility = 1 - self.progress;
-            }
-          },
-          duration: 0.1
-        });
-      }
-
-      // Track visibility of section2
-      const section2El = document.getElementById('section2');
-      if (section2El) {
-        gsap.to({}, {
-          scrollTrigger: {
-            trigger: section2El,
-            start: 'top bottom',
-            end: 'top top',
-            scrub: true,
-            onUpdate: (self) => {
-              section2Visibility = self.progress;
-            }
-          },
-          duration: 0.1
-        });
-      }
-
-      // Function to draw animated sparkling stars shooting up from bottom
-      function drawWaves(progress, timeSeconds) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Smooth fade in from 0 to 20% and fade out from 80% to 100%
-        let overallOpacity = 1;
-        if (progress < 0.2) {
-          overallOpacity = progress / 0.2; // Smooth fade in over 20%
-        } else if (progress > 0.8) {
-          overallOpacity = (1 - progress) / 0.2; // Smooth fade out over 20%
-        }
-
-        // Dynamic particle count based on visibility - much more dramatic variation
-        // Maximum when transitioning between sections, minimum at top/bottom
-        const combinedVisibility = headerCollageVisibility + section2Visibility;
-        // Use power of 3 for more dramatic effect - peaks sharply in the middle
-        const densityMultiplier = Math.pow(Math.sin(combinedVisibility * Math.PI * 0.5), 3);
-        const baseParticleCount = 10000; // Increased for even more stars
-        const particleCount = Math.round(baseParticleCount * densityMultiplier);
-        
-        // Helper function to draw a star
-        function drawStar(cx, cy, size, rotation) {
-          ctx.save();
-          ctx.translate(cx, cy);
-          ctx.rotate(rotation);
-          
-          ctx.beginPath();
-          for (let i = 0; i < 5; i++) {
-            const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-            const x = Math.cos(angle) * size;
-            const y = Math.sin(angle) * size;
-            if (i === 0) {
-              ctx.moveTo(x, y);
-            } else {
-              ctx.lineTo(x, y);
-            }
-          }
-          ctx.closePath();
-          ctx.fill();
-          
-          ctx.restore();
-        }
-        
-        for (let i = 0; i < particleCount; i++) {
-          // Use a more complex hash to avoid patterns
-          const seed = (i * 73856093) ^ ((i * 19349663) >> 16);
-          const hashX = Math.sin(seed * 0.0001) * 10000;
-          const hashY = Math.cos(seed * 0.00012) * 10000;
-          
-          // Truly random positions (hash-based)
-          const randomX = (hashX - Math.floor(hashX));
-          const randomY = (hashY - Math.floor(hashY));
-          
-          // X position - randomly scattered across width
-          const x = randomX * canvas.width;
-          
-          // Calculate spawn time for this star based on particle index and progress
-          const spawnWave = (i / particleCount); // When this star spawns (0 to 1)
-          const starBornAtProgress = spawnWave * progress; // When in the scroll this star was born
-          
-          // Age of this star (how long since it spawned)
-          const starAge = progress - starBornAtProgress;
-          
-          // Only draw stars that have been born
-          if (starAge >= 0) {
-            // Speed varies by seed - some fast, some slow
-            const speed = 0.8 + (randomY * 1.2); // Speed multiplier 0.8-2.0
-            
-            // Y position: starts at bottom, shoots upward
-            const travelDistance = starAge * canvas.height * speed;
-            const y = canvas.height - travelDistance;
-            
-            // Only draw if star hasn't gone off top of screen
-            if (y > -100) {
-              // Calculate travel ratio for size and fade effects
-              const travelRatio = Math.min(1, travelDistance / (canvas.height * speed));
-              
-              // Stars vary in size - continuous gradient from bottom to top
-              const sizeVariation = (1 - travelRatio); // 1.0 at bottom, 0.0 at top
-              // Smooth exponential falloff - bigger at bottom, tiny at top
-              const sizeMultiplier = Math.pow(sizeVariation, 1.8);
-              const baseStar = 0.05 + (sizeMultiplier * 10); // Wider range for dramatic effect
-              const starSize = baseStar * (1 + progress * 4);
-              
-              // Continuous density gradient - very dense at bottom, very sparse at top
-              const densityAtHeight = Math.pow(sizeVariation, 3); // Steep continuous falloff
-              const skipThreshold = densityAtHeight * 0.99; // Keep 99% at bottom, fewer at top
-              if ((seed % 100) / 100 > skipThreshold) {
-                // Skip drawing this star - creates spacing based on height
-                continue;
-              }
-              
-              // Sparkling effect - intense twinkle (time-based for continuous twinkling)
-              const twinkleFactor = Math.sin(timeSeconds * 6 + progress * Math.PI * 6 + randomX * 20 + randomY * 20);
-              let starOpacity = overallOpacity * (0.4 + twinkleFactor * 0.6);
-              
-              // Fade out as star rises
-              const fadeStart = 0.5; // Start fading at 50% traveled
-              if (travelRatio > fadeStart) {
-                starOpacity *= (1 - ((travelRatio - fadeStart) / (1 - fadeStart)));
-              }
-              
-              starOpacity *= (0.5 + randomY * 0.5); // Base opacity variation
-              
-              // Star rotation for visual interest
-              const rotation = progress * Math.PI * 2 + randomX * 6.28;
-              
-              ctx.save();
-              ctx.globalAlpha = Math.max(0, starOpacity); // Clamp to 0-1
-              ctx.fillStyle = '#ffffff';
-              
-              // Draw the star
-              drawStar(x, y, Math.max(0.1, starSize), rotation);
-              
-              ctx.restore();
-            }
-          }
-        }
-      }
-
-      // Initial draw
-      drawWaves(0, 0);
-
-      // Scroll trigger for wave animation - trigger 200px earlier than section2
-      const section2 = document.getElementById('section2');
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: section2,
-          start: 'top bottom+=200',
-          end: 'top center',
-          scrub: 1,
-          markers: false,
-          onUpdate: (self) => {
-            scrollProgress = self.progress;
-            console.log('ScrollTrigger progress:', scrollProgress);
-            drawWaves(scrollProgress, performance.now() * 0.001);
-          }
-        },
-        duration: 0.1
-      });
-      console.log('Canvas scroll trigger created for section2:', section2);
-
-      // Continuous twinkling even without scrolling
-      function animateStars(time) {
-        drawWaves(scrollProgress, time * 0.001);
-        requestAnimationFrame(animateStars);
-      }
-      requestAnimationFrame(animateStars);
-
-      // Keep final state; the hero item stays visible and other columns are hidden
-
-      // Section 2 scroll animations - pixelate build-up effect
-      gsap.to('#section2 h1', {
-        scrollTrigger: {
-          trigger: '#section2 h1',
-          start: 'top 80%',
-          end: 'top 30%',
-          scrub: 1,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const blurAmount = 20 * (1 - progress);
-            document.querySelector('#section2 h1').style.filter = `blur(${blurAmount}px)`;
-          }
-        },
-        opacity: 1,
-        y: 0,
-        ease: 'power2.out'
-      });
-
-      gsap.to('#section2 p', {
-        scrollTrigger: {
-          trigger: '#section2 p',
-          start: 'top 80%',
-          end: 'bottom 10%',
-          scrub: 0.5,
-        },
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out'
-      });
-
-      gsap.to('#section2 img', {
-        scrollTrigger: {
-          trigger: '#section2 img',
-          start: 'top 80%',
-          end: 'bottom 10%',
-          scrub: 0.5,
-        },
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out'
-      });
-
-      }, 1100); // 500ms delay to ensure all resources are loaded
-    });
-
-    // Galaxy gradient follows mouse movement with smooth interpolation
-    document.addEventListener('DOMContentLoaded', function() {
-      const section2H1 = document.querySelector('#section2 h1');
-      if (section2H1) {
-        let currentX = 50, currentY = 50;
-        let targetX = 50, targetY = 50;
-        let isHovering = false;
-        
-        section2H1.addEventListener('mousemove', function(e) {
-          const rect = this.getBoundingClientRect();
-          targetX = ((e.clientX - rect.left) / rect.width) * 100;
-          targetY = ((e.clientY - rect.top) / rect.height) * 100;
-          isHovering = true;
-        });
-        
-        section2H1.addEventListener('mouseleave', function() {
-          targetX = 50;
-          targetY = 50;
-          isHovering = false;
-        });
-        
-        // Smooth interpolation using requestAnimationFrame
-        function animate() {
-          const easing = 0.1; // Lower = smoother but slower
-          currentX += (targetX - currentX) * easing;
-          currentY += (targetY - currentY) * easing;
-          
-          section2H1.style.backgroundPosition = `${currentX}% ${currentY}%`;
-          requestAnimationFrame(animate);
-        }
-        animate();
-      }
-    });
-  </script>
-
-  <!--Section 2: Text Content -->
-  <div id="section2">
-	<h1> Welcome to Starpath! </h1>
-	<div class="section2-body">
-	  <p> We welcome everyone to a community hub hosted by students, for students! Through this website, you’re free to explore all kinds of tips, advice, and sources across the nation while having the ability of sharing your own posts as well. We aim to connect our nation’s students by making useful student sources more accessible for all across America.  </p>
-    <img src="assets/img1.jpg">
+	<!-- Wormhole Animation Canvas (scrollable, overlays content but allows scroll) -->
+	<div id="wormhole-container">
+		<canvas id="wormhole-canvas"></canvas>
 	</div>
 
-  <div id="section2.5" style="position:relative;">
-    <canvas id="stars-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
-    <h2> A Look Through Our Site... </h2>
-    <div class="features-grid">
-      <p class="feature-item community">
-        <span class="icon">👥</span>
-        <span class="text">a community of students supported by students</span>
-      </p>
-      <p class="feature-item scholarship">
-        <span class="icon">💰</span>
-        <span class="text">scholarship opportunities</span>
-      </p>
-      <p class="feature-item wellness">
-        <span class="icon">💚</span>
-        <span class="text">mental health & self care tips</span>
-      </p>
-      <p class="feature-item guidance">
-        <span class="icon">🎓</span>
-        <span class="text">college application guidance</span>
-      </p>
-    </div>
-  </div>
+	<!-- Add inline style to force no margin/padding below animation -->
+	<style>
+	#wormhole-container { margin-bottom: 0 !important; padding-bottom: 0 !important; }
+	#galaxy-welcome-section { margin-top: 0 !important; padding-top: 0 !important; }
+	</style>
+	<!-- Galaxy Video (hidden initially) -->
+	<video id="galaxy-video" src="assets/final_home.MP4" preload="auto" playsinline style="display:none" muted></video>
 
-  <div id="spacer-2-to-25" class="space-spacer" aria-hidden="true" style="background:#fff;"></div>
+	<script>
+	// Always play animation and video on reload
+	startWormholeSequence();
 
-  <div id="section2.6">
-    <div class="reviews-container">
-      <h2 class="reviews-title">✨Student Reviews ✨</h2>
-      <p class="reviews-subtitle">Click on any planet <br>to read a full review!</p>
+	function startWormholeSequence() {
+		const container = document.getElementById('wormhole-container');
+		const canvas = document.getElementById('wormhole-canvas');
+		const ctx = canvas.getContext('2d');
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
 
-      <div class="reviews-grid">
-        <div class="sun-center"></div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"This website completely changed how I approach my college applications. The guidance is clear, accessible, and incredibly helpful!"</p>
-          <p class="review-author">— Sarah Chen, Senior</p>
-        </div>
+		// Animation parameters
+		let t = 0;
+		const duration = 1.5; // seconds (increased for longer animation)
+		const fps = 150;
+		const totalFrames = duration * fps + 100;
+		let frame = 0;
 
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"The mental health resources here are amazing. I feel so supported and less alone in my struggles."</p>
-          <p class="review-author">— Marcus Johnson, Junior</p>
-        </div>
+		function drawWormhole(progress) {
+			const w = canvas.width, h = canvas.height;
+			ctx.clearRect(0, 0, w, h);
+			// Spiral arms (soft color overlays)
+			for (let s = 0; s < 2; s++) {
+				ctx.save();
+				ctx.translate(w/2, h/2);
+				ctx.rotate(s * Math.PI / 2 + progress * 0.5);
+				for (let a = 0; a < 180; a += 2) {
+					let armRadius = w * 0.18 + a * 2.2 + 40 * progress;
+					let x = Math.cos(a * Math.PI / 90) * armRadius;
+					let y = Math.sin(a * Math.PI / 90) * armRadius * (0.7 + 0.3 * Math.sin(progress));
+					ctx.beginPath();
+					ctx.arc(x, y, 16 - a * 0.07, 0, 2 * Math.PI);
+					ctx.fillStyle = `rgba(${120+60*s},${80+100*s},${200+30*s},${0.08+0.12*Math.sin(progress*2+1.5*s)})`;
+					ctx.globalAlpha = 0.18;
+					ctx.fill();
+					ctx.globalAlpha = 1.0;
+				}
+				ctx.restore();
+			}
+			// Nebula clouds (colorful overlays)
+			for (let n = 0; n < 4; n++) {
+				const grad = ctx.createRadialGradient(
+					w/2 + Math.cos(progress*2*Math.PI + n)*w*0.22,
+					h/2 + Math.sin(progress*2*Math.PI + n)*h*0.22,
+					0,
+					w/2 + Math.cos(progress*2*Math.PI + n)*w*0.22,
+					h/2 + Math.sin(progress*2*Math.PI + n)*h*0.22,
+					w*0.18 + 60*progress
+				);
+				grad.addColorStop(0, `rgba(${120+80*n},${80+60*n},${200+30*n},${0.22+0.12*Math.sin(progress*2+1.5*n)})`);
+				grad.addColorStop(1, 'rgba(0,0,0,0)');
+				ctx.beginPath();
+				ctx.arc(
+					w/2 + Math.cos(progress*2*Math.PI + n)*w*0.22,
+					h/2 + Math.sin(progress*2*Math.PI + n)*h*0.22,
+					w*0.18 + 60*progress,
+					0, 2*Math.PI
+				);
+				ctx.fillStyle = grad;
+				ctx.globalAlpha = 0.7;
+				ctx.fill();
+				ctx.globalAlpha = 1.0;
+			}
+			// Add more dark, blended nebula overlays for a deeper galaxy effect
+			for (let n = 0; n < 32; n++) {
+				const angle = progress * 2 * Math.PI + n * Math.PI / 16;
+				const dist = w * 0.48 + 140 * Math.sin(progress + n*0.8);
+				const cx = w/2 + Math.cos(angle) * dist;
+				const cy = h/2 + Math.sin(angle) * dist;
+				let grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, w*0.42 + 240*progress);
+				// Darker, richer color palette
+				const r = 60 + 100*n + 120*Math.sin(progress+n*0.9);
+				const g = 40 + 120*n + 120*Math.cos(progress+n*1.3);
+				const b = 100 + 80*n + 160*Math.sin(progress*1.7+n*0.6);
+				grad.addColorStop(0, `rgba(${r%256},${g%256},${b%256},0.07)`);
+				grad.addColorStop(0.3, `rgba(${(r+60)%256},${(g+60)%256},${(b+60)%256},0.05)`);
+				grad.addColorStop(0.7, `rgba(${(r+120)%256},${(g+120)%256},${(b+120)%256},0.03)`);
+				grad.addColorStop(1, 'rgba(0,0,0,0)');
+				ctx.globalAlpha = 0.10 + 0.04*Math.sin(progress*2+1.5*n);
+				ctx.beginPath();
+				ctx.arc(cx, cy, w*0.42 + 240*progress, 0, 2*Math.PI);
+				ctx.fillStyle = grad;
+				ctx.fill();
+				ctx.globalAlpha = 1.0;
+			}
+			// Add subtle dust lanes for more realism
+			for (let d = 0; d < 8; d++) {
+				ctx.save();
+				ctx.translate(w/2, h/2);
+				ctx.rotate((d/8)*2*Math.PI + progress*0.3);
+				for (let s = 0; s < 90; s++) {
+					let dustRadius = w*0.35 + s*8 + 100*progress + 10*Math.sin(progress+d+s*0.13);
+					let x = Math.cos(s * Math.PI / 60) * dustRadius + 4*Math.sin(progress+d+s);
+					let y = Math.sin(s * Math.PI / 60) * dustRadius * (0.7 + 0.3 * Math.sin(progress+d)) + 4*Math.cos(progress+d+s);
+					let grad = ctx.createRadialGradient(x, y, 0, x, y, 18 - s * 0.12);
+					grad.addColorStop(0, 'rgba(40,40,60,0.13)');
+					grad.addColorStop(0.7, 'rgba(40,40,60,0.04)');
+					grad.addColorStop(1, 'rgba(0,0,0,0)');
+					ctx.globalAlpha = 0.08;
+					ctx.beginPath();
+					ctx.arc(x, y, 18 - s * 0.12, 0, 2 * Math.PI);
+					ctx.fillStyle = grad;
+					ctx.fill();
+					ctx.globalAlpha = 1.0;
+				}
+				ctx.restore();
+			}
+			// Even more blended spiral arms
+			for (let n = 0; n < 20; n++) {
+				ctx.save();
+				ctx.translate(w/2, h/2);
+				ctx.rotate((n/20)*2*Math.PI + progress*0.2);
+				for (let s = 0; s < 200; s++) {
+					let nebRadius = w*0.36 + s*9 + 180*progress + 14*Math.sin(progress+n+s*0.1);
+					let x = Math.cos(s * Math.PI / 100) * nebRadius + 8*Math.sin(progress+n+s);
+					let y = Math.sin(s * Math.PI / 100) * nebRadius * (0.7 + 0.3 * Math.sin(progress+n)) + 8*Math.cos(progress+n+s);
+					let grad = ctx.createRadialGradient(x, y, 0, x, y, 44 - s * 0.22);
+					// More color blending, lower alpha
+					const r = 120 + 80*n + 120*Math.sin(progress+n*0.7+s*0.05);
+					const g = 80 + 120*n + 120*Math.cos(progress+n*1.1+s*0.07);
+					const b = 200 + 60*n + 120*Math.sin(progress*1.3+n*0.5+s*0.09);
+					grad.addColorStop(0, `rgba(${r%256},${g%256},${b%256},0.05)`);
+					grad.addColorStop(0.7, `rgba(${r%256},${g%256},${b%256},0.02)`);
+					grad.addColorStop(1, 'rgba(0,0,0,0)');
+					ctx.globalAlpha = 0.05 + 0.03*Math.sin(progress*2+1.5*n+s*0.03);
+					ctx.beginPath();
+					ctx.arc(x, y, 44 - s * 0.22, 0, 2 * Math.PI);
+					ctx.fillStyle = grad;
+					ctx.fill();
+					ctx.globalAlpha = 1.0;
+				}
+				ctx.restore();
+			}
+			// More stars, slower generation, distributed across the screen
+			if (frame % 4 === 0) {
+				for (let i = 0; i < 400; i++) {
+					const angle = Math.random() * 2 * Math.PI;
+					const radius = Math.pow(Math.random(), 1.05) * (w/2) * (0.95 + 0.05 * progress);
+					const x = w/2 + Math.cos(angle) * radius;
+					const y = h/2 + Math.sin(angle) * radius;
+					ctx.beginPath();
+					// Vary star size
+					let starSize = 0.3 + 2.7 * Math.pow(Math.random(), 2);
+					ctx.arc(x, y, starSize, 0, 2 * Math.PI);
+					// Color: mostly white, some blue/yellow
+					let colorRand = Math.random();
+					let r = colorRand < 0.85 ? 255 : 220 + 35*Math.random();
+					let g = colorRand < 0.85 ? 255 : 220 + 35*Math.random();
+					let b = colorRand < 0.85 ? 255 : (colorRand < 0.93 ? 220 + 35*Math.random() : 180 + 75*Math.random());
+					ctx.fillStyle = `rgba(${r},${g},${b},${0.10+0.18*Math.random()})`;
+					ctx.shadowColor = `rgba(${r},${g},${b},0.4)`;
+					ctx.shadowBlur = starSize * 2;
+					ctx.fill();
+					ctx.shadowBlur = 0;
+				}
+			}
+			// Star clusters (spread out, more color, softer edges, slower generation)
+			if (frame % 3 === 0) {
+				for (let c = 0; c < 6; c++) {
+					const angleOffset = (c/6)*2*Math.PI + progress*0.1;
+					const clusterRadius = w*0.28 + 60*progress;
+					const cx = w/2 + Math.cos(angleOffset) * clusterRadius;
+					const cy = h/2 + Math.sin(angleOffset) * clusterRadius;
+					for (let i = 0; i < 20; i++) {
+						const angle = Math.random() * 2 * Math.PI;
+						const radius = Math.pow(Math.random(), 1.3) * (w*0.13 + 80*progress);
+						const x = cx + Math.cos(angle) * radius;
+						const y = cy + Math.sin(angle) * radius;
+						let grad = ctx.createRadialGradient(x, y, 0, x, y, 2.2 + 2.5 * Math.random());
+						const r = 180 + 60*Math.random();
+						const g = 120 + 100*Math.random();
+						const b = 200 + 55*Math.random();
+						grad.addColorStop(0, `rgba(${r},${g},${b},0.45)`);
+						grad.addColorStop(0.7, `rgba(${r},${g},${b},0.18)`);
+						grad.addColorStop(1, 'rgba(0,0,0,0)');
+						ctx.beginPath();
+						ctx.arc(x, y, 2.2 + 2.5 * Math.random(), 0, 2 * Math.PI);
+						ctx.fillStyle = grad;
+						ctx.fill();
+					}
+				}
+			}
+			// Central galactic glow
+			const grad = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w/2 * (0.22+0.25*progress));
+			grad.addColorStop(0, 'rgba(255,255,255,0.92)');
+			grad.addColorStop(0.5, 'rgba(120,160,255,0.18)');
+			grad.addColorStop(1, 'rgba(40,60,120,0)');
+			ctx.beginPath();
+			ctx.arc(w/2, h/2, w/2 * (0.22+0.25*progress), 0, 2*Math.PI);
+			ctx.fillStyle = grad;
+			ctx.fill();
+		}
 
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Finally found all my scholarship opportunities in one place! Saved me so much time searching."</p>
-          <p class="review-author">— Alex Rodriguez, Sophomore</p>
-        </div>
+		function animate() {
 
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"The community aspect is what I love most. Getting advice from other students who get it is invaluable."</p>
-          <p class="review-author">— Jordan Williams, Senior</p>
-        </div>
+			frame++;
+			let progress = Math.min(frame / totalFrames, 1);
+			drawWormhole(progress);
+			if (progress < 1) {
+				requestAnimationFrame(animate);
+			} else {
+				// White zoom flash effect
+				whiteZoomFlash();
+			}
+		}
+		animate();
 
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"Best study resource hub I've found. The tips actually work and the advice is from real students."</p>
-          <p class="review-author">— Emma Thompson, Junior</p>
-        </div>
+		function whiteZoomFlash() {
+			// Create overlay div
+			   let flash = document.createElement('div');
+			   flash.id = 'white-flash';
+			   flash.style.position = 'absolute';
+			   flash.style.top = 0;
+			   flash.style.left = 0;
+			   flash.style.width = '100%';
+			   flash.style.height = '100%';
+			   flash.style.background = 'white';
+			   flash.style.opacity = 0;
+			   flash.style.zIndex = 3000;
+			   flash.style.pointerEvents = 'none';
+			   const landingSection = document.getElementById('landing-animation-section');
+			   if (landingSection) {
+				   landingSection.appendChild(flash);
+			   } else {
+				   document.body.appendChild(flash);
+			   }
 
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-text">"I shared this with all my friends. It's genuinely helpful and makes navigating student life easier."</p>
-          <p class="review-author">— David Kim, Freshman</p>
-        </div>
-      </div>
-    </div>
-  </div>
+			// Animate flash: fade in and scale up
+			let flashProgress = 0;
+			function animateFlash() {
+				flashProgress += 0.04;
+				flash.style.opacity = Math.min(1, flashProgress * 2);
+				flash.style.transform = `scale(${1 + flashProgress * 2})`;
+				if (flashProgress < 0.5) {
+					requestAnimationFrame(animateFlash);
+				} else {
+					// Fade out canvas, then play video
+					container.style.transition = 'opacity 0.5s';
+					container.style.opacity = 0;
+					container.style.visibility = 'hidden';
+					setTimeout(() => {
+						// Do not set display:none, just hide visually
+						flash.style.transition = 'opacity 0.7s';
+						flash.style.opacity = 0;
+						setTimeout(() => {
+							flash.remove();
+							playGalaxyVideo();
+						}, 700);
+					}, 500);
+				}
+			}
+			animateFlash();
+		}
 
-  <!-- Review Modal Popup -->
-  <div id="reviewModal" class="review-modal">
-    <div class="review-modal-content">
-      <button class="review-modal-close" id="reviewModalClose">&times;</button>
-      <div class="review-modal-stars" id="modalStars">★★★★★</div>
-      <p class="review-modal-text" id="modalText"></p>
-      <p class="review-modal-author" id="modalAuthor"></p>
-    </div>
-  </div>
+		function resizeCanvas() {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+	}
 
-  <script>
-    // Review modal functionality
-    const reviewModal = document.getElementById('reviewModal');
-    const reviewModalClose = document.getElementById('reviewModalClose');
-    const modalStars = document.getElementById('modalStars');
-    const modalText = document.getElementById('modalText');
-    const modalAuthor = document.getElementById('modalAuthor');
-    
-    // Get all review cards
-    const reviewCards = document.querySelectorAll('.review-card');
-    
-    reviewCards.forEach(card => {
-      card.addEventListener('click', function() {
-        // Extract review data from the card
-        const starsElement = this.querySelector('.review-stars');
-        const textElement = this.querySelector('.review-text');
-        const authorElement = this.querySelector('.review-author');
-        
-        // Populate modal with review data
-        modalStars.textContent = starsElement.textContent;
-        modalText.textContent = textElement.textContent;
-        modalAuthor.textContent = authorElement.textContent;
-        
-        // Show modal
-        reviewModal.classList.add('active');
-      });
-    });
-    
-    // Close modal when X is clicked
-    reviewModalClose.addEventListener('click', function() {
-      reviewModal.classList.remove('active');
-    });
-    
-    // Close modal when clicking outside the modal content
-    reviewModal.addEventListener('click', function(e) {
-      if (e.target === reviewModal) {
-        reviewModal.classList.remove('active');
-      }
-    });
-    
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && reviewModal.classList.contains('active')) {
-        reviewModal.classList.remove('active');
-      }
-    });
-  </script>
+	function playGalaxyVideo() {
+		// Second white flash before video appears
+		let flash = document.createElement('div');
+		flash.id = 'white-flash-video';
+		flash.style.position = 'absolute';
+		flash.style.top = 0;
+		flash.style.left = 0;
+		flash.style.width = '100%';
+		flash.style.height = '100%';
+		flash.style.background = 'white';
+		flash.style.opacity = 0;
+		flash.style.zIndex = 3500;
+		flash.style.pointerEvents = 'none';
+		   const landingSection2 = document.getElementById('landing-animation-section');
+		   if (landingSection2) {
+			   landingSection2.appendChild(flash);
+		   } else {
+			   document.body.appendChild(flash);
+		   }
 
-  <script>
-    // Mouse trail ombre background effect
-    const section26 = document.getElementById('section2.6');
-    
-    // Store mouse position history for trailing effect
-    const trailPositions = [
-      { x: 50, y: 50, opacity: 0 },
-      { x: 50, y: 50, opacity: 0 },
-      { x: 50, y: 50, opacity: 0 },
-      { x: 50, y: 50, opacity: 0 },
-      { x: 50, y: 50, opacity: 0 }
-    ];
-    
-    document.addEventListener('mousemove', (e) => {
-      const rect = section26.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const xPercent = (x / rect.width) * 100;
-      const yPercent = (y / rect.height) * 100;
-      
-      // Shift trail positions and add new one
-      trailPositions.pop();
-      trailPositions.unshift({ x: xPercent, y: yPercent, opacity: 1 });
-      
-      // Update all trail positions
-      trailPositions.forEach((pos, index) => {
-        const opacityFade = (1 - (index / trailPositions.length)) * 0.8;
-        section26.style.setProperty(`--trail-x-${index}`, pos.x + '%');
-        section26.style.setProperty(`--trail-y-${index}`, pos.y + '%');
-        section26.style.setProperty(`--trail-opacity-${index}`, opacityFade);
-      });
-      
-      // Also set main mouse position
-      section26.style.setProperty('--mouse-x', xPercent + '%');
-      section26.style.setProperty('--mouse-y', yPercent + '%');
-    });
-  </script>
-  </div>
+		let flashProgress = 0;
+		function animateFlashVideo() {
+			flashProgress += 0.07;
+			flash.style.opacity = Math.min(1, flashProgress * 2);
+			flash.style.transform = `scale(${1 + flashProgress * 2})`;
+			if (flashProgress < 0.5) {
+				requestAnimationFrame(animateFlashVideo);
+			} else {
+				// Show video after flash
+				const video = document.getElementById('galaxy-video');
+				video.style.display = 'block';
+				video.style.position = 'absolute';
+				video.style.top = 0;
+				video.style.left = 0;
+				video.style.width = '100%';
+				video.style.height = '100%';
+				video.style.objectFit = 'cover';
+				video.style.zIndex = 2001;
+				video.style.background = 'black';
+				video.muted = true;
+								video.addEventListener('error', function(e) {
+									console.error('Video failed to load or play', e);
+								});
+								video.addEventListener('canplay', function() {
+									console.log('Video can play, attempting to start playback');
+								});
+								video.addEventListener('play', function() {
+									console.log('Video playback started');
+								});
+								video.addEventListener('ended', freezeVideoLastFrame);
+								video.play().catch(err => {
+									console.error('Video play() promise rejected:', err);
+								});
+				// Fade out flash
+				flash.style.transition = 'opacity 0.7s';
+				flash.style.opacity = 0;
+				setTimeout(() => {
+					flash.remove();
+				}, 700);
+			}
+		}
+		animateFlashVideo();
+	}
 
-  <script>
-    // Section 2.5 - Fade in on scroll
-    gsap.registerPlugin(ScrollTrigger);
-    const section25 = document.getElementById('section2.5');
-    
-    if (section25) {
-      gsap.fromTo(section25, {
-        opacity: 0
-      }, {
-        scrollTrigger: {
-          trigger: section25,
-          start: 'top 80%',
-          end: 'top 30%',
-          scrub: 0.5,
-          markers: false
-        },
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power3.out'
-      });
-    }
-  </script>
+	function freezeVideoLastFrame() {
+		const video = document.getElementById('galaxy-video');
+		video.pause();
+		// Keep last frame visible
+		video.style.objectFit = 'cover';
+		video.style.filter = 'none';
+	}
 
-  <script>
-    // Section 2.5 - Interactive galaxy background
-    const section25Bg = document.getElementById('section2.5');
-    if (section25Bg) {
-      let targetX = 50;
-      let targetY = 50;
-      let currentX = 50;
-      let currentY = 50;
-      let targetIntensity = 1;
-      let currentIntensity = 1;
+	function showVideoLastFrame() {
+		const video = document.getElementById('galaxy-video');
+		video.style.display = 'block';
+		video.style.position = 'fixed';
+		video.style.top = 0;
+		video.style.left = 0;
+		video.style.width = '100vw';
+		video.style.height = '100vh';
+		video.style.objectFit = 'cover';
+		video.style.zIndex = 1000;
+		video.style.background = 'black';
+		video.muted = true;
+		video.currentTime = video.duration || 0;
+		video.pause();
+	}
+	</script>
 
-      section25Bg.addEventListener('mousemove', (e) => {
-        const rect = section25Bg.getBoundingClientRect();
-        targetX = ((e.clientX - rect.left) / rect.width) * 100;
-        targetY = ((e.clientY - rect.top) / rect.height) * 100;
-        targetIntensity = 1.35;
-      });
 
-      section25Bg.addEventListener('mouseleave', () => {
-        targetX = 50;
-        targetY = 50;
-        targetIntensity = 1;
-      });
+   <!-- Galaxy Welcome Section -->
 
-      function animateGalaxy() {
-        const ease = 0.08;
-        currentX += (targetX - currentX) * ease;
-        currentY += (targetY - currentY) * ease;
-        currentIntensity += (targetIntensity - currentIntensity) * ease;
+    <section id="galaxy-welcome-section" style="margin:0;padding:0;">
+	    <div class="galaxy-welcome-bg">
+		    <canvas id="galaxy-welcome-canvas"></canvas>
+		    <div class="galaxy-welcome-content">
+				    <h1>Welcome to Starpath!</h1>
+				    <p>
+					    We welcome everyone to a community hub hosted by students, for students! Through this website, you’re free to explore all kinds of tips, advice, and sources across the nation while having the ability of sharing your own posts as well. We aim to connect our nation’s students by making useful student sources more accessible for all across America.
+				    </p>
+				</div>
+		    </div>
+	    </div>
+    </section>
 
-        section25Bg.style.setProperty('--g-x', `${currentX}%`);
-        section25Bg.style.setProperty('--g-y', `${currentY}%`);
-        section25Bg.style.setProperty('--g-intensity', currentIntensity.toFixed(2));
+    <!-- A Look Through Our Site Section -->
 
-        requestAnimationFrame(animateGalaxy);
-      }
-      animateGalaxy();
-    }
-  </script>
+    <section id="site-look-section" style="margin:0;padding:0; min-height:1200px;">
+	<div class="site-look-bg" style="min-height:1200px;">
+	    <canvas id="site-look-canvas" style="min-height:1200px; height:1200px; width:100%; display:block;"></canvas>
+	    <div class="site-look-content">
+			<h2>A Look Through Our Site</h2>
+			<div class="site-links">
+				<a href="directory.html" class="site-link-card">Resource Hub</a>
+				<a href="highlights.html" class="site-link-card">Highlights</a>
+				<a href="refs.html" class="site-link-card">References</a>
+				<a href="faqs.html" class="site-link-card">FAQs</a>
+				<a href="selfcare.html" class="site-link-card">Self Care</a>
+			</div>
+		</div>
 
-  <div id="section3">
-    <canvas id="scrollCanvas"></canvas>
-    <div class="video-scroll-spacer"></div>
-    <div id="myText">Explore resources across the country!</div>
-    
-    <!-- Newsletter Section -->
-    <div id="newsletterSection" class="newsletter-overlay">
-      <div class="newsletter-content">
-        <h2>Subscribe to Our Newsletter</h2>
-        <p>Stay updated with the latest resources and opportunities!</p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Enter your email" required>
-          <button type="submit">Subscribe</button>
-        </form>
-      </div>
-    </div>
-  </div>
+		<div id="reviews" class="reviews-white-text" style="position:relative; overflow:hidden; min-height:1000px; height:auto; width:100vw; max-width:100%; display:flex; align-items:center; justify-content:center;">
+			<canvas id="reviews-galaxy-canvas" style="position:absolute; top:0; left:0; width:35vw; height:35vw; min-width:350px; min-height:350px; max-width:450px; max-height:450px; z-index:1; pointer-events:none;"></canvas>
+			<div class="reviews-container" style="min-height:1000px; width:100vw; max-width:1200px; margin:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; z-index:2;">
+				<h2 class="reviews-title">✨Student Reviews ✨</h2>
+				<p class="reviews-subtitle">Click on any planet <br>to read a full review!</p>
+				<div class="reviews-grid" id="solar-system-reviews" style="min-height:550px; min-width:550px; width:55vw; height:55vw; max-width:650px; max-height:650px; margin:auto; position:relative; display:block;">
+					<div class="sun-center" style="position:absolute; left:50%; top:50%; width:120px; height:120px; margin-left:-60px; margin-top:-60px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #fff 80%, #ffe066 100%, #f9d423 120%); box-shadow:0 0 60px 20px #ffe06699, 0 0 120px 40px #f9d42355;"></div>
+					<div class="planet" data-review="0"></div>
+					<div class="planet" data-review="1"></div>
+					<div class="planet" data-review="2"></div>
+					<div class="planet" data-review="3"></div>
+					<div class="planet" data-review="4"></div>
+					<div class="planet" data-review="5"></div>
+				</div>
+			</div>
+			<!-- Modal for review card -->
+			<div id="review-modal" class="review-modal" style="display:none;">
+				<div class="review-modal-content">
+					<span class="close-modal" id="close-review-modal">&times;</span>
+					<div id="modal-review-content"></div>
+				</div>
+			</div>
+		</div>
 
-  <script>
-    // Shooting star animation
-    const subscribeForm = document.getElementById('subscribeForm');
-    const shootingStarCanvas = document.getElementById('shootingStarCanvas');
-    const ctx = shootingStarCanvas.getContext('2d');
-      
-      function resizeCanvas() {
-        shootingStarCanvas.width = shootingStarCanvas.offsetWidth;
-        shootingStarCanvas.height = shootingStarCanvas.offsetHeight;
-      }
-      resizeCanvas();
-      window.addEventListener('resize', resizeCanvas);
-      
-      subscribeForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = document.getElementById('emailInput').value;
-        
-        if (email) {
-          // Trigger shooting star animation and show message when complete
-          createShootingStar(() => {
-            // Show success message after animation completes
-            const successMsg = document.getElementById('successMessage');
-            successMsg.classList.add('show');
-            subscribeForm.reset();
-          });
-        }
-      });
-      
-      // Close button functionality
-      const closeBtn = document.getElementById('closeMessage');
-      const successMsg = document.getElementById('successMessage');
-      closeBtn.addEventListener('click', () => {
-        successMsg.classList.remove('show');
-      });
-      
-      function createShootingStar(onComplete) {
-        // Single detailed shooting star - arc from bottom left to top right
-        const startX = -100;
-        const startY = shootingStarCanvas.height + 50;
-        const endX = shootingStarCanvas.width + 100;
-        const endY = -50;
-        
-        const star = {
-          progress: 0,
-          x: startX,
-          y: startY,
-          prevX: startX,
-          prevY: startY,
-          length: 600,
-          speed: 0.012,
-          opacity: 1,
-          size: 15,
-          particles: [],
-          startX: startX,
-          startY: startY,
-          endX: endX,
-          endY: endY
-        };
-        
-        // Create trailing particles
-        for (let i = 0; i < 30; i++) {
-          star.particles.push({
-            x: star.x,
-            y: star.y,
-            size: 3 + Math.random() * 3,
-            opacity: 1 - (i * 0.033),
-            offsetX: (Math.random() - 0.5) * 20,
-            offsetY: (Math.random() - 0.5) * 20
-          });
-        }
-        
-        function animate() {
-          ctx.clearRect(0, 0, shootingStarCanvas.width, shootingStarCanvas.height);
-          
-          if (star.progress < 1 && star.opacity > 0) {
-            // Calculate position along diagonal line (linear interpolation)
-            star.progress += star.speed;
-            const t = Math.min(star.progress, 1);
-            
-            // Linear interpolation for straight diagonal path
-            star.prevX = star.x;
-            star.prevY = star.y;
-            star.x = star.startX + (star.endX - star.startX) * t;
-            star.y = star.startY + (star.endY - star.startY) * t;
-            
-            // Calculate direction for trail (constant angle for diagonal)
-            const dx = star.endX - star.startX;
-            const dy = star.endY - star.startY;
-            const angle = Math.atan2(dy, dx);
-            
-            // Calculate trail end point
-            const trailEndX = star.x - Math.cos(angle) * star.length;
-            const trailEndY = star.y - Math.sin(angle) * star.length;
-            
-            // Draw main trail with ultra-detailed gradient
-            const gradient = ctx.createLinearGradient(
-              star.x, star.y,
-              trailEndX, trailEndY
-            );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
-            gradient.addColorStop(0.1, `rgba(245, 248, 255, ${star.opacity * 0.95})`);
-            gradient.addColorStop(0.25, `rgba(222, 226, 253, ${star.opacity * 0.85})`);
-            gradient.addColorStop(0.4, `rgba(188, 202, 251, ${star.opacity * 0.65})`);
-            gradient.addColorStop(0.55, `rgba(165, 186, 243, ${star.opacity * 0.5})`);
-            gradient.addColorStop(0.7, `rgba(138, 172, 235, ${star.opacity * 0.35})`);
-            gradient.addColorStop(0.82, `rgba(108, 97, 175, ${star.opacity * 0.18})`);
-            gradient.addColorStop(0.92, `rgba(91, 77, 154, ${star.opacity * 0.08})`);
-            gradient.addColorStop(1, `rgba(91, 77, 154, 0)`);
-            
-            // Draw multiple trail layers for depth
-            // Outer glow layer
-            ctx.shadowBlur = 70;
-            ctx.shadowColor = `rgba(188, 202, 251, ${star.opacity * 0.7})`;
-            ctx.strokeStyle = `rgba(222, 226, 253, ${star.opacity * 0.2})`;
-            ctx.lineWidth = star.size * 5;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(star.x, star.y);
-            ctx.lineTo(trailEndX, trailEndY);
-            ctx.stroke();
-            
-            // Middle glow layer
-            ctx.shadowBlur = 45;
-            ctx.shadowColor = `rgba(222, 226, 253, ${star.opacity * 0.8})`;
-            ctx.strokeStyle = `rgba(255, 255, 255, ${star.opacity * 0.4})`;
-            ctx.lineWidth = star.size * 3;
-            ctx.beginPath();
-            ctx.moveTo(star.x, star.y);
-            ctx.lineTo(trailEndX + Math.cos(angle) * star.length * 0.2, trailEndY + Math.sin(angle) * star.length * 0.2);
-            ctx.stroke();
-            
-            // Main trail
-            ctx.shadowBlur = 25;
-            ctx.strokeStyle = gradient;
-            ctx.lineWidth = star.size * 1.8;
-            ctx.beginPath();
-            ctx.moveTo(star.x, star.y);
-            ctx.lineTo(trailEndX, trailEndY);
-            ctx.stroke();
-            
-            // Draw trailing particles
-            star.particles.forEach((particle, i) => {
-              // Update particle positions to follow the star
-              if (i === 0) {
-                particle.x = star.prevX;
-                particle.y = star.prevY;
-              } else {
-                const lag = 0.3;
-                particle.x += (star.particles[i-1].x - particle.x) * lag;
-                particle.y += (star.particles[i-1].y - particle.y) * lag;
-              }
-              
-              ctx.shadowBlur = 20;
-              ctx.shadowColor = `rgba(188, 202, 251, ${particle.opacity * star.opacity})`;
-              ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity * star.opacity * 0.8})`;
-              ctx.beginPath();
-              ctx.arc(particle.x + particle.offsetX, particle.y + particle.offsetY, particle.size, 0, Math.PI * 2);
-              ctx.fill();
-            });
-            
-            // Draw bright star head with multiple layers
-            // Outer halo
-            ctx.shadowBlur = 80;
-            ctx.shadowColor = `rgba(138, 172, 235, ${star.opacity})`;
-            ctx.fillStyle = `rgba(188, 202, 251, ${star.opacity * 0.3})`;
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size * 2.5, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Middle glow
-            ctx.shadowBlur = 55;
-            ctx.shadowColor = `rgba(222, 226, 253, ${star.opacity})`;
-            ctx.fillStyle = `rgba(245, 248, 255, ${star.opacity * 0.7})`;
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size * 1.5, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Bright core
-            ctx.shadowBlur = 35;
-            ctx.shadowColor = `rgba(255, 255, 255, ${star.opacity})`;
-            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Ultra-bright center
-            ctx.shadowBlur = 20;
-            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size * 0.4, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            
-            // Fade out slower for dramatic effect
-            if (star.progress > 0.7) {
-              star.opacity -= 0.008;
-            }
-            
-            requestAnimationFrame(animate);
-          } else {
-            ctx.clearRect(0, 0, shootingStarCanvas.width, shootingStarCanvas.height);
-            // Call callback when animation completes
-            if (onComplete) onComplete();
-          }
-        }
-        
-        animate();
-      }
-    
-  </script>
+	</div>
 
-  <div id="section4">
-    <h1 style="text-align:center; margin-top:0;">Explore by State</h1>
+</section>
 
-    <div id="mapContainer" style="padding:24px; display:flex; justify-content:center;">
-      <!-- map grid inserted by main.js -->
-    </div>
 
-    <!-- Popup for state details (moved to body by JS when opened) -->
-    <div id="statePopup" class="state-popup" role="dialog" aria-hidden="true">
-      <button id="closeStatePopup" class="state-popup-close" aria-label="Close">✕</button>
-      <header class="state-popup-header">
-        <h2 id="statePopupTitle">State</h2>
-      </header>
-      <div id="stateCarousel" class="state-carousel" aria-hidden="true"></div>
-      <div id="statePopupContent"></div>
-      <div class="state-popup-actions">
-        <button id="addEntryFromMap" class="btn">Want to add an entry?</button>
-        <button id="discoverResourcesFromMap" class="btn secondary">Discover other Resources</button>
-      </div>
-    </div>
-  </div>
 
+	 </section>
+
+	<script>
+// Dynamic galaxy background for 'A Look Through Our Site' section
+const siteLookSection = document.getElementById('site-look-section');
+const siteLookCanvas = document.getElementById('site-look-canvas');
+const siteLookCtx = siteLookCanvas.getContext('2d');
+function resizeSiteLookCanvas() {
+	siteLookCanvas.width = siteLookSection.offsetWidth;
+	// Set a minimum height for the canvas to ensure it fills the section visually
+	siteLookCanvas.height = Math.max(siteLookSection.offsetHeight, 1200);
+}
+window.addEventListener('resize', resizeSiteLookCanvas);
+resizeSiteLookCanvas();
+
+// Animated galaxy specs for this section
+const siteSpecs = Array.from({length: 90}, (_, i) => ({
+	x: Math.random(),
+	y: Math.random(),
+	r: 1.2 + Math.random() * 2.5,
+	speed: 0.08 + Math.random() * 0.18,
+	twinkle: Math.random() * Math.PI * 2,
+	color: [
+		'#8a87b3','#8792b8','#b7cdf2','#bbb6de','#dce4fb','#5f73a0','#c3bfe9','#9fb3e3','#5b6fa3','#c3bfe9',
+		'#8fa3cf','#f1f3ff','#ada6de','#6f86b8','#8a8db3','#a39bdb','#b4c7eb','#b1b2cf','#6c6a86','#7f97c7',
+		'#9db3e0','#8a89ad','#9f94d2','#9bb0dc','#a5a3c6','#7c74ad','#d3defa','#7e7ba2','#8f86c2'
+	][i % 29]
+ }));
+
+function drawSiteLookGalaxy(ctx, w, h, specs) {
+	ctx.clearRect(0, 0, w, h);
+	let cx = w/2, cy = h/2;
+	// Swirling nebula background
+	for (let i = 0; i < 2; i++) {
+		ctx.save();
+		ctx.translate(cx, cy);
+		ctx.rotate(i * Math.PI/2 + Date.now()/4000);
+		let grad = ctx.createRadialGradient(0,0,0,0,0,w*0.55);
+		grad.addColorStop(0, 'rgba(40,40,80,0.85)');
+		grad.addColorStop(0.5, 'rgba(80,100,180,0.13)');
+		grad.addColorStop(1, 'rgba(20,20,40,0.01)');
+		ctx.beginPath();
+		ctx.arc(0,0,w*0.55,0,2*Math.PI);
+		ctx.fillStyle = grad;
+		ctx.globalAlpha = 0.7;
+		ctx.fill();
+		ctx.globalAlpha = 1.0;
+		ctx.restore();
+	}
+	// Animated specs
+	specs.forEach((spec, i) => {
+		let px = spec.x * w + Math.sin(Date.now()/1200 + i)*12;
+		let py = spec.y * h + Math.cos(Date.now()/900 + i)*8;
+		let tw = 0.8 + 0.7*Math.sin(Date.now()/700 + spec.twinkle);
+		ctx.beginPath();
+		ctx.arc(px, py, spec.r*tw, 0, 2*Math.PI);
+		ctx.fillStyle = spec.color;
+		ctx.shadowColor = spec.color;
+		ctx.shadowBlur = 10;
+		ctx.globalAlpha = 0.45;
+		ctx.fill();
+		ctx.globalAlpha = 1.0;
+		ctx.shadowBlur = 0;
+	});
+}
+function animateSiteLookGalaxy() {
+	drawSiteLookGalaxy(siteLookCtx, siteLookCanvas.width, siteLookCanvas.height, siteSpecs);
+	requestAnimationFrame(animateSiteLookGalaxy);
+}
+animateSiteLookGalaxy();
+
+// --- Reviews Section Galaxy Background ---
+const reviewsSection = document.getElementById('reviews');
+const reviewsGalaxyCanvas = document.getElementById('reviews-galaxy-canvas');
+const reviewsSpecs = Array.from({length: 90}, (_, i) => ({
+	x: Math.random(),
+	y: Math.random(),
+	r: 1.2 + Math.random() * 2.5,
+	speed: 0.08 + Math.random() * 0.18,
+	twinkle: Math.random() * Math.PI * 2,
+	color: [
+		'#8a87b3','#8792b8','#b7cdf2','#bbb6de','#dce4fb','#5f73a0','#c3bfe9','#9fb3e3','#5b6fa3','#c3bfe9',
+		'#8fa3cf','#f1f3ff','#ada6de','#6f86b8','#8a8db3','#a39bdb','#b4c7eb','#b1b2cf','#6c6a86','#7f97c7',
+		'#9db3e0','#8a89ad','#9f94d2','#9bb0dc','#a5a3c6','#7c74ad','#d3defa','#7e7ba2','#8f86c2'
+	][i % 29]
+ }));
+function resizeReviewsGalaxyCanvas() {
+	reviewsGalaxyCanvas.width = reviewsSection.offsetWidth;
+	// Set a minimum height for the canvas to ensure it fills the section visually
+	reviewsGalaxyCanvas.height = Math.max(reviewsSection.offsetHeight, 1000);
+}
+window.addEventListener('resize', resizeReviewsGalaxyCanvas);
+resizeReviewsGalaxyCanvas();
+function animateReviewsGalaxy() {
+	drawSiteLookGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanvas.width, reviewsGalaxyCanvas.height, reviewsSpecs);
+	requestAnimationFrame(animateReviewsGalaxy);
+}
+animateReviewsGalaxy();
+	// --- Solar System Reviews Animation and Modal ---
+	const planetData = [
+		{
+			stars: '★★★★★',
+			text: '"This website completely changed how I approach my college applications. The guidance is clear, accessible, and incredibly helpful!"',
+			author: '— Sarah Chen, Senior'
+		},
+		{
+			stars: '★★★★★',
+			text: '"The mental health resources here are amazing. I feel so supported and less alone in my struggles."',
+			author: '— Marcus Johnson, Junior'
+		},
+		{
+			stars: '★★★★★',
+			text: '"Finally found all my scholarship opportunities in one place! Saved me so much time searching."',
+			author: '— Alex Rodriguez, Sophomore'
+		},
+		{
+			stars: '★★★★★',
+			text: '"The community aspect is what I love most. Getting advice from other students who get it is invaluable."',
+			author: '— Jordan Williams, Senior'
+		},
+		{
+			stars: '★★★★★',
+			text: '"Best study resource hub I\'ve found. The tips actually work and the advice is from real students."',
+			author: '— Emma Thompson, Junior'
+		},
+		{
+			stars: '★★★★★',
+			text: '"I shared this with all my friends. It\'s genuinely helpful and makes navigating student life easier."',
+			author: '— David Kim, Freshman'
+		}
+	];
+
+	window.addEventListener('DOMContentLoaded', function() {
+		const planets = document.querySelectorAll('#solar-system-reviews .planet');
+		const modal = document.getElementById('review-modal');
+		const modalContent = document.getElementById('modal-review-content');
+		const closeModal = document.getElementById('close-review-modal');
+
+		planets.forEach(planet => {
+			planet.addEventListener('click', function() {
+				const idx = parseInt(this.getAttribute('data-review'));
+				const data = planetData[idx];
+				modalContent.innerHTML = `
+					<div class="review-stars">${data.stars}</div>
+					<p class="review-text">${data.text}</p>
+					<p class="review-author">${data.author}</p>
+				`;
+				modal.style.display = 'flex';
+			});
+		});
+		closeModal.addEventListener('click', () => {
+			modal.style.display = 'none';
+		});
+		window.addEventListener('click', (e) => {
+			if (e.target === modal) modal.style.display = 'none';
+		});
+
+		// Animate planets in orbit with responsive radii and improved visuals
+		function animatePlanets() {
+			const grid = document.getElementById('solar-system-reviews');
+			if (!grid) return;
+			const gridRect = grid.getBoundingClientRect();
+			const centerX = grid.offsetWidth / 2;
+			const centerY = grid.offsetHeight / 2;
+			// Responsive radii based on grid size
+			const base = Math.min(grid.offsetWidth, grid.offsetHeight) / 2.2;
+			const radii = [base*0.45, base*0.65, base*0.85, base*1.05, base*1.25, base*1.45];
+			const now = Date.now() / 1000;
+			// Array of planet-like gradients and overlays
+			const planetStyles = [
+				// Mercury: gray, cratered
+				'radial-gradient(circle at 30% 30%, #e0e0e0 70%, #b0b0b0 100%), repeating-radial-gradient(circle at 60% 60%, #bdbdbd 0 4px, transparent 4px 12px), repeating-radial-gradient(circle at 20% 40%, #cfcfcf 0 2px, transparent 2px 10px)',
+				// Venus: yellowish, cloudy
+				'radial-gradient(circle at 60% 40%, #ffe5b4 60%, #e6b87d 100%), repeating-linear-gradient(120deg, #e6b87d 0 4px, transparent 4px 12px), repeating-linear-gradient(60deg, #fff2cc88 0 8px, transparent 8px 20px)',
+				// Earth: blue, green, clouds
+				'radial-gradient(circle at 40% 60%, #7ecfff 60%, #2e5d9f 100%), radial-gradient(circle at 70% 30%, #a8e063 20%, transparent 60%), radial-gradient(circle at 30% 70%, #fff 10%, transparent 40%), repeating-linear-gradient(45deg, #fff 0 6px, transparent 6px 18px)',
+				// Mars: red-orange, cratered
+				'radial-gradient(circle at 60% 40%, #ffb07c 60%, #c1440e 100%), repeating-radial-gradient(circle at 70% 30%, #c1440e 0 3px, transparent 3px 12px), repeating-linear-gradient(100deg, #c1440e88 0 6px, transparent 6px 16px)',
+				// Jupiter: banded, big, with spot
+				'radial-gradient(circle at 50% 50%, #ffe5b4 60%, #d1a46d 100%), repeating-linear-gradient(90deg, #d1a46d 0 8px, #fff2cc 8px 16px, #e6b87d 16px 24px), radial-gradient(circle at 70% 60%, #e07a1f 0 12px, transparent 12px 40px)',
+				// Saturn: pale, with rings (rings as pseudo-element below)
+				'radial-gradient(circle at 60% 40%, #f7e7b4 60%, #e6c87d 100%), repeating-linear-gradient(80deg, #e6c87d 0 6px, #fffbe0 6px 14px)'
+			];
+			planets.forEach((planet, i) => {
+				const angle = now * (0.18 + 0.04*i) + (i * Math.PI / 3);
+				const r = radii[i];
+				const x = centerX + Math.cos(angle) * r;
+				const y = centerY + Math.sin(angle) * r;
+				planet.style.position = 'absolute';
+				planet.style.left = (x - 40) + 'px';
+				planet.style.top = (y - 40) + 'px';
+				planet.style.width = '80px';
+				planet.style.height = '80px';
+				planet.style.borderRadius = '50%';
+				planet.style.background = planetStyles[i % planetStyles.length];
+				planet.style.boxShadow = '0 0 32px 10px rgba(120,160,255,0.18), 0 0 40px 10px ' + (i===2?'#7ecfff44':i===3?'#c1440e44':i===4?'#ffe5b488':'#fffbe044');
+				planet.style.cursor = 'pointer';
+				planet.style.zIndex = 2;
+				planet.style.transition = 'box-shadow 0.2s, transform 0.2s';
+				planet.style.border = '2px solid rgba(255,255,255,0.18)';
+				// Remove all overlays first
+				Array.from(planet.children).forEach(child => planet.removeChild(child));
+				// Add planet-specific overlays
+				if (i === 0) { // Mercury: craters
+					let mercuryImg = document.createElement('img');
+					mercuryImg.src = 'assets/planets/1.png';
+					mercuryImg.alt = 'Mercury';
+					mercuryImg.style.position = 'absolute';
+					mercuryImg.style.left = '-3px';
+					mercuryImg.style.top = '-3px';
+					mercuryImg.style.width = '83px';
+					mercuryImg.style.height = '83px';
+					mercuryImg.style.borderRadius = '50%';
+					mercuryImg.style.pointerEvents = 'none';
+					planet.appendChild(mercuryImg);
+				}
+				   if (i === 1) { // Venus: use PNG image
+					   let venusImg = document.createElement('img');
+					   venusImg.src = 'assets/planets/2.png';
+					   venusImg.alt = 'Venus';
+					   venusImg.style.position = 'absolute';
+					   venusImg.style.left = '-3px';
+					   venusImg.style.top = '-3px';
+					   venusImg.style.width = '83px';
+					   venusImg.style.height = '83px';
+					   venusImg.style.borderRadius = '50%';
+					   venusImg.style.pointerEvents = 'none';
+					   planet.appendChild(venusImg);
+				}
+				   if (i === 2) { // Earth: use PNG image
+					   let earthImg = document.createElement('img');
+					   earthImg.src = 'assets/planets/6.png';
+					   earthImg.alt = 'Earth';
+					   earthImg.style.position = 'absolute';
+					   earthImg.style.left = '-3px';
+					   earthImg.style.top = '-3px';
+					   earthImg.style.width = '83px';
+					   earthImg.style.height = '83px';
+					   earthImg.style.borderRadius = '50%';
+					   earthImg.style.pointerEvents = 'none';
+					   planet.appendChild(earthImg);
+				   }
+				   if (i === 3) { // Mars: use PNG image
+					   let marsImg = document.createElement('img');
+					   marsImg.src = 'assets/planets/5.png';
+					   marsImg.alt = 'Mars';
+					   marsImg.style.position = 'absolute';
+					   marsImg.style.left = '-3px';
+					   marsImg.style.top = '-3px';
+					   marsImg.style.width = '83px';
+					   marsImg.style.height = '83px';
+					   marsImg.style.borderRadius = '50%';
+					   marsImg.style.pointerEvents = 'none';
+					   planet.appendChild(marsImg);
+				}
+				   if (i === 4) { // Jupiter: use PNG image
+					   let jupiterImg = document.createElement('img');
+					   jupiterImg.src = 'assets/planets/4.png';
+					   jupiterImg.alt = 'Jupiter';
+					   jupiterImg.style.position = 'absolute';
+					   jupiterImg.style.left = '-3px';
+					   jupiterImg.style.top = '-3px';
+					   jupiterImg.style.width = '83px';
+					   jupiterImg.style.height = '83px';
+					   jupiterImg.style.borderRadius = '50%';
+					   jupiterImg.style.pointerEvents = 'none';
+					   planet.appendChild(jupiterImg);
+				}
+				   if (i === 5) { // Saturn: use PNG image
+					   let saturnImg = document.createElement('img');
+					   saturnImg.src = 'assets/planets/3.png';
+					   saturnImg.alt = 'Saturn';
+					   saturnImg.style.position = 'absolute';
+					   saturnImg.style.left = '-3px';
+					   saturnImg.style.top = '-3px';
+					   saturnImg.style.width = '83px';
+					   saturnImg.style.height = '83px';
+					   saturnImg.style.borderRadius = '50%';
+					   saturnImg.style.pointerEvents = 'none';
+					   planet.appendChild(saturnImg);
+				   }
+			});
+			requestAnimationFrame(animatePlanets);
+		}
+		animatePlanets();
+	});
+	 </script>
+
+</body>
+
+	<script>
+	// Galaxy Welcome Section Animation (dynamic, interactive)
+	const welcomeSection = document.getElementById('galaxy-welcome-section');
+	const welcomeCanvas = document.getElementById('galaxy-welcome-canvas');
+	const ctx = welcomeCanvas.getContext('2d');
+	let mouseX = 0, mouseY = 0;
+
+	function resizeWelcomeCanvas() {
+		welcomeCanvas.width = welcomeSection.offsetWidth;
+		welcomeCanvas.height = welcomeSection.offsetHeight;
+	}
+	window.addEventListener('resize', resizeWelcomeCanvas);
+	resizeWelcomeCanvas();
+
+	// Generate random stars
+	const starCount = 120;
+	let stars = Array.from({length: starCount}, () => ({
+		x: Math.random(),
+		y: Math.random(),
+		r: 0.7 + Math.random() * 1.7,
+		speed: 0.1 + Math.random() * 0.3,
+		twinkle: Math.random() * Math.PI * 2
+	}));
+
+	function drawWelcomeGalaxy() {
+		ctx.clearRect(0, 0, welcomeCanvas.width, welcomeCanvas.height);
+		// White background with a subtle galaxy swirl
+		let w = welcomeCanvas.width, h = welcomeCanvas.height;
+		let cx = w/2, cy = h/2;
+		// Subtle swirl
+		for (let i = 0; i < 3; i++) {
+			ctx.save();
+			ctx.translate(cx, cy);
+			ctx.rotate(i * Math.PI/3 + (mouseX-cx)/w*0.2);
+			let grad = ctx.createRadialGradient(0,0,0,0,0,w*0.45);
+			grad.addColorStop(0, 'rgba(255,255,255,0.95)');
+			grad.addColorStop(0.5, `rgba(${180+30*i},${200+10*i},255,0.10)`);
+			grad.addColorStop(1, 'rgba(120,160,255,0.04)');
+			ctx.beginPath();
+			ctx.arc(0,0,w*0.45,0,2*Math.PI);
+			ctx.fillStyle = grad;
+			ctx.globalAlpha = 0.7;
+			ctx.fill();
+			ctx.globalAlpha = 1.0;
+			ctx.restore();
+		}
+		// Draw interactive stars
+		// State color palette
+		const stateColors = [
+			'#8a87b3','#8792b8','#b7cdf2','#bbb6de','#dce4fb','#5f73a0','#c3bfe9','#9fb3e3','#5b6fa3','#c3bfe9','#8fa3cf','#f1f3ff','#ada6de','#6f86b8','#8a8db3','#a39bdb','#b4c7eb','#b1b2cf','#6c6a86','#7f97c7','#9db3e0','#8a89ad','#9f94d2','#9bb0dc','#a5a3c6','#7c74ad','#d3defa','#7e7ba2','#8f86c2','#8a87b3','#8792b8','#b7cdf2','#bbb6de','#dce4fb','#5f73a0','#c3bfe9','#9fb3e3','#5b6fa3','#c3bfe9','#8fa3cf','#f1f3ff','#ada6de','#6f86b8','#8a8db3','#a39bdb','#b4c7eb','#b1b2cf','#6c6a86','#7f97c7','#9db3e0'
+		];
+		stars.forEach((star, i) => {
+			let px = star.x * w + (mouseX-cx)*0.04;
+			let py = star.y * h + (mouseY-cy)*0.04;
+			let tw = 0.7 + 0.6*Math.sin(Date.now()/600 + star.twinkle);
+			// Cycle through state colors
+			const color = stateColors[i % stateColors.length];
+			ctx.beginPath();
+			ctx.arc(px, py, star.r*tw, 0, 2*Math.PI);
+			ctx.fillStyle = color;
+			ctx.shadowColor = color;
+			ctx.shadowBlur = 8;
+			ctx.globalAlpha = 0.38;
+			ctx.fill();
+			ctx.globalAlpha = 1.0;
+			ctx.shadowBlur = 0;
+			ctx.beginPath();
+			ctx.arc(px, py, star.r*0.7*tw, 0, 2*Math.PI);
+			ctx.fillStyle = color;
+			ctx.globalAlpha = 0.22;
+			ctx.fill();
+			ctx.globalAlpha = 1.0;
+			ctx.beginPath();
+			ctx.arc(px, py, star.r*0.4*tw, 0, 2*Math.PI);
+			ctx.fillStyle = color;
+			ctx.globalAlpha = 0.45;
+			ctx.fill();
+			ctx.globalAlpha = 1.0;
+		});
+	}
+
+	function animateWelcomeGalaxy() {
+		drawWelcomeGalaxy();
+		stars.forEach(star => {
+			star.x += (star.speed-0.15)*0.0007;
+			if (star.x > 1) star.x = 0;
+		});
+		requestAnimationFrame(animateWelcomeGalaxy);
+	}
+	animateWelcomeGalaxy();
+
+	// Mouse interaction
+	welcomeSection.addEventListener('mousemove', e => {
+		const rect = welcomeSection.getBoundingClientRect();
+		mouseX = e.clientX - rect.left;
+		mouseY = e.clientY - rect.top;
+	});
+	welcomeSection.addEventListener('mouseleave', () => {
+		mouseX = welcomeSection.offsetWidth/2;
+		mouseY = welcomeSection.offsetHeight/2;
+	});
+	// Touch interaction
+	welcomeSection.addEventListener('touchmove', e => {
+		if (e.touches.length > 0) {
+			const rect = welcomeSection.getBoundingClientRect();
+			mouseX = e.touches[0].clientX - rect.left;
+			mouseY = e.touches[0].clientY - rect.top;
+		}
+	});
+	welcomeSection.addEventListener('touchend', () => {
+		mouseX = welcomeSection.offsetWidth/2;
+		mouseY = welcomeSection.offsetHeight/2;
+	});
+	</script>
+
+
+<div>
+	<h1 id="test"> STAR PATH </h1>
+</div>
 
 </body>
 

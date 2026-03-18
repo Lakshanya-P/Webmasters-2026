@@ -1,0 +1,535 @@
+/* Make all text in reviews section white */
+#reviews.reviews-white-text, #reviews.reviews-white-text * {
+	color: #fff !important;
+}
+/* TOP NAV STYLES*/
+html, body {
+	overflow-x: hidden;
+	max-width: 100%;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+#topnav {
+  background-color: rgba(0,0,0,0.95);
+  position: fixed;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 80px; /* thin vertical, larger horizontal for wider bar */
+  border-radius: 40px; /* larger rounded corners */
+  box-shadow: 0 6px 16px rgba(139, 129, 129, 0.22);
+  z-index: 10000;
+  width: 97%; /* stretch across majority of the screen */
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 65px;
+  font-family: "Google Sans", sans-serif !important;
+} 
+
+#activepg{
+  margin-right: auto; /* push other items to the right */
+  border-radius: 8px;
+  width: 15%;
+  height: 75cpx;
+  margin-left: -50px;
+}  
+.navbuttons{
+  background-color:black;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-family: "Google Sans", sans-serif !important;
+  margin: 0 8px;
+  font-size: 16px;
+  color:white;
+  border-width: 0px;
+  height: 24px; /* reduced height */
+  display: inline-flex;
+  padding: 2px 1px; /* less vertical padding */
+  border-radius: 6px;
+}
+
+/* Ensure dropdowns and toolbar children use Google Sans */
+#topnav *,
+#topnav .dropdown,
+#topnav .dropdown-menu,
+#topnav .navbuttons,
+#topnav button,
+#topnav a {
+  font-family: "Google Sans", sans-serif !important;
+} 
+
+.navbuttons:hover {
+	background-color: #ffffff;
+	border-color: white;
+	color: black;
+}
+
+	/* dropdown*/
+	.dropdown {
+	position: relative;
+	float: right;
+	}
+
+	.dropdown-menu {
+	display: none;
+	position: absolute;
+	right: 10px;
+	left: auto;
+	top: 125%;
+	background-color: white;
+	padding: 6px;
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+	z-index: 1000;
+	max-width: calc(100vw - 20px);
+	box-sizing: border-box;
+	}
+
+	.dropdown-flip .dropdown-menu {
+	right: auto;
+	left: 10px;
+	}
+
+	.dropdown-menu.show {
+	display: block;
+	}
+
+	.dropdown-item {
+	display: block;
+	background: transparent;
+	color: black;
+	border: none;
+	padding: 8px 12px;
+	text-align: left;
+	width: 140px;
+	font-family: "Google Sans", sans-serif;
+	}
+
+	.dropdown-item:hover {
+	background: #f0f0f0;
+	color: black;
+	}
+
+	/*Heart button*/
+	/* Wave svg credits - https://codepen.io/goodkatz/pen/LYPGxQz*/
+
+	/* Default large vars (used in standalone demos) - override for navbar */
+	:root {
+	--dim-x: 80px;
+	--dim-y: 70px;
+	--cruve-height: 20px; 
+	}
+
+	/* NAVBAR heart sizing to match .navbuttons: make it square and visible */
+	#topnav .heart {
+  --dim-y: 28px; /* a bit larger for visibility */
+  --dim-x: var(--dim-y);
+  --cruve-height: 11px;
+  height: var(--dim-y);
+  min-width: var(--dim-x);
+  min-height: var(--dim-y);
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-right: 2px;
+  width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  background: linear-gradient(120deg,#fff5f8,#ffdce6); /* subtle fill so clipped heart is visible */
+  -webkit-clip-path: url(#myPath);
+  clip-path: url(#myPath);
+  overflow: hidden;
+  position: relative;
+  z-index: 10001; /* make sure it sits above the nav background */
+  animation: heartGlow 3s ease-in-out infinite;
+  cursor: pointer;
+	}
+
+	/* outline SVG covers the heart and should not block pointer events */
+	.heart .heart-outline {
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	  height: 100%;
+	  pointer-events: none;
+	  transform-origin: center;
+	}
+
+	/* slightly reduce stroke on small screens */
+	@media (max-width: 700px) {
+	  .heart .heart-outline path { stroke-width: 5; }
+	}
+
+	#topnav .heart .tank {
+	  width: var(--dim-x);
+	  height: 0%;
+	  background-color: #ff6b8a; /* fill color */
+	  transition: height 60ms linear;
+	}
+
+	#topnav .heart.full .tank {
+	  background-color: #ff2e55;
+	}
+
+	#topnav .heart .tank {
+	  width: 35px;
+	  height: 0%;
+	  background-color: #ff6b8a; /* fill color */
+	  transition: height 60ms linear;
+	}
+
+	#topnav .heart.full .tank {
+	  background-color: #ff2e55;
+	}
+
+	.compliment {
+	  position: fixed;
+	  top: 52px; /* just below topnav */
+	  left: 50%;
+	  transform: translateX(-50%) translateY(-6px);
+	  background: rgba(0,0,0,0.85);
+	  color: #fff;
+	  padding: 8px 12px;
+	  border-radius: 6px;
+	  font-family: 'Josefin Sans', sans-serif;
+	  font-size: 14px;
+	  opacity: 0;
+	  pointer-events: none;
+	  transition: opacity 260ms ease, transform 260ms ease;
+	  z-index: 1200;
+	}
+
+	.compliment.show {
+	  opacity: 1;
+	  transform: translateX(-50%) translateY(0);
+	}
+
+	/* ensure curve width uses vars */
+	.heart .curve { width: var(--dim-x); height: var(--cruve-height); }
+	.heart .tank { width: var(--dim-x); }
+
+	* {
+	border: 0;
+	margin: 0;
+	box-sizing: border-box;
+	}
+
+	.container {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background: white;
+	}
+
+	#myPath {
+	path {
+		transform: translate(0.125px, 0.033px); 
+	}
+	}
+
+	.heart-wrap {
+	cursor: pointer;
+	perspective: 200px;
+	filter: drop-shadow(0px 10px 10px rgba(174, 196, 238, 0.5));
+	}
+
+	.heart {
+	position: relative;
+	height: var(--dim-y);
+	width: var(--dim-x);
+	overflow: hidden;
+	-webkit-clip-path: url(#myPath);
+	clip-path: url(#myPath);
+	background-image: radial-gradient(#c9d8f5 60%, #afc4ee);
+	}
+
+	.tank {
+	position: absolute;
+	bottom: 0;
+	height: 0;
+	width: var(--dim-x);
+	background-color: rgb(103, 130, 191);
+	z-index: 5;
+	}
+
+	.curve {
+	position: absolute;
+	bottom: calc(-1 * var(--cruve-height));
+	width: var(--dim-x);
+	height: var(--cruve-height);
+	
+	use {
+		animation: move 2s cubic-bezier(.55,.5,.45,.5) infinite;
+	}
+	
+	use:nth-child(1) {
+		animation-duration: 3s;
+	}
+	use:nth-child(2) {
+		animation-duration: 4s;
+	}
+	use:nth-child(3) {
+		animation-duration: 2s;
+	}
+	}
+
+	@keyframes move {
+	0% {
+		transform: translateX(-90px);
+	}
+	100% {
+		transform: translateX(85px);
+	}
+	}
+
+	/* Heart glow animation */
+	@keyframes heartGlow {
+		0%, 100% {
+			filter: drop-shadow(0 0 2px rgba(255, 105, 180, 0.3));
+		}
+		50% {
+			filter: drop-shadow(0 0 12px rgba(255, 105, 180, 0.8)) drop-shadow(0 0 20px rgba(255, 105, 180, 0.5));
+		}
+	}
+
+
+
+
+/* Wormhole and video landing styles */
+
+
+/* Landing animation section as normal block, not overlay */
+#wormhole-container {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	width: 100vw;
+	height: 100vh;
+	background: radial-gradient(ellipse at center, #0a0a1a 60%, #000 100%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: opacity 1s;
+	position: relative;
+	z-index: 2;
+}
+#wormhole-canvas {
+	width: 100vw;
+	height: 100vh;
+	display: block;
+}
+#galaxy-video {
+	/* Styles set by JS for responsiveness */
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 3;
+	background: black;
+	pointer-events: none;
+}
+
+/* Galaxy Welcome Section Styles */
+#galaxy-welcome-section {
+		margin-top: 0 !important;
+		padding-top: 0 !important;
+	width: 100vw;
+	min-height: 500px;
+	background: #fff;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+	box-shadow: 0 8px 32px rgba(120,160,255,0.07);
+}
+/* --- Site Look Section --- */
+#site-look-section {
+	width: 100vw;
+	min-height: 1200px;
+	background: #0a0a1a;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	box-shadow: 0 8px 32px rgba(80,100,180,0.09);
+}
+.site-look-bg {
+	width: 100vw;
+	min-height: 700px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+#site-look-canvas {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100vw;
+	height: 100%;
+	z-index: 1;
+	pointer-events: none;
+}
+.site-look-content {
+	position: relative;
+	z-index: 2;
+	background: rgba(18,20,40,0.92);
+	border-radius: 32px;
+	box-shadow: 0 4px 32px rgba(80,100,180,0.13);
+	padding: 48px 32px 36px 32px;
+	max-width: 700px;
+	width: 100%;
+	margin: 48px auto 0 auto;
+	text-align: center;
+	font-family: "Google Sans", "SN Pro", Arial, sans-serif;
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+}
+.site-look-content h2 {
+	font-size: 2.1rem;
+	font-weight: 800;
+	color: #b7cdf2;
+	margin-bottom: 24px;
+	letter-spacing: 0.01em;
+	text-shadow: 0 2px 12px rgba(120,160,255,0.13);
+}
+.site-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 24px;
+	justify-content: center;
+	margin-top: 18px;
+}
+.site-link-card {
+	display: inline-block;
+	background: linear-gradient(120deg, #b7cdf2 60%, #5f73a0 100%);
+	color: #181a2a;
+	font-weight: 700;
+	font-size: 1.18rem;
+	padding: 22px 38px;
+	border-radius: 18px;
+	box-shadow: 0 2px 16px rgba(120,160,255,0.13);
+	text-decoration: none;
+	transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+	position: relative;
+	z-index: 3;
+}
+.site-link-card:hover {
+	background: linear-gradient(120deg, #5f73a0 60%, #b7cdf2 100%);
+	color: #fff;
+	transform: scale(1.07) rotate(-2deg);
+	box-shadow: 0 6px 32px rgba(120,160,255,0.22);
+}
+@media (max-width: 700px) {
+	#site-look-section, .site-look-bg {
+		min-height: 420px;
+	}
+	.site-look-content {
+		padding: 28px 4vw 24px 4vw;
+		max-width: 98vw;
+		margin: 24px auto 32px auto;
+	}
+	.site-look-content h2 {
+		font-size: 1.3rem;
+	}
+	.site-link-card {
+		font-size: 1rem;
+		padding: 14px 18px;
+	}
+}
+.galaxy-welcome-bg {
+	width: 100vw;
+	min-height: 500px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    top: 0;
+}
+#galaxy-welcome-canvas {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100vw;
+	height: 500px;
+	z-index: 1;
+	pointer-events: none;
+}
+.galaxy-welcome-content {
+		margin-bottom: 0 !important;
+		margin-top: 0 !important;
+		.galaxy-welcome-content {
+			margin-bottom: 0 !important;
+		}
+		.site-look-content {
+			margin-top: 0 !important;
+		}
+	position: relative;
+	z-index: 2;
+	background: rgba(255,255,255,0.92);
+	border-radius: 32px;
+	box-shadow: 0 4px 32px rgba(120,160,255,0.08);
+	padding: 48px 32px 36px 32px;
+	max-width: 600px;
+	margin: 0 auto 56px auto;
+	text-align: center;
+	font-family: "Google Sans", "SN Pro", Arial, sans-serif;
+}
+.galaxy-welcome-content h1 {
+	font-size: 2.5rem;
+	font-weight: 800;
+	color: #3a4a7c;
+	margin-bottom: 18px;
+	letter-spacing: 0.01em;
+	text-shadow: 0 2px 12px rgba(120,160,255,0.08);
+}
+.galaxy-welcome-content p {
+	font-size: 1.18rem;
+	color: #2d3550;
+	font-weight: 400;
+	line-height: 1.7;
+	letter-spacing: 0.01em;
+	margin: 0 auto;
+	text-shadow: 0 1px 8px rgba(120,160,255,0.04);
+}
+@media (max-width: 700px) {
+	.galaxy-welcome-content {
+		padding: 28px 8vw 24px 8vw;
+		max-width: 98vw;
+		margin: 24px auto 32px auto;
+	}
+	.galaxy-welcome-content h1 {
+		font-size: 1.5rem;
+	}
+	#galaxy-welcome-section, .galaxy-welcome-bg {
+		min-height: 260px;
+	}
+}
+
+
+@font-face {
+	font-family: 'Suika';
+	src: url('fonts/Suika-DEMO.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#test{
+	font-family: 'Suika', "Google Sans", sans-serif;
+    margin-top: 100px;
+    font-size: 300px;
+}

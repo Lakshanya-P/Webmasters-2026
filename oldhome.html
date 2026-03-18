@@ -1,0 +1,1083 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+
+<!--fonts-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+
+<!--linking css & js-->	
+	<script src="main.js"></script>
+
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<header>
+	<div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+
+		 <button class="navbuttons" onclick="home()">Home</button>
+		 <button class="navbuttons" onclick="resource()">Resource Hub</button>
+		 <button class="navbuttons" onclick="highlights()">Highlights</button>
+		 <button class="navbuttons" onclick="references()">References</button>
+		 
+		 <!-- clipPath for heart shape (kept hidden) -->
+		<svg style="width:0;height:0;position:absolute" aria-hidden="true">
+		  <defs>
+		    <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+		      <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+		    </clipPath>
+		  </defs>
+		</svg>
+
+		<!-- Heart (existing) placed between More and O to match requested position -->
+		<div class="heart" role="button" tabindex="0" title="Heart">
+			<!-- fill element -->
+			<div class="tank"></div>
+			<!-- wave curve -->
+			<svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+				</defs>
+				<g>
+				<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+				<use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+				<use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+				</g>
+			</svg>
+		</div>
+
+		 <div class="dropdown">
+		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+		     <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+		   </div>
+		 </div>
+
+		 
+	</div>
+  <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+<body>
+
+  <!-- Full-screen header collage (covers first viewport) [22 images] -->
+  <section id="header-collage" class="collage-wrapper" aria-label="Header Collage">
+    <div class="collage-container">
+      <div class="col c-1">
+        <div class="item"><img src="./assets/img1.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img2.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img3.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img4.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img5.jpg" alt="" /></div>
+      </div>
+      <div class="col c-2">
+        <div class="item"><img src="./assets/img6.webp" alt="" /></div>
+        <div class="item"><img src="./assets/img7.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img8.webp" alt="" /></div>
+        <div class="item"><img src="./assets/img9.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img10.webp" alt="" /></div>
+      </div>
+      <div class="col c-3">
+        <div class="item"><img src="./assets/img11.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img12.webp" alt="" /></div>
+        <div class="item" id="heroimg"><img src="assets/galaxy_bg.PNG" alt="" data-video="assets/final.mp4" /></div>
+        <div class="item"><img src="./assets/img13.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img14.jpg" alt="" /></div>
+      </div>
+      <div class="col c-4">
+        <div class="item"><img src="./assets/img15.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img16.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img17.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img18.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img19.jpg" alt="" /></div>
+      </div>
+      <div class="col c-5">
+        <div class="item"><img src="./assets/img20.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img21.png" alt="" /></div>
+        <div class="item"><img src="./assets/img22.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img23.jpg" alt="" /></div>
+        <div class="item"><img src="./assets/img1.jpg" alt="" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- spacer so the header covers the first full screen and allows scrolling -->
+  <div class="post-header-spacer" aria-hidden="true"></div>
+
+  <!-- Scroll Down Arrow Indicator -->
+  <div id="scrollDownArrow" class="scroll-down-arrow">
+    <svg width="50" height="50" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5 L20 30 M20 30 L12 22 M20 30 L28 22" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- GSAP (animation) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    window.addEventListener('load', () => {
+      // Wait for all resources (images, fonts, etc.) to be fully loaded before starting animation
+      setTimeout(() => {
+        const tl = gsap.timeline({delay: 1.0});
+
+        // Prepare hero video so the collage zooms into the video (frozen on first frame)
+        let heroVideo = null;
+        const heroImg = document.querySelector('#heroimg img');
+        if (heroImg) {
+          const videoSrc = heroImg.getAttribute('data-video');
+          if (videoSrc) {
+            heroVideo = document.createElement('video');
+            heroVideo.src = videoSrc;
+            heroVideo.muted = true;
+            heroVideo.playsInline = true;
+            heroVideo.preload = 'auto';
+            heroVideo.style.width = '100%';
+            heroVideo.style.height = '100%';
+            heroVideo.style.objectFit = 'cover';
+            heroVideo.style.objectPosition = 'bottom';
+            heroVideo.style.display = 'block';
+
+            heroVideo.addEventListener('loadeddata', () => {
+              heroVideo.currentTime = 0;
+              heroVideo.pause();
+              heroImg.style.opacity = '0';
+            });
+
+            heroImg.parentElement.insertBefore(heroVideo, heroImg);
+          }
+        }
+
+      // Column entrance (alternate directions for a dynamic feel)
+      tl.to('.c-1, .c-3, .c-5', {y: '0%', duration: 1.2, ease: 'power3.inOut'});
+
+      // Stagger items per column for a flowing scroll
+      tl.to('.c-1 .item', {y: '0%', stagger: 0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.0');
+      tl.to('.c-2 .item', {y: '0%', stagger: -0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.4');
+      tl.to('.c-3 .item', {y: '0%', stagger: 0.22, duration: 1.6, ease: 'power4.inOut'}, '-=1.6');
+      tl.to('.c-4 .item', {y: '0%', stagger: -0.18, duration: 1.6, ease: 'power4.inOut'}, '-=1.8');
+      tl.to('.c-5 .item', {y: '0%', stagger: 0.18, duration: 1.6, ease: 'power4.inOut'}, '-=2.0');
+
+      // Zoom the whole collage slightly to draw focus
+      tl.to('.collage-container', {scale: 5.485, duration: 1.5, transformOrigin: 'center center', ease: 'power4.inOut'}, '-=1.6');
+
+      // Make the middle (3rd column, 3rd item) become the hero image and freeze
+      tl.call(() => {
+        const midItem = document.querySelector('.c-3 .item:nth-child(3)');
+        const container = document.querySelector('.collage-container');
+        if (!midItem || !container) return;
+
+        // Move the item to body so it's completely independent
+        if (midItem.parentElement) {
+          midItem.parentElement.removeChild(midItem);
+          document.body.appendChild(midItem);
+        }
+
+        // promote to hero (fixed full-viewport) and bump z-index so it dominates but stays below topnav
+        midItem.classList.add('hero-item');
+        midItem.style.position = 'absolute';
+        midItem.style.top = '0';
+        midItem.style.left = '0';
+        midItem.style.right = '0';
+        midItem.style.width = '100%';
+        midItem.style.height = '100vh';
+        midItem.style.zIndex = 20; // keep behind content sections (z-index 20)
+        // fade out columns (hero is now separate)
+        container.classList.add('collage-fade');
+
+        // ensure no margin/padding causes gaps
+        midItem.style.margin = '0';
+
+        // --- Video playback with auto-play and freeze on last frame ---
+        const img = midItem.querySelector('img');
+        const video = midItem.querySelector('video');
+        if (img) {
+          // Ensure the image matches the video sizing/margins when it fills the screen
+          img.style.position = 'absolute';
+          img.style.top = '0';
+          img.style.left = '0';
+          img.style.bottom = '0';
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'bottom';
+          img.style.display = 'block';
+        }
+
+        if (video) {
+          // Ensure the video matches the image sizing/margins and stays on first frame
+          video.style.position = 'absolute';
+          video.style.top = '0';
+          video.style.left = '0';
+          video.style.bottom = '0';
+          video.style.width = '100%';
+          video.style.height = '100%';
+          video.style.objectFit = 'cover';
+          video.style.objectPosition = 'bottom';
+          video.style.display = 'block';
+          video.pause();
+          video.currentTime = 0;
+
+          // Add video to the same container as image
+          midItem.style.position = 'relative';
+          console.info('Prepared hero video for collage zoom');
+        }
+
+      });
+
+      // Slight final polish zoom on the hero image
+      // tl.to('.hero-item img', {scale: 1.12, duration: 1.6, ease: 'power3.inOut'}, '+=0.05');
+
+      // Reset container scale to 1 while hero remains pinned, leaving final state clean
+      tl.to('.collage-container', {scale: 1, duration: 0.8, ease: 'power3.inOut'});
+
+      // Keep final state; the hero item stays visible and other columns are hidden
+      tl.set('.collage-container', {clearProps: 'transform'});
+
+      // Start video playback once the hero fully covers the screen
+      tl.call(() => {
+        if (heroVideo) {
+          heroVideo.play().catch(() => {});
+          
+          // Show scroll arrow when video ends
+          heroVideo.addEventListener('ended', () => {
+            const scrollArrow = document.getElementById('scrollDownArrow');
+            if (scrollArrow) {
+              scrollArrow.classList.add('visible');
+            }
+          });
+        } else {
+          // If no video, show arrow after animation completes
+          setTimeout(() => {
+            const scrollArrow = document.getElementById('scrollDownArrow');
+            if (scrollArrow) {
+              scrollArrow.classList.add('visible');
+            }
+          }, 2000);
+        }
+      });
+      
+      // Hide arrow when user starts scrolling
+      window.addEventListener('scroll', () => {
+        const scrollArrow = document.getElementById('scrollDownArrow');
+        if (scrollArrow) {
+          if (window.scrollY > 50) {
+            scrollArrow.classList.remove('visible');
+          } else {
+            // Show arrow again if user scrolls back to top
+            if (scrollArrow.classList.contains('visible') === false && window.scrollY < 50) {
+              scrollArrow.classList.add('visible');
+            }
+          }
+        }
+      });
+
+      // Create animated wave washover overlay for scroll transition using canvas
+      // This is independent and doesn't depend on heroItem
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '10px';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.zIndex = '99999';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.backgroundColor = 'rgba(0,0,0,0)';
+      document.body.appendChild(canvas);
+      console.log('Canvas created and appended:', canvas);
+
+      const ctx = canvas.getContext('2d');
+      let scrollProgress = 0;
+      let headerCollageVisibility = 1; // 0 to 1
+      let section2Visibility = 0; // 0 to 1
+
+      // Set canvas size to match viewport
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        console.log('Canvas resized to:', canvas.width, 'x', canvas.height);
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      // Track visibility of header-collage
+      const headerCollage = document.getElementById('header-collage');
+      if (headerCollage) {
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: headerCollage,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+            onUpdate: (self) => {
+              headerCollageVisibility = 1 - self.progress;
+            }
+          },
+          duration: 0.1
+        });
+      }
+
+      // Track visibility of section2
+      const section2El = document.getElementById('section2');
+      if (section2El) {
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: section2El,
+            start: 'top bottom',
+            end: 'top top',
+            scrub: true,
+            onUpdate: (self) => {
+              section2Visibility = self.progress;
+            }
+          },
+          duration: 0.1
+        });
+      }
+
+      // Function to draw animated sparkling stars shooting up from bottom
+      function drawWaves(progress, timeSeconds) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Smooth fade in from 0 to 20% and fade out from 80% to 100%
+        let overallOpacity = 1;
+        if (progress < 0.2) {
+          overallOpacity = progress / 0.2; // Smooth fade in over 20%
+        } else if (progress > 0.8) {
+          overallOpacity = (1 - progress) / 0.2; // Smooth fade out over 20%
+        }
+
+        // Dynamic particle count based on visibility - much more dramatic variation
+        // Maximum when transitioning between sections, minimum at top/bottom
+        const combinedVisibility = headerCollageVisibility + section2Visibility;
+        // Use power of 3 for more dramatic effect - peaks sharply in the middle
+        const densityMultiplier = Math.pow(Math.sin(combinedVisibility * Math.PI * 0.5), 3);
+        const baseParticleCount = 10000; // Increased for even more stars
+        const particleCount = Math.round(baseParticleCount * densityMultiplier);
+        
+        // Helper function to draw a star
+        function drawStar(cx, cy, size, rotation) {
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(rotation);
+          
+          ctx.beginPath();
+          for (let i = 0; i < 5; i++) {
+            const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+            const x = Math.cos(angle) * size;
+            const y = Math.sin(angle) * size;
+            if (i === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+          ctx.closePath();
+          ctx.fill();
+          
+          ctx.restore();
+        }
+        
+        for (let i = 0; i < particleCount; i++) {
+          // Use a more complex hash to avoid patterns
+          const seed = (i * 73856093) ^ ((i * 19349663) >> 16);
+          const hashX = Math.sin(seed * 0.0001) * 10000;
+          const hashY = Math.cos(seed * 0.00012) * 10000;
+          
+          // Truly random positions (hash-based)
+          const randomX = (hashX - Math.floor(hashX));
+          const randomY = (hashY - Math.floor(hashY));
+          
+          // X position - randomly scattered across width
+          const x = randomX * canvas.width;
+          
+          // Calculate spawn time for this star based on particle index and progress
+          const spawnWave = (i / particleCount); // When this star spawns (0 to 1)
+          const starBornAtProgress = spawnWave * progress; // When in the scroll this star was born
+          
+          // Age of this star (how long since it spawned)
+          const starAge = progress - starBornAtProgress;
+          
+          // Only draw stars that have been born
+          if (starAge >= 0) {
+            // Speed varies by seed - some fast, some slow
+            const speed = 0.8 + (randomY * 1.2); // Speed multiplier 0.8-2.0
+            
+            // Y position: starts at bottom, shoots upward
+            const travelDistance = starAge * canvas.height * speed;
+            const y = canvas.height - travelDistance;
+            
+            // Only draw if star hasn't gone off top of screen
+            if (y > -100) {
+              // Calculate travel ratio for size and fade effects
+              const travelRatio = Math.min(1, travelDistance / (canvas.height * speed));
+              
+              // Stars vary in size - continuous gradient from bottom to top
+              const sizeVariation = (1 - travelRatio); // 1.0 at bottom, 0.0 at top
+              // Smooth exponential falloff - bigger at bottom, tiny at top
+              const sizeMultiplier = Math.pow(sizeVariation, 1.8);
+              const baseStar = 0.05 + (sizeMultiplier * 10); // Wider range for dramatic effect
+              const starSize = baseStar * (1 + progress * 4);
+              
+              // Continuous density gradient - very dense at bottom, very sparse at top
+              const densityAtHeight = Math.pow(sizeVariation, 3); // Steep continuous falloff
+              const skipThreshold = densityAtHeight * 0.99; // Keep 99% at bottom, fewer at top
+              if ((seed % 100) / 100 > skipThreshold) {
+                // Skip drawing this star - creates spacing based on height
+                continue;
+              }
+              
+              // Sparkling effect - intense twinkle (time-based for continuous twinkling)
+              const twinkleFactor = Math.sin(timeSeconds * 6 + progress * Math.PI * 6 + randomX * 20 + randomY * 20);
+              let starOpacity = overallOpacity * (0.4 + twinkleFactor * 0.6);
+              
+              // Fade out as star rises
+              const fadeStart = 0.5; // Start fading at 50% traveled
+              if (travelRatio > fadeStart) {
+                starOpacity *= (1 - ((travelRatio - fadeStart) / (1 - fadeStart)));
+              }
+              
+              starOpacity *= (0.5 + randomY * 0.5); // Base opacity variation
+              
+              // Star rotation for visual interest
+              const rotation = progress * Math.PI * 2 + randomX * 6.28;
+              
+              ctx.save();
+              ctx.globalAlpha = Math.max(0, starOpacity); // Clamp to 0-1
+              ctx.fillStyle = '#ffffff';
+              
+              // Draw the star
+              drawStar(x, y, Math.max(0.1, starSize), rotation);
+              
+              ctx.restore();
+            }
+          }
+        }
+      }
+
+      // Initial draw
+      drawWaves(0, 0);
+
+      // Scroll trigger for wave animation - trigger 200px earlier than section2
+      const section2 = document.getElementById('section2');
+      gsap.to({}, {
+        scrollTrigger: {
+          trigger: section2,
+          start: 'top bottom+=200',
+          end: 'top center',
+          scrub: 1,
+          markers: false,
+          onUpdate: (self) => {
+            scrollProgress = self.progress;
+            console.log('ScrollTrigger progress:', scrollProgress);
+            drawWaves(scrollProgress, performance.now() * 0.001);
+          }
+        },
+        duration: 0.1
+      });
+      console.log('Canvas scroll trigger created for section2:', section2);
+
+      // Continuous twinkling even without scrolling
+      function animateStars(time) {
+        drawWaves(scrollProgress, time * 0.001);
+        requestAnimationFrame(animateStars);
+      }
+      requestAnimationFrame(animateStars);
+
+      // Keep final state; the hero item stays visible and other columns are hidden
+
+      // Section 2 scroll animations - pixelate build-up effect
+      gsap.to('#section2 h1', {
+        scrollTrigger: {
+          trigger: '#section2 h1',
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const blurAmount = 20 * (1 - progress);
+            document.querySelector('#section2 h1').style.filter = `blur(${blurAmount}px)`;
+          }
+        },
+        opacity: 1,
+        y: 0,
+        ease: 'power2.out'
+      });
+
+      gsap.to('#section2 p', {
+        scrollTrigger: {
+          trigger: '#section2 p',
+          start: 'top 80%',
+          end: 'bottom 10%',
+          scrub: 0.5,
+        },
+        opacity: 1,
+        y: 0,
+        ease: 'power3.out'
+      });
+
+      gsap.to('#section2 img', {
+        scrollTrigger: {
+          trigger: '#section2 img',
+          start: 'top 80%',
+          end: 'bottom 10%',
+          scrub: 0.5,
+        },
+        opacity: 1,
+        y: 0,
+        ease: 'power3.out'
+      });
+
+      }, 1100); // 500ms delay to ensure all resources are loaded
+    });
+
+    // Galaxy gradient follows mouse movement with smooth interpolation
+    document.addEventListener('DOMContentLoaded', function() {
+      const section2H1 = document.querySelector('#section2 h1');
+      if (section2H1) {
+        let currentX = 50, currentY = 50;
+        let targetX = 50, targetY = 50;
+        let isHovering = false;
+        
+        section2H1.addEventListener('mousemove', function(e) {
+          const rect = this.getBoundingClientRect();
+          targetX = ((e.clientX - rect.left) / rect.width) * 100;
+          targetY = ((e.clientY - rect.top) / rect.height) * 100;
+          isHovering = true;
+        });
+        
+        section2H1.addEventListener('mouseleave', function() {
+          targetX = 50;
+          targetY = 50;
+          isHovering = false;
+        });
+        
+        // Smooth interpolation using requestAnimationFrame
+        function animate() {
+          const easing = 0.1; // Lower = smoother but slower
+          currentX += (targetX - currentX) * easing;
+          currentY += (targetY - currentY) * easing;
+          
+          section2H1.style.backgroundPosition = `${currentX}% ${currentY}%`;
+          requestAnimationFrame(animate);
+        }
+        animate();
+      }
+    });
+  </script>
+
+  <!--Section 2: Text Content -->
+  <div id="section2">
+	<h1> Welcome to Starpath! </h1>
+	<div class="section2-body">
+	  <p> We welcome everyone to a community hub hosted by students, for students! Through this website, you’re free to explore all kinds of tips, advice, and sources across the nation while having the ability of sharing your own posts as well. We aim to connect our nation’s students by making useful student sources more accessible for all across America.  </p>
+    <img src="assets/img1.jpg">
+	</div>
+
+  <div id="section2.5" style="position:relative;">
+    <canvas id="stars-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+    <h2> A Look Through Our Site... </h2>
+    <div class="features-grid">
+      <p class="feature-item community">
+        <span class="icon">👥</span>
+        <span class="text">a community of students supported by students</span>
+      </p>
+      <p class="feature-item scholarship">
+        <span class="icon">💰</span>
+        <span class="text">scholarship opportunities</span>
+      </p>
+      <p class="feature-item wellness">
+        <span class="icon">💚</span>
+        <span class="text">mental health & self care tips</span>
+      </p>
+      <p class="feature-item guidance">
+        <span class="icon">🎓</span>
+        <span class="text">college application guidance</span>
+      </p>
+    </div>
+  </div>
+
+  <div id="spacer-2-to-25" class="space-spacer" aria-hidden="true" style="background:#fff;"></div>
+
+  <div id="section2.6">
+    <div class="reviews-container">
+      <h2 class="reviews-title">✨Student Reviews ✨</h2>
+      <p class="reviews-subtitle">Click on any planet <br>to read a full review!</p>
+
+      <div class="reviews-grid">
+        <div class="sun-center"></div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"This website completely changed how I approach my college applications. The guidance is clear, accessible, and incredibly helpful!"</p>
+          <p class="review-author">— Sarah Chen, Senior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The mental health resources here are amazing. I feel so supported and less alone in my struggles."</p>
+          <p class="review-author">— Marcus Johnson, Junior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Finally found all my scholarship opportunities in one place! Saved me so much time searching."</p>
+          <p class="review-author">— Alex Rodriguez, Sophomore</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The community aspect is what I love most. Getting advice from other students who get it is invaluable."</p>
+          <p class="review-author">— Jordan Williams, Senior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Best study resource hub I've found. The tips actually work and the advice is from real students."</p>
+          <p class="review-author">— Emma Thompson, Junior</p>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"I shared this with all my friends. It's genuinely helpful and makes navigating student life easier."</p>
+          <p class="review-author">— David Kim, Freshman</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Review Modal Popup -->
+  <div id="reviewModal" class="review-modal">
+    <div class="review-modal-content">
+      <button class="review-modal-close" id="reviewModalClose">&times;</button>
+      <div class="review-modal-stars" id="modalStars">★★★★★</div>
+      <p class="review-modal-text" id="modalText"></p>
+      <p class="review-modal-author" id="modalAuthor"></p>
+    </div>
+  </div>
+
+  <script>
+    // Review modal functionality
+    const reviewModal = document.getElementById('reviewModal');
+    const reviewModalClose = document.getElementById('reviewModalClose');
+    const modalStars = document.getElementById('modalStars');
+    const modalText = document.getElementById('modalText');
+    const modalAuthor = document.getElementById('modalAuthor');
+    
+    // Get all review cards
+    const reviewCards = document.querySelectorAll('.review-card');
+    
+    reviewCards.forEach(card => {
+      card.addEventListener('click', function() {
+        // Extract review data from the card
+        const starsElement = this.querySelector('.review-stars');
+        const textElement = this.querySelector('.review-text');
+        const authorElement = this.querySelector('.review-author');
+        
+        // Populate modal with review data
+        modalStars.textContent = starsElement.textContent;
+        modalText.textContent = textElement.textContent;
+        modalAuthor.textContent = authorElement.textContent;
+        
+        // Show modal
+        reviewModal.classList.add('active');
+      });
+    });
+    
+    // Close modal when X is clicked
+    reviewModalClose.addEventListener('click', function() {
+      reviewModal.classList.remove('active');
+    });
+    
+    // Close modal when clicking outside the modal content
+    reviewModal.addEventListener('click', function(e) {
+      if (e.target === reviewModal) {
+        reviewModal.classList.remove('active');
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && reviewModal.classList.contains('active')) {
+        reviewModal.classList.remove('active');
+      }
+    });
+  </script>
+
+  <script>
+    // Mouse trail ombre background effect
+    const section26 = document.getElementById('section2.6');
+    
+    // Store mouse position history for trailing effect
+    const trailPositions = [
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 },
+      { x: 50, y: 50, opacity: 0 }
+    ];
+    
+    document.addEventListener('mousemove', (e) => {
+      const rect = section26.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+      
+      // Shift trail positions and add new one
+      trailPositions.pop();
+      trailPositions.unshift({ x: xPercent, y: yPercent, opacity: 1 });
+      
+      // Update all trail positions
+      trailPositions.forEach((pos, index) => {
+        const opacityFade = (1 - (index / trailPositions.length)) * 0.8;
+        section26.style.setProperty(`--trail-x-${index}`, pos.x + '%');
+        section26.style.setProperty(`--trail-y-${index}`, pos.y + '%');
+        section26.style.setProperty(`--trail-opacity-${index}`, opacityFade);
+      });
+      
+      // Also set main mouse position
+      section26.style.setProperty('--mouse-x', xPercent + '%');
+      section26.style.setProperty('--mouse-y', yPercent + '%');
+    });
+  </script>
+  </div>
+
+  <script>
+    // Section 2.5 - Fade in on scroll
+    gsap.registerPlugin(ScrollTrigger);
+    const section25 = document.getElementById('section2.5');
+    
+    if (section25) {
+      gsap.fromTo(section25, {
+        opacity: 0
+      }, {
+        scrollTrigger: {
+          trigger: section25,
+          start: 'top 80%',
+          end: 'top 30%',
+          scrub: 0.5,
+          markers: false
+        },
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.out'
+      });
+    }
+  </script>
+
+  <script>
+    // Section 2.5 - Interactive galaxy background
+    const section25Bg = document.getElementById('section2.5');
+    if (section25Bg) {
+      let targetX = 50;
+      let targetY = 50;
+      let currentX = 50;
+      let currentY = 50;
+      let targetIntensity = 1;
+      let currentIntensity = 1;
+
+      section25Bg.addEventListener('mousemove', (e) => {
+        const rect = section25Bg.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width) * 100;
+        targetY = ((e.clientY - rect.top) / rect.height) * 100;
+        targetIntensity = 1.35;
+      });
+
+      section25Bg.addEventListener('mouseleave', () => {
+        targetX = 50;
+        targetY = 50;
+        targetIntensity = 1;
+      });
+
+      function animateGalaxy() {
+        const ease = 0.08;
+        currentX += (targetX - currentX) * ease;
+        currentY += (targetY - currentY) * ease;
+        currentIntensity += (targetIntensity - currentIntensity) * ease;
+
+        section25Bg.style.setProperty('--g-x', `${currentX}%`);
+        section25Bg.style.setProperty('--g-y', `${currentY}%`);
+        section25Bg.style.setProperty('--g-intensity', currentIntensity.toFixed(2));
+
+        requestAnimationFrame(animateGalaxy);
+      }
+      animateGalaxy();
+    }
+  </script>
+
+  <div id="section3">
+    <canvas id="scrollCanvas"></canvas>
+    <div class="video-scroll-spacer"></div>
+    <div id="myText">Explore resources across the country!</div>
+    
+    <!-- Newsletter Section -->
+    <div id="newsletterSection" class="newsletter-overlay">
+      <div class="newsletter-content">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Stay updated with the latest resources and opportunities!</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Shooting star animation
+    const subscribeForm = document.getElementById('subscribeForm');
+    const shootingStarCanvas = document.getElementById('shootingStarCanvas');
+    const ctx = shootingStarCanvas.getContext('2d');
+      
+      function resizeCanvas() {
+        shootingStarCanvas.width = shootingStarCanvas.offsetWidth;
+        shootingStarCanvas.height = shootingStarCanvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+      
+      subscribeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('emailInput').value;
+        
+        if (email) {
+          // Trigger shooting star animation and show message when complete
+          createShootingStar(() => {
+            // Show success message after animation completes
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            subscribeForm.reset();
+          });
+        }
+      });
+      
+      // Close button functionality
+      const closeBtn = document.getElementById('closeMessage');
+      const successMsg = document.getElementById('successMessage');
+      closeBtn.addEventListener('click', () => {
+        successMsg.classList.remove('show');
+      });
+      
+      function createShootingStar(onComplete) {
+        // Single detailed shooting star - arc from bottom left to top right
+        const startX = -100;
+        const startY = shootingStarCanvas.height + 50;
+        const endX = shootingStarCanvas.width + 100;
+        const endY = -50;
+        
+        const star = {
+          progress: 0,
+          x: startX,
+          y: startY,
+          prevX: startX,
+          prevY: startY,
+          length: 600,
+          speed: 0.012,
+          opacity: 1,
+          size: 15,
+          particles: [],
+          startX: startX,
+          startY: startY,
+          endX: endX,
+          endY: endY
+        };
+        
+        // Create trailing particles
+        for (let i = 0; i < 30; i++) {
+          star.particles.push({
+            x: star.x,
+            y: star.y,
+            size: 3 + Math.random() * 3,
+            opacity: 1 - (i * 0.033),
+            offsetX: (Math.random() - 0.5) * 20,
+            offsetY: (Math.random() - 0.5) * 20
+          });
+        }
+        
+        function animate() {
+          ctx.clearRect(0, 0, shootingStarCanvas.width, shootingStarCanvas.height);
+          
+          if (star.progress < 1 && star.opacity > 0) {
+            // Calculate position along diagonal line (linear interpolation)
+            star.progress += star.speed;
+            const t = Math.min(star.progress, 1);
+            
+            // Linear interpolation for straight diagonal path
+            star.prevX = star.x;
+            star.prevY = star.y;
+            star.x = star.startX + (star.endX - star.startX) * t;
+            star.y = star.startY + (star.endY - star.startY) * t;
+            
+            // Calculate direction for trail (constant angle for diagonal)
+            const dx = star.endX - star.startX;
+            const dy = star.endY - star.startY;
+            const angle = Math.atan2(dy, dx);
+            
+            // Calculate trail end point
+            const trailEndX = star.x - Math.cos(angle) * star.length;
+            const trailEndY = star.y - Math.sin(angle) * star.length;
+            
+            // Draw main trail with ultra-detailed gradient
+            const gradient = ctx.createLinearGradient(
+              star.x, star.y,
+              trailEndX, trailEndY
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
+            gradient.addColorStop(0.1, `rgba(245, 248, 255, ${star.opacity * 0.95})`);
+            gradient.addColorStop(0.25, `rgba(222, 226, 253, ${star.opacity * 0.85})`);
+            gradient.addColorStop(0.4, `rgba(188, 202, 251, ${star.opacity * 0.65})`);
+            gradient.addColorStop(0.55, `rgba(165, 186, 243, ${star.opacity * 0.5})`);
+            gradient.addColorStop(0.7, `rgba(138, 172, 235, ${star.opacity * 0.35})`);
+            gradient.addColorStop(0.82, `rgba(108, 97, 175, ${star.opacity * 0.18})`);
+            gradient.addColorStop(0.92, `rgba(91, 77, 154, ${star.opacity * 0.08})`);
+            gradient.addColorStop(1, `rgba(91, 77, 154, 0)`);
+            
+            // Draw multiple trail layers for depth
+            // Outer glow layer
+            ctx.shadowBlur = 70;
+            ctx.shadowColor = `rgba(188, 202, 251, ${star.opacity * 0.7})`;
+            ctx.strokeStyle = `rgba(222, 226, 253, ${star.opacity * 0.2})`;
+            ctx.lineWidth = star.size * 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(trailEndX, trailEndY);
+            ctx.stroke();
+            
+            // Middle glow layer
+            ctx.shadowBlur = 45;
+            ctx.shadowColor = `rgba(222, 226, 253, ${star.opacity * 0.8})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${star.opacity * 0.4})`;
+            ctx.lineWidth = star.size * 3;
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(trailEndX + Math.cos(angle) * star.length * 0.2, trailEndY + Math.sin(angle) * star.length * 0.2);
+            ctx.stroke();
+            
+            // Main trail
+            ctx.shadowBlur = 25;
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = star.size * 1.8;
+            ctx.beginPath();
+            ctx.moveTo(star.x, star.y);
+            ctx.lineTo(trailEndX, trailEndY);
+            ctx.stroke();
+            
+            // Draw trailing particles
+            star.particles.forEach((particle, i) => {
+              // Update particle positions to follow the star
+              if (i === 0) {
+                particle.x = star.prevX;
+                particle.y = star.prevY;
+              } else {
+                const lag = 0.3;
+                particle.x += (star.particles[i-1].x - particle.x) * lag;
+                particle.y += (star.particles[i-1].y - particle.y) * lag;
+              }
+              
+              ctx.shadowBlur = 20;
+              ctx.shadowColor = `rgba(188, 202, 251, ${particle.opacity * star.opacity})`;
+              ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity * star.opacity * 0.8})`;
+              ctx.beginPath();
+              ctx.arc(particle.x + particle.offsetX, particle.y + particle.offsetY, particle.size, 0, Math.PI * 2);
+              ctx.fill();
+            });
+            
+            // Draw bright star head with multiple layers
+            // Outer halo
+            ctx.shadowBlur = 80;
+            ctx.shadowColor = `rgba(138, 172, 235, ${star.opacity})`;
+            ctx.fillStyle = `rgba(188, 202, 251, ${star.opacity * 0.3})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 2.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Middle glow
+            ctx.shadowBlur = 55;
+            ctx.shadowColor = `rgba(222, 226, 253, ${star.opacity})`;
+            ctx.fillStyle = `rgba(245, 248, 255, ${star.opacity * 0.7})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Bright core
+            ctx.shadowBlur = 35;
+            ctx.shadowColor = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Ultra-bright center
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            
+            // Fade out slower for dramatic effect
+            if (star.progress > 0.7) {
+              star.opacity -= 0.008;
+            }
+            
+            requestAnimationFrame(animate);
+          } else {
+            ctx.clearRect(0, 0, shootingStarCanvas.width, shootingStarCanvas.height);
+            // Call callback when animation completes
+            if (onComplete) onComplete();
+          }
+        }
+        
+        animate();
+      }
+    
+  </script>
+
+  <div id="section4">
+    <h1 style="text-align:center; margin-top:0;">Explore by State</h1>
+
+    <div id="mapContainer" style="padding:24px; display:flex; justify-content:center;">
+      <!-- map grid inserted by main.js -->
+    </div>
+
+    <!-- Popup for state details (moved to body by JS when opened) -->
+    <div id="statePopup" class="state-popup" role="dialog" aria-hidden="true">
+      <button id="closeStatePopup" class="state-popup-close" aria-label="Close">✕</button>
+      <header class="state-popup-header">
+        <h2 id="statePopupTitle">State</h2>
+      </header>
+      <div id="stateCarousel" class="state-carousel" aria-hidden="true"></div>
+      <div id="statePopupContent"></div>
+      <div class="state-popup-actions">
+        <button id="addEntryFromMap" class="btn">Want to add an entry?</button>
+        <button id="discoverResourcesFromMap" class="btn secondary">Discover other Resources</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
