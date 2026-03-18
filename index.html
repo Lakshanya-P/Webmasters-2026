@@ -448,9 +448,11 @@
     <!-- A Look Through Our Site Section -->
 
     <section id="site-look-section" style="margin:0;padding:0; min-height:1200px;">
-	<div class="site-look-bg" style="min-height:1200px;">
-	    <canvas id="site-look-canvas" style="min-height:1200px; height:1200px; width:100%; display:block;"></canvas>
-	    <div class="site-look-content">
+	<div class="site-look-bg" style="min-height:2200px;">
+	<canvas id="site-look-canvas" style="min-height:2200px; height:1200px; width:100%; display:block;"></canvas>
+		<div style="position:relative; min-height:350px;">
+			<canvas id="site-look-nebula-canvas" style="position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:calc(100% + 200px); height:calc(100% + 200px); z-index:0; pointer-events:none; display:block;"></canvas>
+			<div class="site-look-content" style="position:relative; z-index:1; min-height:350px; margin-bottom:450px;">
 			<h2>A Look Through Our Site</h2>
 			<div class="site-links">
 				<a href="directory.html" class="site-link-card">Resource Hub</a>
@@ -458,11 +460,12 @@
 				<a href="refs.html" class="site-link-card">References</a>
 				<a href="faqs.html" class="site-link-card">FAQs</a>
 				<a href="selfcare.html" class="site-link-card">Self Care</a>
+				</div>
 			</div>
 		</div>
 
 		<div id="reviews" class="reviews-white-text" style="position:relative; overflow:hidden; min-height:1000px; height:auto; width:100vw; max-width:100%; display:flex; align-items:center; justify-content:center;">
-			<canvas id="reviews-galaxy-canvas" style="position:absolute; top:0; left:0; width:35vw; height:35vw; min-width:350px; min-height:350px; max-width:450px; max-height:450px; z-index:1; pointer-events:none;"></canvas>
+			<canvas id="reviews-galaxy-canvas" style="position:absolute; top:0; left:0; width:35vw; height:35vw; min-width:350px; min-height:350px; max-width:450px; max-height:450px; z-index:1; pointer-events:none;"></canvas> 
 			<div class="reviews-container" style="min-height:1000px; width:100vw; max-width:1200px; margin:auto; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; z-index:2;">
 				<h2 class="reviews-title">✨Student Reviews ✨</h2>
 				<p class="reviews-subtitle">Click on any planet <br>to read a full review!</p>
@@ -494,14 +497,47 @@
 	 </section>
 
 	<script>
+	// --- Extra Nebula Blue Background for site-look-content ---
+	function drawNebula(ctx, w, h) {
+		ctx.clearRect(0, 0, w, h);
+		// More oval nebula: vertical radius is 50% of horizontal
+		h=h*.25;
+		let rx = w * 0.5;
+		let ry = h * 0.05;
+		let grad = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, rx);
+		grad.addColorStop(0, 'rgba(160,200,255,0.65)');
+		grad.addColorStop(0.3, 'rgba(120,180,255,0.38)');
+		grad.addColorStop(0.7, 'rgba(80,140,255,0.18)');
+		grad.addColorStop(1, 'rgba(40,80,180,0.04)');
+		ctx.save();
+		ctx.translate(w/2, h/2);
+		ctx.scale(1, ry/rx);
+		ctx.beginPath();
+		ctx.arc(0, 0, rx, 0, 2*Math.PI);
+		ctx.fillStyle = grad;
+		ctx.globalAlpha = 1.0;
+		ctx.fill();
+		ctx.restore();
+	}
 // Dynamic galaxy background for 'A Look Through Our Site' section
 const siteLookSection = document.getElementById('site-look-section');
 const siteLookCanvas = document.getElementById('site-look-canvas');
 const siteLookCtx = siteLookCanvas.getContext('2d');
+const siteLookNebulaCanvas = document.getElementById('site-look-nebula-canvas');
+const siteLookNebulaCtx = siteLookNebulaCanvas ? siteLookNebulaCanvas.getContext('2d') : null;
 function resizeSiteLookCanvas() {
 	siteLookCanvas.width = siteLookSection.offsetWidth;
-	// Set a minimum height for the canvas to ensure it fills the section visually
 	siteLookCanvas.height = Math.max(siteLookSection.offsetHeight, 1200);
+	if (siteLookNebulaCanvas && siteLookNebulaCtx) {
+		// Make nebula canvas 200px wider and 150px taller than content, centered (50px less at bottom)
+		const nebulaWrapper = siteLookNebulaCanvas.parentElement;
+		const nebulaW = nebulaWrapper.offsetWidth + 200;
+		const nebulaH = nebulaWrapper.offsetHeight + 10;
+		siteLookNebulaCanvas.style.width = nebulaW + 'px';
+		siteLookNebulaCanvas.style.height = nebulaH + 'px';
+		siteLookNebulaCanvas.width = nebulaW;
+		siteLookNebulaCanvas.height = nebulaH;
+	}
 }
 window.addEventListener('resize', resizeSiteLookCanvas);
 resizeSiteLookCanvas();
@@ -556,39 +592,47 @@ function drawSiteLookGalaxy(ctx, w, h, specs) {
 		ctx.shadowBlur = 0;
 	});
 }
+
+function drawNebula(ctx, w, h){
+	ctx.clearRect(0, 0, w, h);
+	// Centered nebula
+	h = h*.5;
+	let nebulaRadius = Math.max(w, h) * 0.5;
+	let grad = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, nebulaRadius);
+	grad.addColorStop(0, 'rgba(160,200,255,0.65)');
+	grad.addColorStop(0.3, 'rgba(120,180,255,0.38)');
+	grad.addColorStop(0.7, 'rgba(80,140,255,0.18)');
+	grad.addColorStop(1, 'rgba(40,80,180,0.04)');
+	ctx.beginPath();
+	ctx.arc(w/2, h/2, nebulaRadius, 0, 2*Math.PI);
+	ctx.fillStyle = grad;
+	ctx.globalAlpha = 1.0;
+	ctx.fill();
+}
+
 function animateSiteLookGalaxy() {
 	drawSiteLookGalaxy(siteLookCtx, siteLookCanvas.width, siteLookCanvas.height, siteSpecs);
+	if (siteLookNebulaCtx && siteLookNebulaCanvas) {
+		drawNebula(siteLookNebulaCtx, siteLookNebulaCanvas.width, siteLookNebulaCanvas.height);
+	}
 	requestAnimationFrame(animateSiteLookGalaxy);
 }
 animateSiteLookGalaxy();
 
 // --- Reviews Section Galaxy Background ---
+// Remove twinkling stars: just fill with a static dark background
 const reviewsSection = document.getElementById('reviews');
 const reviewsGalaxyCanvas = document.getElementById('reviews-galaxy-canvas');
-const reviewsSpecs = Array.from({length: 90}, (_, i) => ({
-	x: Math.random(),
-	y: Math.random(),
-	r: 1.2 + Math.random() * 2.5,
-	speed: 0.08 + Math.random() * 0.18,
-	twinkle: Math.random() * Math.PI * 2,
-	color: [
-		'#8a87b3','#8792b8','#b7cdf2','#bbb6de','#dce4fb','#5f73a0','#c3bfe9','#9fb3e3','#5b6fa3','#c3bfe9',
-		'#8fa3cf','#f1f3ff','#ada6de','#6f86b8','#8a8db3','#a39bdb','#b4c7eb','#b1b2cf','#6c6a86','#7f97c7',
-		'#9db3e0','#8a89ad','#9f94d2','#9bb0dc','#a5a3c6','#7c74ad','#d3defa','#7e7ba2','#8f86c2'
-	][i % 29]
- }));
 function resizeReviewsGalaxyCanvas() {
 	reviewsGalaxyCanvas.width = reviewsSection.offsetWidth;
-	// Set a minimum height for the canvas to ensure it fills the section visually
 	reviewsGalaxyCanvas.height = Math.max(reviewsSection.offsetHeight, 1000);
 }
 window.addEventListener('resize', resizeReviewsGalaxyCanvas);
 resizeReviewsGalaxyCanvas();
-function animateReviewsGalaxy() {
-	drawSiteLookGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanvas.width, reviewsGalaxyCanvas.height, reviewsSpecs);
-	requestAnimationFrame(animateReviewsGalaxy);
+function drawStaticReviewsGalaxy(ctx, w, h) {
+	ctx.clearRect(0, 0, w, h);
 }
-animateReviewsGalaxy();
+drawStaticReviewsGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanvas.width, reviewsGalaxyCanvas.height);
 	// --- Solar System Reviews Animation and Modal ---
 	const planetData = [
 		{
