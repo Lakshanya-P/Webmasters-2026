@@ -29,8 +29,32 @@ window.addEventListener('DOMContentLoaded', function() {
   dipperStars.forEach((star, i) => {
     const pos = starPositions[i];
     if (!pos) return;
-    star.style.left = (pos.x - (star.classList.contains('main-star') ? 12 : 6)) + 'px';
-    star.style.top = (pos.y - (star.classList.contains('main-star') ? 12 : 6)) + 'px';
+    // Move main stars (0-4) down by 20px, but for 0,1,2,3 also up 10px and left 10px
+    const isMain = star.classList.contains('main-star');
+    let xOffset = 0, yOffset = 0;
+    if (isMain && i <= 4) {
+      yOffset = 20;
+      if (i === 0 || i === 1 || i === 2 || i === 3) {
+        xOffset = -10;
+        yOffset = 20 - 10; // net +10px down
+      }
+      // Additional fine adjustment for References (2) and Highlights (1)
+      if (i === 1 || i === 2) {
+        xOffset -= 15; // previous -5, now -5-10 = -15
+        yOffset -= 5;
+      }
+      // Move Resource Hub (0) up by 2px and left by 5px
+      if (i === 0) {
+        xOffset = -37;
+        yOffset -= 9;
+      }
+      // Move FAQs (3) up by 3px
+      if (i === 3) {
+        yOffset -= 3;
+      }
+    }
+    star.style.left = (pos.x - (isMain ? 12 : 6) + xOffset) + 'px';
+    star.style.top = (pos.y - (isMain ? 12 : 6) + yOffset) + 'px';
   });
   // Draw constellation lines (connect main stars and extras for shape)
   function drawDipper(highlightIdx = null) {
@@ -40,20 +64,10 @@ window.addEventListener('DOMContentLoaded', function() {
     ctx.lineWidth = 2.2;
     ctx.globalAlpha = 0.38;
     ctx.beginPath();
-    // Get DOM centers for main stars (0-4)
-    const mainStars = document.querySelectorAll('.bigdipper-star.main-star');
-    const canvasRect = dipperCanvas.getBoundingClientRect();
+    // Always use original starPositions for lines (not visually offset)
     let centers = [];
     for (let i = 0; i < 5; i++) {
-      if (mainStars[i]) {
-        const rect = mainStars[i].getBoundingClientRect();
-        centers[i] = {
-          x: rect.left + rect.width/2 - canvasRect.left,
-          y: rect.top + rect.height/2 - canvasRect.top
-        };
-      } else {
-        centers[i] = { x: starPositions[i].x, y: starPositions[i].y };
-      }
+      centers[i] = { x: starPositions[i].x, y: starPositions[i].y };
     }
     // Draw pot (0-1-2-3-0)
     ctx.moveTo(centers[4].x, centers[4].y);
@@ -72,7 +86,6 @@ window.addEventListener('DOMContentLoaded', function() {
       ctx.strokeStyle = '#fff';
       ctx.lineWidth = 3.2;
       ctx.beginPath();
-      // Draw lines from this star to its neighbors in the dipper
       const neighbors = [
         [1],    // 0
         [0,2],  // 1
