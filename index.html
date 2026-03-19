@@ -19,12 +19,6 @@
 </head>
 
 <body>
-<!-- Loading Overlay -->
-<div id="preloader-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(10,18,30,0.98);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.4s;">
-	<div style="color:#fff;font-size:2.2rem;letter-spacing:0.1em;margin-bottom:24px;">Loading...</div>
-	<div style="border: 7px solid #f3f3f3; border-top: 7px solid #6782bf; border-radius: 50%; width: 64px; height: 64px; animation: spin 1s linear infinite;"></div>
-</div>
-<style>@keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }</style>
 <header>
 	<div id="topnav">
         <img id="activepg" src="assets/hotbar logo.PNG">
@@ -87,58 +81,8 @@
 	<video id="galaxy-video" src="assets/final_home.MP4" preload="auto" playsinline style="display:none" muted></video>
 
 	<script>
-
-	// Robust preloader: wait for all animation assets (images, video, fonts) before starting
-	const preloader = document.getElementById('preloader-overlay');
-	const video = document.getElementById('galaxy-video');
-	const font1 = new FontFace('SN Pro', 'url(https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap)');
-	const font2 = new FontFace('Google Sans', 'url(https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap)');
-
-	// Gather all images used in the animation (add more if needed)
-	const animationImages = [];
-	// Example: animationImages.push('assets/your_animation_image.png');
-
-	function loadImage(src) {
-		return new Promise((resolve, reject) => {
-			const img = new window.Image();
-			img.onload = resolve;
-			img.onerror = reject;
-			img.src = src;
-		});
-	}
-
-	function waitForFonts() {
-		// Use document.fonts.ready for all CSS fonts
-		return document.fonts.ready;
-	}
-
-	function waitForVideo(vid) {
-		return new Promise((resolve) => {
-			if (vid.readyState >= 4) resolve();
-			else vid.addEventListener('canplaythrough', resolve, { once: true });
-		});
-	}
-
-	async function robustPreloadAndStart() {
-		try {
-			// Wait for all animation images
-			await Promise.all(animationImages.map(loadImage));
-			// Wait for video
-			await waitForVideo(video);
-			// Wait for fonts
-			await waitForFonts();
-		} catch (e) {
-			console.warn('Some assets failed to preload:', e);
-		}
-		// Hide preloader and start animation
-		if (preloader) {
-			preloader.style.opacity = 0;
-			setTimeout(() => { preloader.style.display = 'none'; }, 400);
-		}
-		startWormholeSequence();
-	}
-
-	window.addEventListener('load', robustPreloadAndStart);
+	// Always play animation and video on reload
+	startWormholeSequence();
 
 	function startWormholeSequence() {
 		const container = document.getElementById('wormhole-container');
@@ -508,14 +452,35 @@
 	<canvas id="site-look-canvas" style="min-height:2200px; height:1200px; width:100%; display:block;"></canvas>
 		<div style="position:relative; min-height:350px;">
 			<canvas id="site-look-nebula-canvas" style="position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:calc(100% + 200px); height:calc(100% + 400px); z-index:0; pointer-events:none; display:block;"></canvas>
-			<div class="site-look-content" style="position:relative; z-index:1; min-height:350px; margin-bottom:450px; margin-top: 60px;">
-			<h2>A Look Through Our Site</h2>
-			<div class="site-links">
-				<a href="directory.html" class="site-link-card">Resource Hub</a>
-				<a href="highlights.html" class="site-link-card">Highlights</a>
-				<a href="refs.html" class="site-link-card">References</a>
-				<a href="faqs.html" class="site-link-card">FAQs</a>
-				<a href="selfcare.html" class="site-link-card">Self Care</a>
+			<div class="site-look-content bigdipper-constellation-content" style="position:relative; z-index:1; min-height:420px; margin-bottom:450px; margin-top: 60px;">
+				<h2 style="text-align:center;">A Look Through Our Site</h2>
+				<div class="bigdipper-constellation-wrapper">
+					<canvas id="bigdipper-canvas" width="600" height="340" style="width:100%;max-width:600px;height:340px;display:block;margin:0 auto 24px auto;"></canvas>
+					<div class="bigdipper-stars">
+						<a href="directory.html" class="bigdipper-star main-star" data-star="0">
+							<span class="star-label">Resource Hub</span>
+							<span class="star-desc">Your launchpad to every student resource in the galaxy!</span>
+						</a>
+						<a href="highlights.html" class="bigdipper-star main-star" data-star="1">
+							<span class="star-label">Highlights</span>
+							<span class="star-desc">Spotlight on the brightest student stories and tips.</span>
+						</a>
+						<a href="refs.html" class="bigdipper-star main-star" data-star="2">
+							<span class="star-label">References</span>
+							<span class="star-desc">A constellation of trusted sources and guides.</span>
+						</a>
+						<a href="faqs.html" class="bigdipper-star main-star" data-star="3">
+							<span class="star-label">FAQs</span>
+							<span class="star-desc">Answers to cosmic questions, big and small.</span>
+						</a>
+						<a href="selfcare.html" class="bigdipper-star main-star" data-star="4">
+							<span class="star-label">Self Care</span>
+							<span class="star-desc">Recharge your rocket: wellness for every explorer.</span>
+						</a>
+						<!-- Extra small stars for the Big Dipper shape (not interactive) -->
+						<span class="bigdipper-star extra-star" data-star="5"></span>
+						<span class="bigdipper-star extra-star" data-star="6"></span>
+					</div>
 				</div>
 			</div>
 		</div>
