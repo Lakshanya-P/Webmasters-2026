@@ -80,27 +80,6 @@ window.addEventListener('DOMContentLoaded', function() {
     ctx.lineTo(starPositions[5].x, starPositions[5].y);
     ctx.lineTo(starPositions[6].x, starPositions[6].y);
     ctx.stroke();
-    // Highlight lines if hovering
-    if (highlightIdx !== null && highlightIdx < 5) {
-      ctx.globalAlpha = 0.85;
-      ctx.strokeStyle = '#fff';
-      ctx.lineWidth = 3.2;
-      ctx.beginPath();
-      const neighbors = [
-        [1],    // 0
-        [0,2],  // 1
-        [1,3],  // 2
-        [2,4],  // 3
-        [3,5],  // 4
-      ];
-      neighbors[highlightIdx].forEach(nIdx => {
-        const from = centers[highlightIdx] || starPositions[highlightIdx];
-        const to = (nIdx < 5 ? centers[nIdx] : starPositions[nIdx]);
-        ctx.moveTo(from.x, from.y);
-        ctx.lineTo(to.x, to.y);
-      });
-      ctx.stroke();
-    }
     ctx.restore();
   }
   drawDipper();
