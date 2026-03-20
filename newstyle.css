@@ -672,13 +672,23 @@ html, body {
 	margin: 0 auto;
 	display: block;
 }
-.site-look-content h2 {
-	font-size: 2.1rem;
+.site-look-content h2, .reviews-title {
+	font-size: 3em;
 	font-weight: 800;
-	color: #b7cdf2;
-	margin-bottom: 24px;
+	color: #ffffff;
+	margin-bottom: 25px;
 	letter-spacing: 0.01em;
 	text-shadow: 0 2px 12px rgba(120,160,255,0.13);
+	font-family: 'Suika', "Google Sans", sans-serif;
+}
+.site-look-content h3, .reviews-subtitle {
+	font-size: 1.3em;
+	font-weight: 100;
+	color: #ffffff;
+	margin-bottom: 0px;
+	letter-spacing: 0.01em;
+	text-shadow: 0 2px 12px rgba(120,160,255,0.13);
+	font-family:  "Google Sans", sans-serif;
 }
 .site-links {
 	display: flex;
@@ -763,12 +773,13 @@ html, body {
 	font-family: "Google Sans", "SN Pro", Arial, sans-serif;
 }
 .galaxy-welcome-content h1 {
-	font-size: 2.5rem;
+	font-size: 3rem;
 	font-weight: 800;
 	color: #3a4a7c;
 	margin-bottom: 18px;
 	letter-spacing: 0.01em;
 	text-shadow: 0 2px 12px rgba(120,160,255,0.08);
+	font-family: 'Suika', "Google Sans", sans-serif;
 }
 .galaxy-welcome-content p {
 	font-size: 1.18rem;
@@ -805,4 +816,14 @@ html, body {
 	font-family: 'Suika', "Google Sans", sans-serif;
     margin-top: 100px;
     font-size: 300px;
+}
+
+/* --- Force reviews text above all --- */
+.reviews-header-wrapper {
+  position: relative !important;
+  z-index: 1000 !important;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
