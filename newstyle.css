@@ -1,4 +1,90 @@
 /* --- Big Dipper Constellation Section --- */
+/* Newsletter Space-Themed Subscription Styles */
+.newsletter-space {
+	background: linear-gradient(120deg, #eaf1ff 60%, #dbeafe 100%);
+	border-radius: 32px;
+	box-shadow: 0 8px 32px 0 rgba(138, 172, 235, 0.18), 0 0 0 2px #b6d0ff33;
+	padding: 44px 32px 36px 32px;
+	max-width: 420px;
+	margin: 48px auto 32px auto;
+	position: relative;
+	overflow: visible;
+	text-align: center;
+	font-family: 'Google Sans', Arial, sans-serif;
+}
+.newsletter-header h2 {
+	font-family: 'Astroz', 'Google Sans', Arial, sans-serif;
+	font-size: 2.1rem;
+	color: #2c225f;
+	margin-bottom: 10px;
+	letter-spacing: 0.04em;
+	text-shadow: 0 2px 12px #b6d0ff44;
+}
+.newsletter-desc {
+	color: #355495;
+	font-size: 1.1rem;
+	margin-bottom: 22px;
+}
+.newsletter-form {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	margin-bottom: 18px;
+}
+.newsletter-input {
+	padding: 12px 18px;
+	border-radius: 18px;
+	border: 1.5px solid #b6d0ff;
+	font-size: 1rem;
+	outline: none;
+	background: #fff;
+	color: #2c225f;
+	box-shadow: 0 2px 8px #b6d0ff22;
+	transition: border 0.2s, box-shadow 0.2s;
+}
+.newsletter-input:focus {
+	border-color: #8aaceb;
+	box-shadow: 0 0 0 3px #b6d0ff55;
+}
+.newsletter-btn {
+	background: linear-gradient(90deg, #b6d0ff 0%, #8aaceb 100%);
+	color: #2c225f;
+	border: none;
+	border-radius: 18px;
+	padding: 12px 28px;
+	font-size: 1rem;
+	font-family: 'Google Sans', Arial, sans-serif;
+	font-weight: 600;
+	box-shadow: 0 2px 8px 0 #b6d0ff33;
+	cursor: pointer;
+	transition: background 0.2s, box-shadow 0.2s;
+}
+.newsletter-btn:hover {
+	background: linear-gradient(90deg, #8aaceb 0%, #b6d0ff 100%);
+	box-shadow: 0 4px 16px 0 #b6d0ff44;
+}
+.newsletter-planet {
+	margin-bottom: 10px;
+	filter: drop-shadow(0 0 16px #b6d0ff88);
+}
+.newsletter-stars {
+	position: absolute;
+	top: 0; left: 0; width: 100%; height: 100%;
+	pointer-events: none;
+	z-index: 0;
+}
+.newsletter-stars .star {
+	position: absolute;
+	width: 8px; height: 8px;
+	background: radial-gradient(circle, #fff 60%, #b6d0ff 100%);
+	border-radius: 50%;
+	opacity: 0.85;
+	animation: twinkle 2.5s infinite alternate;
+}
+@keyframes twinkle {
+	0% { opacity: 0.7; transform: scale(1); }
+	100% { opacity: 1; transform: scale(1.25); }
+}
 .bigdipper-constellation-content {
 	display: flex;
 	flex-direction: column;
@@ -810,12 +896,6 @@ html, body {
 	src: url('fonts/Suika-DEMO.otf') format('opentype');
 	font-weight: normal;
 	font-style: normal;
-}
-
-#test{
-	font-family: 'Suika', "Google Sans", sans-serif;
-    margin-top: 100px;
-    font-size: 300px;
 }
 
 /* --- Force reviews text above all --- */

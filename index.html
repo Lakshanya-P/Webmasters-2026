@@ -487,13 +487,13 @@
 		</div>
 
 		<div id="reviews" class="reviews-white-text" style="position:relative; overflow:hidden; height:auto; width:100vw; max-width:100%; display:flex; align-items:center; justify-content:center;">
-			<canvas id="reviews-galaxy-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; min-width:550px; pointer-events:none;"></canvas>
+			<canvas id="reviews-galaxy-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; min-width:550px; min-height:850px; max-height:900px; pointer-events:none;"></canvas>
 			<div class="reviews-container" style="width:100vw; max-width:1200px; margin:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; position:relative; z-index:2;">
 				<div class="reviews-header-wrapper">
 					<h2 class="reviews-title">✨Student Reviews✨</h2>
 					<p class="reviews-subtitle">Click on any planet to read a full review!</p>
 				</div>
-				<div class="reviews-grid" id="solar-system-reviews" style="min-height:750px; min-width:550px; width:55vw; height:55vw; max-width:650px; max-height:750px; margin:auto; position:relative; display:block;">
+				<div class="reviews-grid" id="solar-system-reviews" style="min-height:950px; min-width:550px; width:55vw; height:60vw; max-width:650px; max-height:1000px; top:-60px; position:relative; display:block;">
 					<div class="sun-center" style="position:absolute; left:50%; top:50%; width:120px; height:120px; margin-left:-60px; margin-top:-60px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #fff 80%, #ffe066 100%, #f9d423 120%); box-shadow:0 0 60px 20px #ffe06699, 0 0 120px 40px #f9d42355;"></div>
 					<div class="planet" data-review="0"></div>
 					<div class="planet" data-review="1"></div>
@@ -509,6 +509,29 @@
 					<span class="close-modal" id="close-review-modal">&times;</span>
 					<div id="modal-review-content"></div>
 				</div>
+			</div>
+		</div>
+
+		<div id="subscribe">
+			<div class="newsletter-space">
+				<div class="newsletter-stars">
+					<span class="star" style="top:12%;left:8%;width:8px;height:8px;"></span>
+					<span class="star" style="top:22%;left:88%;width:6px;height:6px;"></span>
+					<span class="star" style="top:60%;left:18%;width:7px;height:7px;"></span>
+					<span class="star" style="top:80%;left:70%;width:5px;height:5px;"></span>
+					<span class="star" style="top:40%;left:50%;width:9px;height:9px;"></span>
+				</div>
+				<div class="newsletter-header">
+					<h2>Subscribe to Our Space Newsletter</h2>
+				</div>
+				<div class="newsletter-desc">
+					Get monthly updates about programs, opportunities, and cosmic events. Join our crew and never miss a launch!
+				</div>
+				<form class="newsletter-form" autocomplete="off">
+					<input class="newsletter-input" type="email" name="email" placeholder="Your email address" required />
+					<button class="newsletter-btn" type="submit">Subscribe 🚀</button>
+				</form>
+				<img class="newsletter-planet" src="assets/planets/planet1.png" alt="Planet" width="64" height="64" style="margin-top:10px;" />
 			</div>
 		</div>
 
@@ -954,11 +977,6 @@ drawStaticReviewsGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanva
 		mouseY = welcomeSection.offsetHeight/2;
 	});
 	</script>
-
-
-<div>
-	<h1 id="test"> STAR PATH </h1>
-</div>
 
 </body>
 

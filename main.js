@@ -274,3 +274,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') closeModal();
   });
 });
+
+// --- Navbar Navigation Functions (Universal) ---
+function home() {
+  window.location.href = 'index.html';
+}
+function resource() {
+  window.location.href = 'directory.html';
+}
+function highlights() {
+  window.location.href = 'highlights.html';
+}
+function references() {
+  window.location.href = 'refs.html';
+}
+// Add more as needed for other nav buttons
