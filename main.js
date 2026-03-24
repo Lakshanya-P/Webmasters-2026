@@ -448,21 +448,18 @@ function showMeteorAnimation() {
   const oldMeteor = document.getElementById('meteor-animation');
   if (oldMeteor) oldMeteor.remove();
 
-  // Get viewport size
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
 
-  // Find newsletter-space position (for aiming)
-  const newsletter = document.querySelector('.newsletter-space');
-  if (!newsletter) return;
-  const rect = newsletter.getBoundingClientRect();
+  // Find #subscribe section position (for aiming)
+  const subscribe = document.getElementById('subscribe');
+  if (!subscribe) return;
+  const rect = subscribe.getBoundingClientRect();
 
-  // Start at bottom left corner of the screen
-  const startX = -120;
-  const startY = vh + 120;
-  // End at top right of newsletter (with some offset)
-  const endX = rect.right + 160;
-  const endY = rect.top - 160;
+  // Start at absolute bottom left corner of #subscribe
+  const startX = -600;
+  const startY = rect.bottom - 100;
+  // End at top right corner of #subscribe
+  const endX = rect.right + 100;
+  const endY = rect.top-305;
 
   // Create meteor container (behind newsletter)
   const meteor = document.createElement('div');
@@ -478,63 +475,28 @@ function showMeteorAnimation() {
 
   // Enhanced meteor HTML: single, large, detailed head, more effects
   meteor.innerHTML = `
-    <div class="meteor-tail meteor-tail-outer"></div>
-    <div class="meteor-tail meteor-tail-color"></div>
-    <div class="meteor-tail meteor-tail-glow"></div>
-    <div class="meteor-tail meteor-tail-main"></div>
-    <div class="meteor-sparks">
-      <span class="spark" style="--i:0"></span>
-      <span class="spark" style="--i:1"></span>
-      <span class="spark" style="--i:2"></span>
-      <span class="spark" style="--i:3"></span>
-      <span class="spark" style="--i:4"></span>
-      <span class="spark" style="--i:5"></span>
-      <span class="spark" style="--i:6"></span>
-      <span class="spark" style="--i:7"></span>
-      <span class="spark spark-blue" style="--i:8"></span>
-      <span class="spark spark-white" style="--i:9"></span>
-    </div>
-    <div class="meteor-trail-particles">
-      <span class="trail-particle" style="--j:0"></span>
-      <span class="trail-particle" style="--j:1"></span>
-      <span class="trail-particle" style="--j:2"></span>
-      <span class="trail-particle" style="--j:3"></span>
-      <span class="trail-particle" style="--j:4"></span>
-      <span class="trail-particle" style="--j:5"></span>
-    </div>
-    <div class="meteor-aura"></div>
-    <div class="meteor-shockwave"></div>
-    <div class="meteor-head">
-      <div class="meteor-core meteor-core-glow"></div>
-      <div class="meteor-nucleus"></div>
-      <div class="meteor-core-inner meteor-core-glow"></div>
-      <div class="meteor-core-flicker"></div>
-      <div class="meteor-core-highlight"></div>
-      <div class="meteor-plasma-arc"></div>
-      <div class="meteor-glow meteor-glow-animated"></div>
-      <div class="meteor-rings"></div>
-      <div class="meteor-outline"></div>
+    <div class="meteor-img-wrapper">
+      <img src="assets/meteor.png" alt="Meteor" class="meteor-img" />
     </div>
   `;
 
-  // Calculate angle for rotation (in radians)
+  // Animate the meteor image and sparks across the screen
   const dx = endX - startX;
   const dy = endY - startY;
-  // Rotate slightly less than 90deg (PI/2 - 0.18rad ~ 80deg)
-  const angle = Math.atan2(dy, dx) + Math.PI / 2 - 0.18;
-  // Animate with JS for custom path, rotation, and horizontal flip
+  const duration = 2700;
+  meteor.style.transform = `translate(0px, 0px)`;
+  meteor.style.opacity = 1;
   meteor.animate([
-    { transform: `translate(0px, 0px) scale(-1.1,1.1) rotate(${angle}rad)`, opacity: 1 },
-    { offset: 0.7, opacity: 1 },
-    { transform: `translate(${dx}px, ${dy}px) scale(-0.85,0.85) rotate(${angle}rad)`, opacity: 0 }
+    { transform: `translate(0px, 0px)`, opacity: 1 },
+    { offset: 0.99, opacity: 1 },
+    { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }
   ], {
-    duration: 2000,
+    duration: duration,
     easing: 'cubic-bezier(0.7,0.1,0.9,0.8)',
     fill: 'forwards'
   });
 
-  // Remove after animation
   setTimeout(() => {
     meteor.remove();
-  }, 2100);
+  }, duration + 100);
 }

@@ -1,3 +1,48 @@
+.meteor-img-wrapper {
+	width: 700px;
+	height: 380px;
+	z-index: 10;
+	pointer-events: none;
+}
+.meteor-img {
+	width: 800px;
+	height: 480px;
+	object-fit: contain;
+	display: block;
+	z-index: 11;
+	pointer-events: none;
+}
+.meteor-sparks {
+	position: absolute;
+	left: 60px;
+	top: 10px;
+	width: 120px;
+	height: 80px;
+	pointer-events: none;
+	z-index: 12;
+}
+.meteor-sparks .spark {
+	position: absolute;
+	width: 18px;
+	height: 4px;
+	background: linear-gradient(90deg, #fff 0%, #b6d0ff 100%, transparent 100%);
+	border-radius: 2px;
+	opacity: 0.8;
+	filter: blur(0.5px);
+	animation: spark-fly-img 1.2s linear forwards;
+	animation-delay: calc(var(--i) * 0.12s);
+}
+.meteor-sparks .spark:nth-child(1) { top: 8px; left: 10px; transform: rotate(-12deg); }
+.meteor-sparks .spark:nth-child(2) { top: 30px; left: 40px; transform: rotate(8deg); }
+.meteor-sparks .spark:nth-child(3) { top: 60px; left: 80px; transform: rotate(-6deg); }
+.meteor-sparks .spark:nth-child(4) { top: 20px; left: 100px; transform: rotate(14deg); }
+.meteor-sparks .spark:nth-child(5) { top: 50px; left: 60px; transform: rotate(-4deg); }
+.meteor-sparks .spark-blue { background: linear-gradient(90deg, #b6d0ff 0%, #eaf1ff 100%, transparent 100%); }
+.meteor-sparks .spark-white { background: linear-gradient(90deg, #fff 0%, #eaf1ff 100%, transparent 100%); }
+@keyframes spark-fly-img {
+	0% { opacity: 0.8; transform: scaleX(1) translateX(0); }
+	100% { opacity: 0; transform: scaleX(2.2) translateX(40px); }
+}
 .meteor-head {
 	position: absolute;
 	left: 480px; top: 44px;
