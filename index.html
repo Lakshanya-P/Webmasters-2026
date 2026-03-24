@@ -361,45 +361,6 @@
 							flash.style.transition = 'opacity 0.7s';
 							flash.style.opacity = 0;
 							setTimeout(() => {
-								flash.remove();
-								playGalaxyVideo();
-							}, 700);
-						}, 500);
-					}
-				}
-				animateFlash();
-			}
-
-			function resizeCanvas() {
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
-			}
-		}
-
-		function playGalaxyVideo() {
-			// Second white flash before video appears
-			let flash = document.createElement('div');
-			flash.id = 'white-flash-video';
-			flash.style.position = 'absolute';
-			flash.style.top = 0;
-			flash.style.left = 0;
-			flash.style.width = '100%';
-			flash.style.height = '100%';
-			flash.style.background = 'white';
-			flash.style.opacity = 0;
-			flash.style.zIndex = 3500;
-			flash.style.pointerEvents = 'none';
-			const landingSection2 = document.getElementById('landing-animation-section');
-			if (landingSection2) {
-				landingSection2.appendChild(flash);
-			} else {
-				document.body.appendChild(flash);
-			}
-
-			let flashProgress = 0;
-			function animateFlashVideo() {
-				flashProgress += 0.07;
-				flash.style.opacity = Math.min(1, flashProgress * 2);
 				flash.style.transform = `scale(${1 + flashProgress * 2})`;
 				if (flashProgress < 0.5) {
 					requestAnimationFrame(animateFlashVideo);
