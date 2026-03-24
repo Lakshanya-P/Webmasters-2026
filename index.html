@@ -1,3 +1,39 @@
+</html>
+<style>
+	#map {
+		position: relative !important;
+		padding-top: 200px !important;
+	}
+	#us-map-container {
+		position: absolute !important;
+		left: 0; right: 0;
+		top: 7600px;
+		margin-left: auto; margin-right: auto;
+		width: 100%;
+		z-index: 20;
+	}
+</style>
+</html>
+<style>
+	section {
+		margin: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+	}
+	#map {
+		margin-top: 0px !important;
+		position: relative;
+		z-index: 10;
+	}
+</style>
+</html>
+<style>
+	#map, #site-look-section {
+		margin: 0 !important;
+		padding: 0 !important;
+		border: 0 !important;
+	}
+</style>
 <!DOCTYPE html>
 <html>
 <head>
@@ -480,10 +516,10 @@
 	    </div>
     </section>
 
-    <!-- Galaxy Background Section -->
-    <section id="site-look-section" style="margin:0;padding:0; min-height:1850px;">
-		<div class="site-look-bg" style="min-height:2200px;">
-			<canvas id="site-look-canvas" style="min-height:2600px; height:1850px; width:100%; display:block;"></canvas>
+	<!-- Galaxy Background Section -->
+	<section id="site-look-section" style="margin:0;padding:0;">
+		<div class="site-look-bg">
+			<canvas id="site-look-canvas" style="width:100%; display:block;"></canvas>
 
 				<!-- A Look Through Our Site Constellation Section -->
 				<div style="position:relative; min-height:350px;">
@@ -611,17 +647,161 @@
 
 
 	<!-- Wash Over Section with Scroll Animation -->
-
-	<section id="wash-over-transition" style="margin:0;padding:0; min-height:2000vh; width:100vw; position:relative; overflow:hidden;">
-		<div id="starpath-scroll-bg" style="position:fixed; top:0; left:0; width:100vw; height:2000vh; z-index:0; pointer-events:none;"></div>
-		<div id="section3" style="position:relative; z-index:1; min-height:2000vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+	<section id="wash-over-transition" style="margin-top:300px; margin-bottom:0; padding:0; min-height:850vh; width:100vw; position:relative; overflow:hidden;">
+		<div id="starpath-scroll-bg" style="position:fixed; top:0; left:0; width:100vw; height:850vh; z-index:0; pointer-events:none;"></div>
+		<div id="section3" style="position:relative; z-index:1; min-height:850vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
 		</div>
 		<div id="myText" class="starpath-overlay-text">Explore resources across the country!</div>
-
-	<div id="washover-spacer" style="height:100vh; width:100vw;">
-		<h1 style="color:#fff; text-shadow:0 2px 16px #000, 0 0 32px #b6d0ff;">TESTINGGG</h1>
-	</div>
 	</section>
+
+	<!-- Map Section -->
+
+	<style>
+		#map {
+			margin: 0 !important;
+			padding: 0 !important;
+		}
+		  #us-map-container {
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  margin: -120px 0 0 0 !important;
+			  padding: 0 !important;
+			  position: relative;
+			  z-index: 1000;
+		  }
+		#us-map {
+			max-width: 100%;
+			height: auto;
+			cursor: pointer;
+			position: relative;
+			z-index: 1001;
+			background: #fff;
+			box-shadow: 0 2px 24px 0 rgba(0,0,0,0.10);
+			border-radius: 12px;
+			margin: 0 !important;
+			padding: 0 !important;
+			display: block;
+		}
+		.state-shape { stroke: #fff; stroke-width: 1.2; cursor: pointer; transition: filter 0.2s, stroke-width 0.2s; }
+		.state-shape:hover, .state-shape.glow { filter: drop-shadow(0 0 10px #fff) brightness(1.2); stroke-width: 2.5; z-index: 2; }
+		#state-popup-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 99990; display: none; }
+		#state-popup { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #111; color: #fff; padding: 18px; border-radius: 10px; width: 420px; max-width: 95%; z-index: 99999; box-shadow: 0 10px 40px rgba(0,0,0,0.6); display: none; }
+		#state-popup[aria-hidden="false"] { display: block; }
+		#state-popup .state-popup-close { position: absolute; right: 8px; top: 6px; background: transparent; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+		#state-popup .state-popup-header { margin-bottom: 10px; }
+		#state-popup-content { margin-top: 10px; }
+		#state-popup .carousel-image { width: 100%; height: 220px; object-fit: cover; border-radius:6px; display:block; margin-bottom: 10px; }
+	</style>
+
+	<div id="us-map-container" style="margin-top:-300px;">
+		<canvas id="us-map-canvas" width="900" height="560" style="max-width:100%;height:auto;display:block;background:#fff;border-radius:12px;box-shadow:0 2px 24px 0 rgba(0,0,0,0.10);"></canvas>
+	</div>
+		<!-- D3.js for US map rendering -->
+		<script src="https://d3js.org/d3.v7.min.js"></script>
+	<div id="state-popup-backdrop"></div>
+	<div id="state-popup" aria-hidden="true">
+		<button id="close-state-popup" class="state-popup-close" aria-label="Close">&times;</button>
+		<header class="state-popup-header">
+			<h2 id="state-popup-title">State</h2>
+		</header>
+		<div id="state-popup-content">Loading...</div>
+	</div>
+
+	<script type="module">
+		import { getEntriesByState } from './map-data.js';
+		// State color mapping
+		const stateColors = {
+			'Washington': '#8a87b3', 'Oregon': '#8792b8', 'California': '#b7cdf2', 'Nevada': '#bbb6de', 'Idaho': '#dce4fb',
+			'Montana': '#5f73a0', 'Wyoming': '#c3bfe9', 'Utah': '#9fb3e3', 'Arizona': '#5b6fa3', 'Colorado': '#c3bfe9',
+			'New Mexico': '#8fa3cf', 'North Dakota': '#f1f3ff', 'South Dakota': '#ada6de', 'Nebraska': '#6f86b8',
+			'Kansas': '#8a8db3', 'Oklahoma': '#a39bdb', 'Texas': '#b4c7eb', 'Minnesota': '#b1b2cf', 'Iowa': '#6c6a86',
+			'Missouri': '#7f97c7', 'Arkansas': '#9db3e0', 'Louisiana': '#8a89ad', 'Wisconsin': '#9f94d2', 'Illinois': '#9bb0dc',
+			'Michigan': '#a5a3c6', 'Indiana': '#7c74ad', 'Ohio': '#d3defa', 'Kentucky': '#7e7ba2', 'Tennessee': '#8f86c2',
+			'Alabama': '#8a87b3', 'Mississippi': '#8792b8', 'Georgia': '#b7cdf2', 'South Carolina': '#bbb6de',
+			'North Carolina': '#dce4fb', 'Virginia': '#5f73a0', 'West Virginia': '#c3bfe9', 'Pennsylvania': '#9fb3e3',
+			'New York': '#5b6fa3', 'Vermont': '#c3bfe9', 'New Hampshire': '#8fa3cf', 'Maine': '#f1f3ff',
+			'Massachusetts': '#ada6de', 'Rhode Island': '#6f86b8', 'Connecticut': '#8a8db3', 'New Jersey': '#a39bdb',
+			'Delaware': '#b4c7eb', 'Maryland': '#b1b2cf', 'Florida': '#6c6a86', 'Alaska': '#7f97c7', 'Hawaii': '#9db3e0'
+		};
+		// Map SVG id to state name
+		const idToName = {
+			'WA': 'Washington', 'OR': 'Oregon', 'CA': 'California', 'NV': 'Nevada', 'ID': 'Idaho',
+			'MT': 'Montana', 'WY': 'Wyoming', 'UT': 'Utah', 'AZ': 'Arizona', 'CO': 'Colorado',
+			'NM': 'New Mexico', 'ND': 'North Dakota', 'SD': 'South Dakota', 'NE': 'Nebraska',
+			'KS': 'Kansas', 'OK': 'Oklahoma', 'TX': 'Texas', 'MN': 'Minnesota', 'IA': 'Iowa',
+			'MO': 'Missouri', 'AR': 'Arkansas', 'LA': 'Louisiana', 'WI': 'Wisconsin', 'IL': 'Illinois',
+			'MI': 'Michigan', 'IN': 'Indiana', 'OH': 'Ohio', 'KY': 'Kentucky', 'TN': 'Tennessee',
+			'AL': 'Alabama', 'MS': 'Mississippi', 'GA': 'Georgia', 'SC': 'South Carolina',
+			'NC': 'North Carolina', 'VA': 'Virginia', 'WV': 'West Virginia', 'PA': 'Pennsylvania',
+			'NY': 'New York', 'VT': 'Vermont', 'NH': 'New Hampshire', 'ME': 'Maine',
+			'MA': 'Massachusetts', 'RI': 'Rhode Island', 'CT': 'Connecticut', 'NJ': 'New Jersey',
+			'DE': 'Delaware', 'MD': 'Maryland', 'FL': 'Florida', 'AK': 'Alaska', 'HI': 'Hawaii'
+		};
+		// Color states
+		document.querySelectorAll('#us-map .state-shape').forEach(path => {
+			const stateName = path.getAttribute('data-name');
+			if (stateColors[stateName]) path.setAttribute('fill', stateColors[stateName]);
+			else path.setAttribute('fill', '#eee');
+			path.addEventListener('mouseenter', () => path.classList.add('glow'));
+			path.addEventListener('mouseleave', () => path.classList.remove('glow'));
+			path.addEventListener('click', async () => {
+				showStatePopup(stateName);
+			});
+		});
+
+		// Popup/modal logic
+		const popup = document.getElementById('state-popup');
+		const popupBackdrop = document.getElementById('state-popup-backdrop');
+		const popupTitle = document.getElementById('state-popup-title');
+		const popupContent = document.getElementById('state-popup-content');
+		const closeBtn = document.getElementById('close-state-popup');
+
+		function showStatePopup(stateName) {
+			popupTitle.textContent = stateName;
+			popupContent.innerHTML = 'Loading...';
+			popup.setAttribute('aria-hidden', 'false');
+			popup.style.display = 'block';
+			popupBackdrop.style.display = 'block';
+			fetchStateData(stateName);
+		}
+		function closeStatePopup() {
+			popup.setAttribute('aria-hidden', 'true');
+			popup.style.display = 'none';
+			popupBackdrop.style.display = 'none';
+		}
+		closeBtn.addEventListener('click', closeStatePopup);
+		popupBackdrop.addEventListener('click', closeStatePopup);
+
+		async function fetchStateData(stateName) {
+			try {
+				const entries = await getEntriesByState(stateName);
+				if (!entries || entries.length === 0) {
+					popupContent.innerHTML = '<p style="color:#ccc;">No posts found for this state.</p>';
+					return;
+				}
+				// Show the latest (most recently added) entry
+				const entry = entries[entries.length - 1];
+				let html = '';
+				if (entry.pictures && entry.pictures.length > 0) {
+					html += `<img class="carousel-image" src="${entry.pictures[0]}" alt="Program image" />`;
+				}
+				html += `<h3 style="margin-top:0;">${entry.title}</h3>`;
+				html += `<p><strong>Grade Levels:</strong> ${Array.isArray(entry.gradeLevels) ? entry.gradeLevels.join(', ') : entry.gradeLevels}</p>`;
+				html += `<p><strong>Tags:</strong> ${Array.isArray(entry.tags) ? entry.tags.map(t => '#' + t).join(', ') : entry.tags}</p>`;
+				html += `<p><strong>Helpful Info:</strong> ${entry.helpfulInfo || ''}</p>`;
+				if (entry.links && entry.links.length > 0) {
+					html += `<div style="margin-top:10px;"><strong>Links:</strong><br>` + entry.links.map(link => `<a href="${link}" target="_blank" style="color:#4CAF50;word-break:break-all;">${link}</a>`).join('<br>') + '</div>';
+				}
+				popupContent.innerHTML = html;
+			} catch (e) {
+				popupContent.innerHTML = '<p style="color:#f88;">Error loading data.</p>';
+			}
+		}
+	</script>
+	</section>
+
+
 </body>
 </html>
 <script>
@@ -949,7 +1129,7 @@ drawStaticReviewsGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanva
 				// Add planet-specific overlays
 				if (i === 0) { // Mercury: craters
 					let mercuryImg = document.createElement('img');
-					mercuryImg.src = 'assets/planets/1.png';
+					mercuryImg.src = './assets/planets/1.png';
 					mercuryImg.alt = 'Mercury';
 					mercuryImg.style.position = 'absolute';
 					mercuryImg.style.left = '-3px';
@@ -962,7 +1142,7 @@ drawStaticReviewsGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanva
 				}
 				   if (i === 1) { // Venus: use PNG image
 					   let venusImg = document.createElement('img');
-					   venusImg.src = 'assets/planets/2.png';
+					   venusImg.src = './assets/planets/2.png';
 					   venusImg.alt = 'Venus';
 					   venusImg.style.position = 'absolute';
 					   venusImg.style.left = '-3px';
