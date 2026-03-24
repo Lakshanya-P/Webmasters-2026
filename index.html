@@ -361,6 +361,45 @@
 							flash.style.transition = 'opacity 0.7s';
 							flash.style.opacity = 0;
 							setTimeout(() => {
+								flash.remove();
+								playGalaxyVideo();
+							}, 700);
+						}, 500);
+					}
+				}
+				animateFlash();
+			}
+
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			}
+		}
+
+		function playGalaxyVideo() {
+			// Second white flash before video appears
+			let flash = document.createElement('div');
+			flash.id = 'white-flash-video';
+			flash.style.position = 'absolute';
+			flash.style.top = 0;
+			flash.style.left = 0;
+			flash.style.width = '100%';
+			flash.style.height = '100%';
+			flash.style.background = 'white';
+			flash.style.opacity = 0;
+			flash.style.zIndex = 3500;
+			flash.style.pointerEvents = 'none';
+			const landingSection2 = document.getElementById('landing-animation-section');
+			if (landingSection2) {
+				landingSection2.appendChild(flash);
+			} else {
+				document.body.appendChild(flash);
+			}
+
+			let flashProgress = 0;
+			function animateFlashVideo() {
+				flashProgress += 0.07;
+				flash.style.opacity = Math.min(1, flashProgress * 2);
 				flash.style.transform = `scale(${1 + flashProgress * 2})`;
 				if (flashProgress < 0.5) {
 					requestAnimationFrame(animateFlashVideo);
@@ -525,31 +564,30 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width:400%;
-		height: 400%;
-		background: radial-gradient(circle, rgba(160,120,255,0.18) 0%, rgba(120,160,255,0.13) 40%, rgba(180,120,255,0.10) 70%, rgba(120,160,255,0) 100%);
-		filter: blur(44px);
-		z-index: -10;
-		opacity: 0.48;
-		animation: newsletter-glow 2.8s ease-in-out infinite alternate;
+		width: 90%;
+		height: 100%;
+		background: radial-gradient(circle, rgba(120,160,255,0.35) 0%, rgba(120,160,255,0.18) 60%, rgba(120,160,255,0) 100%);
+		filter: blur(18px);
+		z-index: -1;
+		opacity: 0.25;
+		animation: newsletter-glow 8.5s ease-in-out infinite alternate;
 		pointer-events: none;
-		transition: opacity 0.4s, filter 0.4s;
 	}
 	@keyframes newsletter-glow {
 		0% {
-			opacity: 0.34;
-			filter: blur(44px) brightness(1.07);
-			box-shadow: 0 0 64px 32px #b48fff33, 0 0 0 0 #fff0;
+			opacity: 0.4;
+			filter: blur(18px) brightness(1.1);
+			box-shadow: 0 0 32px 12px #b87eff66, 0 0 0 0 #fff0;
 		}
 		50% {
-			opacity: 0.54;
-			filter: blur(60px) brightness(1.18);
-			box-shadow: 0 0 120px 60px #b48fff44, 0 0 0 0 #fff0;
+			opacity: 0.7;
+			filter: blur(28px) brightness(1.25);
+			box-shadow: 0 0 64px 32px #ab7eff8b, 0 0 0 0 #fff0;
 		}
 		100% {
-			opacity: 0.34;
-			filter: blur(44px) brightness(1.07);
-			box-shadow: 0 0 64px 32px #b48fff33, 0 0 0 0 #fff0;
+			opacity: 0.4;
+			filter: blur(18px) brightness(1.1);
+			box-shadow: 0 0 32px 12px #b87eff66, 0 0 0 0 #fff0;
 		}
 	}
 </style>
