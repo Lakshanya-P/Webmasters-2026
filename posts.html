@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaxy Posts - Student Q&A</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/card-preview.css">
+    <!-- Google Fonts for Google Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            color: #fff;
+            font-family: 'Google Sans', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .galaxy-header {
+            text-align: center;
+            padding: 2rem 0 1rem 0;
+        }
+        .galaxy-header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: #e0e6f6;
+            margin-bottom: 0.5rem;
+        }
+        .galaxy-header p {
+            color: #b0b8d1;
+            font-size: 1.1rem;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0 1rem 0;
+            /* Remove position: relative here */
+        }
+        .search-bar-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .search-bar {
+            width: 350px;
+            padding: 0.7rem 1rem;
+            border-radius: 25px 0 0 25px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background: #232946;
+            color: #fff;
+        }
+        .search-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 0 25px 25px 0;
+            border: none;
+            background: #5c7aff;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .search-btn:hover {
+            background: #3b4cca;
+        }
+        .search-suggestions {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 350px;
+            min-height: 2.2rem;
+            background: #232946;
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 4px 16px #000a;
+            z-index: 10;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0;
+            padding: 0.5rem 0.5rem 0.2rem 0.5rem;
+        }
+        .search-tag-bubble {
+            display: inline-block;
+            background: #5c7aff;
+            color: #fff;
+            border-radius: 12px;
+            padding: 0.2rem 0.8rem;
+            margin: 0.2rem 0.3rem;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.15s, color 0.15s, outline 0.15s;
+        }
+        .search-tag-bubble.selected, .search-tag-bubble:hover {
+            background: #fff;
+            color: #232946;
+            outline: 2px solid #5c7aff;
+        }
+        .post-form {
+            background: rgba(30, 34, 54, 0.95);
+            border-radius: 16px;
+            max-width: 600px;
+            margin: 2rem auto 1.5rem auto;
+            padding: 2rem 2rem 1.5rem 2rem;
+            box-shadow: 0 4px 32px 0 #000a  ;
+        }
+        .post-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b0b8d1;
+        }
+        .post-form input, .post-form textarea {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: none;
+            background: #232946;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .post-form .tags-input {
+            margin-bottom: 1rem;
+        }
+        .post-form button {
+            background: #5c7aff;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .post-form button:hover {
+            background: #3b4cca;
+        }
+        .posts-list {
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+        .post-card {
+            background: rgba(30, 34, 54, 0.95);
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem 2rem 1rem 2rem;
+            box-shadow: 0 2px 16px 0 #0007;
+            position: relative;
+        }
+        .post-title {
+            font-size: 1.3rem;
+            color: #e0e6f6;
+            margin-bottom: 0.3rem;
+        }
+        .post-meta {
+            color: #b0b8d1;
+            font-size: 0.95rem;
+            margin-bottom: 0.7rem;
+        }
+        .post-tags {
+            margin-bottom: 0.7rem;
+        }
+        .post-tag {
+            display: inline-block;
+            background: #5c7aff;
+            color: #fff;
+            border-radius: 12px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.9rem;
+            margin-right: 0.4rem;
+            margin-bottom: 0.2rem;
+        }
+        .post-body {
+            color: #e0e6f6;
+            margin-bottom: 1rem;
+        }
+        .comments-section {
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #2c314a;
+        }
+        .comment {
+            background: #232946;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            margin-bottom: 0.7rem;
+            color: #fff;
+        }
+        .comment-meta {
+            color: #b0b8d1;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+        .comment-form {
+            margin-top: 0.7rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+        .comment-form input {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: none;
+            background: #232946;
+            color: #fff;
+        }
+        .comment-form button {
+            background: #5c7aff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .comment-form button:hover {
+            background: #3b4cca;
+        }
+        @media (max-width: 600px) {
+            .post-form, .posts-list {
+                padding: 0.5rem;
+            }
+            .post-card {
+                padding: 1rem 0.7rem 0.7rem 0.7rem;
+            }
+        }
+    </style>
+    <script>
+      function home() { window.location.href = 'index.html'; }
+      function resource() { window.location.href = 'directory.html'; }
+      function highlights() { window.location.href = 'highlights.html'; }
+    </script>
+    <script src="main.js"></script>
+</head>
+<body>
+    <header>
+	<div id="topnav">
+        <img id="activepg" src="assets/hotbar logo.PNG">
+		 <button class="navbuttons" onclick="home()">Home</button>
+		 <button class="navbuttons" onclick="resource()">Resource Hub</button>
+		 <button class="navbuttons" onclick="highlights()">Highlights</button>
+		 <button class="navbuttons" onclick="window.location.href='posts.html'">Posts</button>
+		 <!-- clipPath for heart shape (kept hidden) -->
+		<svg style="width:0;height:0;position:absolute" aria-hidden="true">
+		  <defs>
+		    <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+		      <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+		    </clipPath>
+		  </defs>
+		</svg>
+
+        <!-- Heart (existing) placed between More and O to match requested position -->
+        <div class="heart" role="button" tabindex="0" title="Heart">
+            <div class="tank"></div>
+            <svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g>
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+                </g>
+            </svg>
+        </div>
+
+         <div class="dropdown">
+           <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+           <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+             <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+             <button class="dropdown-item" onclick="window.location.href='refs.html'">References</button>
+           </div>
+         </div>
+	</div>
+    <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+    <div class="galaxy-header">
+        <h1>Galaxy Q&A</h1>
+        <p>Ask questions, share knowledge, and help each other out! 🌌</p>
+    </div>
+    <div class="search-container">
+        <div class="search-bar-wrapper" style="position:relative;display:inline-block;">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Search questions or tags...">
+            <div id="searchTagSuggestions" class="search-suggestions"></div>
+        </div>
+        <button class="search-btn" id="searchBtn">Search</button>
+        <div id="activeTagFilter" style="margin-top:0.5rem;text-align:center;"></div>
+    </div>
+    <form class="post-form" id="postForm" style="display:none;">
+        <label for="postTitle">Title</label>
+        <input type="text" id="postTitle" required maxlength="80" placeholder="Enter your question or topic">
+        <label for="postBody">Details</label>
+        <textarea id="postBody" rows="4" required maxlength="1000" placeholder="Describe your question or share helpful info..."></textarea>
+        <label>Key Tags:</label>
+        <div class="tags-input-container">
+            <div id="tagsDisplay" class="tags-display"></div>
+            <input 
+                type="text" 
+                id="tagsInput" 
+                class="tags-input" 
+                placeholder="type #niche about your extracurricular (hit space to add more)"
+                autocomplete="off"
+            >
+            <div id="tagsAutocomplete" class="tags-autocomplete"></div>
+        </div>
+        <input type="hidden" id="tagsValue" required style="display:none;">
+        <button type="submit">Post</button>
+    </form>
+    <div id="loginPrompt" style="display:none;text-align:center;margin:2rem 0;color:#b0b8d1;font-size:1.1rem;">
+        <span>You must <a href="login.html" style="color:#5c7aff;text-decoration:underline;">log in</a> to post or comment.</span>
+    </div>
+    <div id="loginBtnContainer" style="display:none;position:fixed;top:1.2rem;right:2rem;z-index:100;">
+        <a href="login.html" id="loginBtn" style="background:#5c7aff;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;text-decoration:none;">Login</a>
+    </div>
+    <div id="signOutBtnContainer" style="display:none;position:fixed;top:1.2rem;right:2rem;z-index:100;">
+        <button id="signOutBtn" style="background:#5c7aff;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;">Sign Out</button>
+    </div>
+    <!-- Move script tag to just before closing body tag -->
+    <div class="posts-list" id="postsList"></div>
+    <script type="module" src="posts.js"></script>
+</body>
+</html>

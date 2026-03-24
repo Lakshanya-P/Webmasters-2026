@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Galaxy Q&A</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 6vh auto 0 auto;
+            background: rgba(30, 34, 54, 0.97);
+            border-radius: 18px;
+            box-shadow: 0 4px 32px 0 #000a;
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #e0e6f6;
+        }
+        .login-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #b0b8d1;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1.2rem;
+            border-radius: 8px;
+            border: none;
+            background: #232946;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .login-container button {
+            width: 100%;
+            background: #5c7aff;
+            color: #fff;
+            border: none;
+            padding: 0.7rem 0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-container button:hover {
+            background: #3b4cca;
+        }
+        .login-container .switch {
+            text-align: center;
+            margin-top: 1.2rem;
+            color: #b0b8d1;
+        }
+        .login-container .switch a {
+            color: #5c7aff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .login-error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login to Galaxy Q&A</h2>
+        <div id="loginError" class="login-error" style="display:none;"></div>
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="Enter your email">
+            <label for="password">Password</label>
+            <input type="password" id="password" required placeholder="Enter your password">
+            <button type="submit">Login</button>
+        </form>
+        <div class="switch">Don't have an account? <a id="showRegister">Register</a></div>
+    </div>
+    <div class="login-container" id="registerContainer" style="display:none;">
+        <h2>Register for Galaxy Q&A</h2>
+        <div id="registerError" class="login-error" style="display:none;"></div>
+        <form id="registerForm">
+            <label for="regName">Name</label>
+            <input type="text" id="regName" required placeholder="Enter your name">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" required placeholder="Enter your email">
+            <label for="regPassword">Password</label>
+            <input type="password" id="regPassword" required placeholder="Create a password">
+            <button type="submit">Register</button>
+        </form>
+        <div class="switch">Already have an account? <a id="showLogin">Login</a></div>
+    </div>
+    <script type="module" src="login.js"></script>
+</body>
+</html>

@@ -1,3 +1,95 @@
+// --- Heart Button Hold-to-Fill Logic (Universal) ---
+document.addEventListener('DOMContentLoaded', function() {
+  const heart = document.querySelector('#topnav .heart');
+  if (!heart) return;
+  const tank = heart.querySelector('.tank');
+  const curve = heart.querySelector('.curve');
+  const complimentEl = document.getElementById('compliment');
+  const compliments = [
+    "You're amazing!","You light up the room!","You're a star!","You do great work!","You make a difference!"
+  ];
+  const DURATION = 1500;
+  let progress = 0;
+  let isHeld = false;
+  let raf = null;
+  let startTime = 0;
+  let filled = false;
+  function setFill(p) {
+    progress = Math.max(0, Math.min(1, p));
+    if (tank) {
+      tank.style.height = (progress * 100) + '%';
+      tank.style.background = progress === 1 ? 'red' : 'rgba(220, 53, 69, 0.6)';
+    }
+    // Optionally animate the curve if needed
+    if (curve) {
+      const crhStr = getComputedStyle(heart).getPropertyValue('--cruve-height') || '8px';
+      const crh = parseFloat(crhStr);
+      curve.style.bottom = (-crh + progress * crh) + 'px';
+    }
+  }
+  function showCompliment() {
+    if (complimentEl) {
+      const text = compliments[Math.floor(Math.random() * compliments.length)];
+      complimentEl.textContent = text;
+      complimentEl.classList.add('show');
+      setTimeout(() => complimentEl.classList.remove('show'), 3000);
+    }
+    setTimeout(() => { window.location.href = 'selfcare.html'; }, 1500);
+    setTimeout(() => { heart.classList.remove('full'); setFill(0); filled = false; }, 3500);
+  }
+  function step(ts) {
+    if (!isHeld) { raf = null; return; }
+    if (!startTime) startTime = ts;
+    const elapsed = ts - startTime;
+    const p = elapsed / DURATION;
+    if (p >= 1) {
+      setFill(1);
+      filled = true;
+      isHeld = false;
+      heart.classList.add('full');
+      showCompliment();
+      raf = null;
+      return;
+    } else {
+      setFill(p);
+      raf = requestAnimationFrame(step);
+    }
+  }
+  function startHold() {
+    if (filled) return;
+    isHeld = true;
+    startTime = 0;
+    if (raf) cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(step);
+  }
+  function endHold() {
+    isHeld = false;
+    if (raf) cancelAnimationFrame(raf);
+    if (!filled) {
+      const startP = progress;
+      const t0 = performance.now();
+      const decayDur = 220;
+      function decay(ts) {
+        const t = Math.min(1, (ts - t0) / decayDur);
+        const np = startP * (1 - t);
+        setFill(np);
+        if (t < 1) requestAnimationFrame(decay);
+      }
+      requestAnimationFrame(decay);
+    }
+  }
+  heart.addEventListener('pointerdown', function(e) {
+    e.preventDefault();
+    try { if (e.pointerId != null && heart.setPointerCapture) heart.setPointerCapture(e.pointerId); } catch (err) {}
+    startHold();
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(evt => heart.addEventListener(evt, function(e) {
+    try { if (e.pointerId != null && heart.releasePointerCapture) heart.releasePointerCapture(e.pointerId); } catch (err) {}
+    endHold(e);
+  }));
+  heart.addEventListener('keydown', function(e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); startHold(); } });
+  heart.addEventListener('keyup', function(e) { if (e.key === ' ' || e.key === 'Enter') { endHold(e); } });
+});
 // --- Big Dipper Constellation Section (A Look Through Our Site) ---
 window.addEventListener('DOMContentLoaded', function() {
   const dipperCanvas = document.getElementById('bigdipper-canvas');
@@ -288,4 +380,132 @@ function highlights() {
 function references() {
   window.location.href = 'refs.html';
 }
-// Add more as needed for other nav buttons
+
+// --- More Dropdown Functionality (Universal) ---
+document.addEventListener('DOMContentLoaded', function() {
+  const moreBtn = document.getElementById('moreBtn');
+  const moreMenu = document.getElementById('moreMenu');
+  if (moreBtn && moreMenu) {
+    moreBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const expanded = moreMenu.getAttribute('aria-hidden') !== 'false';
+      moreMenu.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+      moreBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      moreMenu.classList.toggle('show', expanded);
+    });
+    document.addEventListener('click', function(e) {
+      if (!moreMenu.contains(e.target) && !moreBtn.contains(e.target)) {
+        moreMenu.setAttribute('aria-hidden', 'true');
+        moreBtn.setAttribute('aria-expanded', 'false');
+        moreMenu.classList.remove('show');
+      }
+    });
+  }
+});
+
+// --- Meteor Animation for Newsletter Subscribe ---
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.newsletter-form');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    showMeteorAnimation();
+    // Optionally, handle form submission here (AJAX, etc.)
+  });
+});
+
+function showMeteorAnimation() {
+  // Remove any existing meteor
+  const oldMeteor = document.getElementById('meteor-animation');
+  if (oldMeteor) oldMeteor.remove();
+
+  // Get viewport size
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  // Find newsletter-space position (for aiming)
+  const newsletter = document.querySelector('.newsletter-space');
+  if (!newsletter) return;
+  const rect = newsletter.getBoundingClientRect();
+
+  // Start at bottom left corner of the screen
+  const startX = -120;
+  const startY = vh + 120;
+  // End at top right of newsletter (with some offset)
+  const endX = rect.right + 160;
+  const endY = rect.top - 160;
+
+  // Create meteor container (behind newsletter)
+  const meteor = document.createElement('div');
+  meteor.id = 'meteor-animation';
+  meteor.style.position = 'fixed';
+  meteor.style.pointerEvents = 'none';
+  meteor.style.zIndex = 9;
+  meteor.style.left = startX + 'px';
+  meteor.style.top = startY + 'px';
+  meteor.style.width = '520px';
+  meteor.style.height = '160px';
+  document.body.appendChild(meteor);
+
+  // Enhanced meteor HTML: single, large, detailed head, more effects
+  meteor.innerHTML = `
+    <div class="meteor-tail meteor-tail-outer"></div>
+    <div class="meteor-tail meteor-tail-color"></div>
+    <div class="meteor-tail meteor-tail-glow"></div>
+    <div class="meteor-tail meteor-tail-main"></div>
+    <div class="meteor-sparks">
+      <span class="spark" style="--i:0"></span>
+      <span class="spark" style="--i:1"></span>
+      <span class="spark" style="--i:2"></span>
+      <span class="spark" style="--i:3"></span>
+      <span class="spark" style="--i:4"></span>
+      <span class="spark" style="--i:5"></span>
+      <span class="spark" style="--i:6"></span>
+      <span class="spark" style="--i:7"></span>
+      <span class="spark spark-blue" style="--i:8"></span>
+      <span class="spark spark-white" style="--i:9"></span>
+    </div>
+    <div class="meteor-trail-particles">
+      <span class="trail-particle" style="--j:0"></span>
+      <span class="trail-particle" style="--j:1"></span>
+      <span class="trail-particle" style="--j:2"></span>
+      <span class="trail-particle" style="--j:3"></span>
+      <span class="trail-particle" style="--j:4"></span>
+      <span class="trail-particle" style="--j:5"></span>
+    </div>
+    <div class="meteor-aura"></div>
+    <div class="meteor-shockwave"></div>
+    <div class="meteor-head">
+      <div class="meteor-core meteor-core-glow"></div>
+      <div class="meteor-nucleus"></div>
+      <div class="meteor-core-inner meteor-core-glow"></div>
+      <div class="meteor-core-flicker"></div>
+      <div class="meteor-core-highlight"></div>
+      <div class="meteor-plasma-arc"></div>
+      <div class="meteor-glow meteor-glow-animated"></div>
+      <div class="meteor-rings"></div>
+      <div class="meteor-outline"></div>
+    </div>
+  `;
+
+  // Calculate angle for rotation (in radians)
+  const dx = endX - startX;
+  const dy = endY - startY;
+  // Rotate slightly less than 90deg (PI/2 - 0.18rad ~ 80deg)
+  const angle = Math.atan2(dy, dx) + Math.PI / 2 - 0.18;
+  // Animate with JS for custom path, rotation, and horizontal flip
+  meteor.animate([
+    { transform: `translate(0px, 0px) scale(-1.1,1.1) rotate(${angle}rad)`, opacity: 1 },
+    { offset: 0.7, opacity: 1 },
+    { transform: `translate(${dx}px, ${dy}px) scale(-0.85,0.85) rotate(${angle}rad)`, opacity: 0 }
+  ], {
+    duration: 2000,
+    easing: 'cubic-bezier(0.7,0.1,0.9,0.8)',
+    fill: 'forwards'
+  });
+
+  // Remove after animation
+  setTimeout(() => {
+    meteor.remove();
+  }, 2100);
+}

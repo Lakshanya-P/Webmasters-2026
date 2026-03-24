@@ -1,19 +1,451 @@
+.meteor-head {
+	position: absolute;
+	left: 480px; top: 44px;
+	width: 180px; height: 100px;
+	z-index: 10;
+	pointer-events: none;
+}
+.meteor-outline {
+	position: absolute;
+	left: 0; top: 0;
+	width: 80px; height: 60px;
+	border-radius: 50% 60% 60% 50% / 60% 50% 50% 60%;
+	border: 2.5px solid #b6d0ff88;
+	opacity: 0.45;
+	filter: blur(1.5px);
+	z-index: 12;
+}
+.meteor-core {
+	position: absolute;
+	left: 36px; top: 28px;
+	width: 140px; height: 68px;
+	background: radial-gradient(circle at 60% 40%, #fff 70%, #b6d0ff 100%);
+	border-radius: 50% 60% 60% 50% / 60% 50% 50% 60%;
+	box-shadow: 0 0 64px 16px #eaf1ffcc, 0 0 128px 32px #b6d0ff99;
+	filter: blur(0.5px);
+	z-index: 11;
+	overflow: visible;
+}
+/* Remove duplicate/conflicting .meteor-core and tail styles below */
+.meteor-nucleus {
+	position: absolute;
+	left: 18px; top: 10px;
+	width: 40px; height: 16px;
+	background: radial-gradient(circle at 60% 40%, #fff 90%, #aeefff 100%, #b6d0ff 120%);
+	border-radius: 50%;
+	box-shadow: 0 0 32px 8px #fff8, 0 0 48px 16px #aeefff77;
+	filter: blur(1.5px);
+	opacity: 0.85;
+	z-index: 6;
+}
+
+.meteor-plasma-arc {
+	position: absolute;
+	left: 10px; top: 0px;
+	width: 60px; height: 32px;
+	border-radius: 50% 60% 60% 50% / 60% 50% 50% 60%;
+	border-top: 3px solid #aeefffcc;
+	border-left: 2px solid #eaf1ff99;
+	border-right: 2px solid #b6d0ff66;
+	opacity: 0.7;
+	filter: blur(2px);
+	z-index: 7;
+	animation: plasma-arc-flicker 0.7s infinite alternate;
+}
+
+@keyframes plasma-arc-flicker {
+	0% { opacity: 0.5; filter: blur(2px); }
+	100% { opacity: 0.9; filter: blur(4px); }
+}
+.meteor-core-glow {
+	box-shadow: 0 0 64px 32px #eaf1ffcc, 0 0 128px 64px #b6d0ff99, 0 0 0 12px #eaf1ff33;
+	filter: blur(1.5px);
+}
+.meteor-glow-animated {
+	animation: meteor-glow-pulse 1.2s infinite alternate;
+}
+@keyframes meteor-glow-pulse {
+	0% { opacity: 0.7; filter: blur(8px); }
+	100% { opacity: 1; filter: blur(16px); }
+}
+.meteor-rings {
+	position: absolute;
+	left: 10px; top: 60px;
+	width: 60px; height: 60px;
+	border-radius: 50%;
+	border: 2px solid #eaf1ff55;
+	box-shadow: 0 0 32px 8px #b6d0ff33;
+	opacity: 0.4;
+	filter: blur(2px);
+	animation: meteor-rings-spin 1.2s linear infinite;
+	z-index: 6;
+}
+@keyframes meteor-rings-spin {
+	0% { transform: rotate(0deg) scale(1); }
+	100% { transform: rotate(360deg) scale(1.2); }
+}
+.meteor-core {
+	position: absolute;
+	left: 0; top: 30px;
+	width: 38px; height: 18px;
+	background: radial-gradient(circle at 60% 40%, #fff 70%, #b6d0ff 100%);
+	border-radius: 50% 60% 60% 50% / 60% 50% 50% 60%;
+	box-shadow: 0 0 32px 8px #eaf1ffcc, 0 0 64px 16px #b6d0ff99;
+	filter: blur(0.5px);
+	z-index: 2;
+	/* comet head highlight */
+	overflow: visible;
+}
+.meteor-core::after {
+	content: '';
+	position: absolute;
+	left: 18px; top: 6px;
+	width: 14px; height: 8px;
+	background: radial-gradient(circle, #fff 80%, #eaf1ff 100%);
+	border-radius: 50%;
+	opacity: 0.7;
+	filter: blur(2px);
+	z-index: 5;
+}
+.meteor-tail-main {
+	position: absolute;
+	left: 10px; top: 36px;
+	width: 180px; height: 8px;
+	background: linear-gradient(90deg, #eaf1ff 0%, #b6d0ff 60%, transparent 100%);
+	border-radius: 8px 100px 100px 8px;
+	opacity: 0.85;
+	filter: blur(1.5px);
+	box-shadow: 0 0 24px 4px #b6d0ff66;
+	z-index: 1;
+}
+.meteor-tail-glow {
+	position: absolute;
+	left: 0px; top: 40px;
+	width: 200px; height: 16px;
+	background: linear-gradient(90deg, #eaf1ff55 0%, #b6d0ff44 60%, transparent 100%);
+	border-radius: 12px 120px 120px 12px;
+	opacity: 0.45;
+	filter: blur(6px);
+	z-index: 0;
+}
+.meteor-tail-color {
+	position: absolute;
+	left: 0px; top: 44px;
+	width: 200px; height: 12px;
+	background: linear-gradient(90deg, #b6d0ff 0%, #eaf1ff 40%, #aeefff 100%, transparent 100%);
+	border-radius: 12px 120px 120px 12px;
+	opacity: 0.55;
+	filter: blur(8px);
+	z-index: 0;
+}
+.meteor-tail::before {
+	content: '';
+	position: absolute;
+	left: 0; top: 0;
+	width: 100%; height: 100%;
+	background: linear-gradient(90deg, #fff8 0%, transparent 100%);
+	border-radius: inherit;
+	opacity: 0.18;
+	filter: blur(2px);
+}
+.meteor-sparks .spark {
+	/* ...existing styles... */
+	animation: spark-fly 1.2s linear forwards, spark-rotate 1.2s linear;
+}
+@keyframes spark-rotate {
+	0% { transform: rotate(0deg) scaleX(1) translateX(0); }
+	100% { transform: rotate(360deg) scaleX(2.2) translateX(60px); }
+}
+.meteor-tail-color {
+	position: absolute;
+	left: 0px; top: 44px;
+	width: 200px; height: 12px;
+	background: linear-gradient(90deg, #b6d0ff 0%, #eaf1ff 40%, #aeefff 100%, transparent 100%);
+	border-radius: 12px 120px 120px 12px;
+	opacity: 0.55;
+	filter: blur(8px);
+	z-index: 0;
+}
+.spark-blue {
+	background: linear-gradient(90deg, #b6d0ff 0%, #eaf1ff 100%, transparent 100%);
+}
+.spark-white {
+	background: linear-gradient(90deg, #fff 0%, #eaf1ff 100%, transparent 100%);
+}
+.meteor-shockwave {
+	position: absolute;
+	left: -18px; top: 28px;
+	width: 40px; height: 40px;
+	border-radius: 50%;
+	background: radial-gradient(circle, #eaf1ff66 0%, #b6d0ff22 60%, transparent 100%);
+	opacity: 0.7;
+	filter: blur(2px);
+	animation: shockwave-expand 0.7s cubic-bezier(0.7,0.1,0.9,0.8) forwards;
+	z-index: 5;
+}
+@keyframes shockwave-expand {
+	0% { opacity: 0.7; transform: scale(0.2); }
+	80% { opacity: 0.4; transform: scale(1.2); }
+	100% { opacity: 0; transform: scale(2.2); }
+}
+.meteor-core-flicker {
+	position: absolute;
+	left: 8px; top: 34px;
+	width: 14px; height: 10px;
+	background: radial-gradient(circle, #fff 80%, #eaf1ff 100%);
+	border-radius: 50%;
+	opacity: 0.7;
+	filter: blur(2px);
+	animation: flicker-core 0.18s infinite alternate;
+	z-index: 4;
+}
+@keyframes flicker-core {
+	0% { opacity: 0.7; filter: blur(2px); }
+	100% { opacity: 1; filter: blur(0.5px); }
+}
+.meteor-trail-particles {
+	position: absolute;
+	left: 0; top: 40px;
+	width: 180px; height: 24px;
+	pointer-events: none;
+	z-index: 2;
+}
+.meteor-trail-particles .trail-particle {
+	position: absolute;
+	width: 8px; height: 3px;
+	background: linear-gradient(90deg, #fff 0%, #b6d0ff 100%, transparent 100%);
+	border-radius: 2px;
+	opacity: 0.5;
+	filter: blur(1px);
+	animation: trail-fly 1.2s linear forwards;
+	animation-delay: calc(var(--j) * 0.12s);
+}
+.meteor-trail-particles .trail-particle:nth-child(1) { top: 2px; left: 0; transform: rotate(-8deg); }
+.meteor-trail-particles .trail-particle:nth-child(2) { top: 8px; left: 22px; transform: rotate(2deg); }
+.meteor-trail-particles .trail-particle:nth-child(3) { top: 14px; left: 44px; transform: rotate(7deg); }
+.meteor-trail-particles .trail-particle:nth-child(4) { top: 18px; left: 66px; transform: rotate(-4deg); }
+.meteor-trail-particles .trail-particle:nth-child(5) { top: 10px; left: 100px; transform: rotate(3deg); }
+.meteor-trail-particles .trail-particle:nth-child(6) { top: 16px; left: 140px; transform: rotate(-2deg); }
+@keyframes trail-fly {
+	0% { opacity: 0.5; transform: scaleX(1) translateX(0); }
+	100% { opacity: 0; transform: scaleX(2.2) translateX(60px); }
+}
+.meteor-core-inner {
+	position: absolute;
+	left: 7px; top: 36px;
+	width: 18px; height: 8px;
+	background: radial-gradient(circle at 60% 40%, #fff 90%, #b6d0ff 100%);
+	border-radius: 50%;
+	box-shadow: 0 0 12px 4px #fff8, 0 0 24px 8px #b6d0ff77;
+	filter: blur(0.5px);
+	z-index: 3;
+}
+.meteor-tail-main {
+	position: absolute;
+	left: 10px; top: 36px;
+	width: 180px; height: 8px;
+	background: linear-gradient(90deg, #eaf1ff 0%, #b6d0ff 60%, transparent 100%);
+	border-radius: 8px 100px 100px 8px;
+	opacity: 0.85;
+	filter: blur(1.5px);
+	box-shadow: 0 0 24px 4px #b6d0ff66;
+	z-index: 1;
+}
+.meteor-tail-glow {
+	position: absolute;
+	left: 0px; top: 40px;
+	width: 200px; height: 16px;
+	background: linear-gradient(90deg, #eaf1ff55 0%, #b6d0ff44 60%, transparent 100%);
+	border-radius: 12px 120px 120px 12px;
+	opacity: 0.45;
+	filter: blur(6px);
+	z-index: 0;
+}
+.meteor-aura {
+	position: absolute;
+	left: -30px; top: 0px;
+	width: 100px; height: 100px;
+	background: radial-gradient(circle, #eaf1ff33 0%, #b6d0ff22 80%, transparent 100%);
+	border-radius: 50%;
+	filter: blur(18px);
+	opacity: 0.5;
+	z-index: 0;
+}
+.meteor-sparks .spark:nth-child(6) { top: 4px; left: 80px; transform: rotate(-6deg); }
+.meteor-sparks .spark:nth-child(7) { top: 18px; left: 100px; transform: rotate(8deg); }
+.meteor-sparks .spark:nth-child(8) { top: 12px; left: 140px; transform: rotate(-2deg); }
+/* --- Meteor Animation for Newsletter Subscribe --- */
+#meteor-animation {
+	width: 520px;
+	height: 160px;
+	pointer-events: none;
+	opacity: 1;
+	transition: opacity 0.3s;
+	z-index: 9;
+}
+.meteor-core {
+	position: absolute;
+	left: 0; top: 60px;
+	width: 76px; height: 36px;
+	background: radial-gradient(circle at 60% 40%, #fff 70%, #b6d0ff 100%);
+	border-radius: 50% 60% 60% 50% / 60% 50% 50% 60%;
+	box-shadow: 0 0 64px 16px #eaf1ffcc, 0 0 128px 32px #b6d0ff99;
+	filter: blur(0.5px);
+	z-index: 2;
+	overflow: visible;
+}
+.meteor-core-inner {
+	position: absolute;
+	left: 14px; top: 72px;
+	width: 36px; height: 16px;
+	background: radial-gradient(circle at 60% 40%, #fff 90%, #b6d0ff 100%);
+	border-radius: 50%;
+	box-shadow: 0 0 24px 8px #fff8, 0 0 48px 16px #b6d0ff77;
+	filter: blur(0.5px);
+	z-index: 3;
+}
+.meteor-core-flicker {
+	position: absolute;
+	left: 16px; top: 68px;
+	width: 28px; height: 20px;
+	background: radial-gradient(circle, #fff 80%, #eaf1ff 100%);
+	border-radius: 50%;
+	opacity: 0.7;
+	filter: blur(2px);
+	animation: flicker-core 0.18s infinite alternate;
+	z-index: 4;
+}
+.meteor-core-highlight {
+	position: absolute;
+	left: 38px; top: 78px;
+	width: 24px; height: 12px;
+	background: radial-gradient(circle, #fff 90%, #eaf1ff 100%);
+	border-radius: 50%;
+	opacity: 0.6;
+	filter: blur(2.5px);
+	z-index: 5;
+}
+.meteor-tail-main {
+	position: absolute;
+	left: 20px; top: 72px;
+	width: 360px; height: 16px;
+	background: linear-gradient(90deg, #eaf1ff 0%, #b6d0ff 60%, transparent 100%);
+	border-radius: 16px 200px 200px 16px;
+	opacity: 0.85;
+	filter: blur(2.5px);
+	box-shadow: 0 0 48px 8px #b6d0ff66;
+	z-index: 1;
+}
+.meteor-tail-glow {
+	position: absolute;
+	left: 0px; top: 80px;
+	width: 400px; height: 32px;
+	background: linear-gradient(90deg, #eaf1ff55 0%, #b6d0ff44 60%, transparent 100%);
+	border-radius: 24px 240px 240px 24px;
+	opacity: 0.45;
+	filter: blur(12px);
+	z-index: 0;
+}
+.meteor-tail-color {
+	position: absolute;
+	left: 0px; top: 88px;
+	width: 400px; height: 24px;
+	background: linear-gradient(90deg, #b6d0ff 0%, #eaf1ff 40%, #aeefff 100%, transparent 100%);
+	border-radius: 24px 240px 240px 24px;
+	opacity: 0.55;
+	filter: blur(16px);
+	z-index: 0;
+}
+.meteor-tail-outer {
+	position: absolute;
+	left: -10px; top: 90px;
+	width: 480px; height: 40px;
+	background: linear-gradient(90deg, #eaf1ff33 0%, #b6d0ff22 60%, transparent 100%);
+	border-radius: 32px 320px 320px 32px;
+	opacity: 0.25;
+	filter: blur(24px);
+	z-index: 0;
+}
+.meteor-core {
+	position: absolute;
+	left: 0; top: 30px;
+	width: 38px; height: 18px;
+	background: radial-gradient(circle at 60% 40%, #fff 70%, #b6d0ff 100%);
+	border-radius: 50% 60% 60% 50% / 60% 50% 50% 60%;
+	box-shadow: 0 0 32px 8px #eaf1ffcc, 0 0 64px 16px #b6d0ff99;
+	filter: blur(0.5px);
+	z-index: 2;
+}
+.meteor-tail {
+	position: absolute;
+	left: 10px; top: 36px;
+	width: 180px; height: 8px;
+	background: linear-gradient(90deg, #eaf1ff 0%, #b6d0ff 60%, transparent 100%);
+	border-radius: 8px 100px 100px 8px;
+	opacity: 0.85;
+	filter: blur(1.5px);
+	box-shadow: 0 0 24px 4px #b6d0ff66;
+	z-index: 1;
+}
+.meteor-glow {
+	position: absolute;
+	left: -18px; top: 18px;
+	width: 80px; height: 44px;
+	background: radial-gradient(circle, #eaf1ff88 0%, #b6d0ff44 80%, transparent 100%);
+	border-radius: 50%;
+	filter: blur(8px);
+	opacity: 0.7;
+	z-index: 0;
+}
+.meteor-sparks {
+	position: absolute;
+	left: 460px; top: 80px;
+	width: 120px; height: 24px;
+	pointer-events: none;
+	z-index: 3;
+}
+.meteor-sparks .spark {
+	position: absolute;
+	width: 16px; height: 3px;
+	background: linear-gradient(90deg, #fff 0%, #b6d0ff 100%, transparent 100%);
+	border-radius: 2px;
+	opacity: 0.7;
+	filter: blur(0.5px);
+	animation: spark-fly 1.2s linear forwards;
+	animation-delay: calc(var(--i) * 0.08s);
+}
+.meteor-sparks .spark:nth-child(1) { top: 2px; left: 0; transform: rotate(-8deg); }
+.meteor-sparks .spark:nth-child(2) { top: 8px; left: 12px; transform: rotate(2deg); }
+.meteor-sparks .spark:nth-child(3) { top: 14px; left: 24px; transform: rotate(7deg); }
+.meteor-sparks .spark:nth-child(4) { top: 18px; left: 36px; transform: rotate(-4deg); }
+.meteor-sparks .spark:nth-child(5) { top: 10px; left: 60px; transform: rotate(3deg); }
+@keyframes spark-fly {
+	0% { opacity: 0.8; transform: scaleX(1) translateX(0); }
+	100% { opacity: 0; transform: scaleX(2.2) translateX(60px); }
+}
+@font-face {
+	font-family: 'Suika DEMO';
+	src: url('fonts/Suika-DEMO.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
 /* --- Big Dipper Constellation Section --- */
 /* Newsletter Space-Themed Subscription Styles */
 .newsletter-space {
 	background: linear-gradient(120deg, #eaf1ff 60%, #dbeafe 100%);
 	border-radius: 32px;
 	box-shadow: 0 8px 32px 0 rgba(138, 172, 235, 0.18), 0 0 0 2px #b6d0ff33;
-	padding: 44px 32px 36px 32px;
-	max-width: 420px;
+	padding: 64px 56px 56px 56px;
+	max-width: 650px;
 	margin: 48px auto 32px auto;
 	position: relative;
+	z-index: 10;
 	overflow: visible;
 	text-align: center;
 	font-family: 'Google Sans', Arial, sans-serif;
 }
 .newsletter-header h2 {
-	font-family: 'Astroz', 'Google Sans', Arial, sans-serif;
+	font-family: 'Suika DEMO', 'Astroz', 'Google Sans', Arial, sans-serif;
 	font-size: 2.1rem;
 	color: #2c225f;
 	margin-bottom: 10px;
