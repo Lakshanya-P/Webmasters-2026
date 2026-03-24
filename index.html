@@ -362,43 +362,43 @@
 							flash.style.opacity = 0;
 							setTimeout(() => {
 								flash.remove();
-								playGalaxyVideo();
-							}, 700);
-						}, 500);
-					}
-				}
-				animateFlash();
-			}
-
-			function resizeCanvas() {
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
-			}
-		}
-
-		function playGalaxyVideo() {
-			// Second white flash before video appears
-			let flash = document.createElement('div');
-			flash.id = 'white-flash-video';
-			flash.style.position = 'absolute';
-			flash.style.top = 0;
-			flash.style.left = 0;
-			flash.style.width = '100%';
-			flash.style.height = '100%';
-			flash.style.background = 'white';
-			flash.style.opacity = 0;
-			flash.style.zIndex = 3500;
-			flash.style.pointerEvents = 'none';
-			const landingSection2 = document.getElementById('landing-animation-section');
-			if (landingSection2) {
-				landingSection2.appendChild(flash);
-			} else {
-				document.body.appendChild(flash);
-			}
-
-			let flashProgress = 0;
-			function animateFlashVideo() {
-				flashProgress += 0.07;
+									.newsletter-space {
+										position: relative;
+										z-index: 1;
+									}
+									.newsletter-space::before {
+										content: '';
+										position: absolute;
+										top: 50%;
+										left: 50%;
+										transform: translate(-50%, -50%);
+										width: 320%;
+										height: 320%;
+										background: radial-gradient(circle, rgba(170,80,255,0.48) 0%, rgba(140,60,255,0.32) 30%, rgba(200,120,255,0.22) 60%, rgba(120,60,255,0.12) 80%, rgba(120,160,255,0) 100%);
+										filter: blur(90px);
+										z-index: -10;
+										opacity: 0.92;
+										animation: newsletter-glow 1.8s ease-in-out infinite alternate;
+										pointer-events: none;
+										transition: opacity 0.4s, filter 0.4s;
+									}
+									@keyframes newsletter-glow {
+										0% {
+											opacity: 0.82;
+											filter: blur(90px) brightness(1.18);
+											box-shadow: 0 0 180px 90px #a050ff99, 0 0 0 0 #fff0;
+										}
+										50% {
+											opacity: 1;
+											filter: blur(120px) brightness(1.28);
+											box-shadow: 0 0 320px 160px #a050ffff, 0 0 0 0 #fff0;
+										}
+										100% {
+											opacity: 0.82;
+											filter: blur(90px) brightness(1.18);
+											box-shadow: 0 0 180px 90px #a050ff99, 0 0 0 0 #fff0;
+										}
+									}
 				flash.style.opacity = Math.min(1, flashProgress * 2);
 				flash.style.transform = `scale(${1 + flashProgress * 2})`;
 				if (flashProgress < 0.5) {
@@ -481,9 +481,9 @@
     </section>
 
     <!-- Galaxy Background Section -->
-    <section id="site-look-section" style="margin:0;padding:0; min-height:1200px;">
+    <section id="site-look-section" style="margin:0;padding:0; min-height:1850px;">
 		<div class="site-look-bg" style="min-height:2200px;">
-			<canvas id="site-look-canvas" style="min-height:2200px; height:1200px; width:100%; display:block;"></canvas>
+			<canvas id="site-look-canvas" style="min-height:2600px; height:1850px; width:100%; display:block;"></canvas>
 
 				<!-- A Look Through Our Site Constellation Section -->
 				<div style="position:relative; min-height:350px;">
@@ -553,8 +553,48 @@
 				<div id="subscribe">
 					<div class="newsletter-space">
 
+<style>
+	.newsletter-space {
+		position: relative;
+		z-index: 1;
+	}
+	.newsletter-space::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width:400%;
+		height: 400%;
+		background: radial-gradient(circle, rgba(160,120,255,0.18) 0%, rgba(120,160,255,0.13) 40%, rgba(180,120,255,0.10) 70%, rgba(120,160,255,0) 100%);
+		filter: blur(44px);
+		z-index: -10;
+		opacity: 0.48;
+		animation: newsletter-glow 2.8s ease-in-out infinite alternate;
+		pointer-events: none;
+		transition: opacity 0.4s, filter 0.4s;
+	}
+	@keyframes newsletter-glow {
+		0% {
+			opacity: 0.34;
+			filter: blur(44px) brightness(1.07);
+			box-shadow: 0 0 64px 32px #b48fff33, 0 0 0 0 #fff0;
+		}
+		50% {
+			opacity: 0.54;
+			filter: blur(60px) brightness(1.18);
+			box-shadow: 0 0 120px 60px #b48fff44, 0 0 0 0 #fff0;
+		}
+		100% {
+			opacity: 0.34;
+			filter: blur(44px) brightness(1.07);
+			box-shadow: 0 0 64px 32px #b48fff33, 0 0 0 0 #fff0;
+		}
+	}
+</style>
+
 						<div class="newsletter-header">
-							<h2>Subscribe to Our Space Newsletter</h2>
+							<h2>Subscribe to Our Newsletter</h2>
 						</div>
 						<div class="newsletter-desc">
 							Get monthly updates about programs, opportunities, and cosmic events. Join our crew and never miss a launch!
@@ -570,10 +610,109 @@
 		</div>
 	</section>
 
-	<!-- Wash Over Section -->
-	<section id="wash-over-transition" style="margin:0;padding:0; min-height: 850px;">
 
+	<!-- Wash Over Section with Scroll Animation -->
+
+	<section id="wash-over-transition" style="margin:0;padding:0; min-height:2000vh; width:100vw; position:relative; overflow:hidden;">
+		<div id="starpath-scroll-bg" style="position:fixed; top:0; left:0; width:100vw; height:2000vh; z-index:0; pointer-events:none;"></div>
+		<div id="section3" style="position:relative; z-index:1; min-height:2000vh; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+		</div>
+		<div id="myText" class="starpath-overlay-text">Explore resources across the country!</div>
+
+	<div id="washover-spacer" style="height:100vh; width:100vw;">
+		<h1 style="color:#fff; text-shadow:0 2px 16px #000, 0 0 32px #b6d0ff;">TESTINGGG</h1>
+	</div>
 	</section>
+</body>
+</html>
+<script>
+// --- Starpath Scroll Animation ---
+const starpathBgDiv = document.getElementById('starpath-scroll-bg');
+if (starpathBgDiv) {
+	// Prepare image frames
+	const frameCount = 55; // 1-based, 1.png to 55.png
+	const frameUrls = Array.from({length:frameCount}, (_,i) => `assets/scroll_animation_starpath/scroll_animation${i+1}.png`);
+	const images = [];
+	let loaded = 0;
+	// Preload images
+	frameUrls.forEach((url, idx) => {
+		const img = new window.Image();
+		img.src = url;
+		img.onload = () => { loaded++; if (loaded === frameCount) requestAnimationFrame(drawFrame); };
+		images[idx] = img;
+	});
+
+	// Create and style canvas
+	let canvas = document.createElement('canvas');
+	canvas.style.position = 'absolute';
+	canvas.style.top = '0';
+	canvas.style.left = '0';
+	canvas.style.width = '100vw';
+	canvas.style.height = '100vh';
+	canvas.style.pointerEvents = 'none';
+	canvas.style.zIndex = '0';
+	starpathBgDiv.appendChild(canvas);
+	let ctx = canvas.getContext('2d');
+
+	function resizeCanvas() {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	}
+	window.addEventListener('resize', resizeCanvas);
+	resizeCanvas();
+
+	// Scroll event handler
+	function getScrollProgress() {
+		const section = document.getElementById('wash-over-transition');
+		if (!section) return 0;
+		const rect = section.getBoundingClientRect();
+		const windowH = window.innerHeight;
+		// Section is onscreen: progress from 0 (top enters) to 1 (bottom leaves)
+		const total = rect.height + windowH;
+		const scrolled = windowH - rect.top;
+		let progress = Math.max(0, Math.min(1, scrolled / total));
+		return progress;
+	}
+
+	function drawFrame() {
+		const progress = getScrollProgress();
+		// Slightly faster scroll speed (2.5x)
+		let fastProgress = Math.min(1, progress * 2.5);
+		// Start from frame 1 (scroll_animation2.png)
+		let frameIdx = 1 + Math.floor(fastProgress * (frameCount-2));
+		// Clamp to valid range
+		frameIdx = Math.max(1, Math.min(frameCount-1, frameIdx));
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		if (images[frameIdx]) {
+			// Draw image to cover entire canvas
+			const img = images[frameIdx];
+			// Cover mode
+			const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+			const w = img.width * scale;
+			const h = img.height * scale;
+			const x = (canvas.width - w) / 2;
+			const y = (canvas.height - h) / 2;
+			ctx.drawImage(img, x, y, w, h);
+		}
+		// Show/hide overlay text with fade based on frameIdx (32 to 42 inclusive)
+		const myText = document.querySelector('.starpath-overlay-text');
+		if (myText) {
+			if (frameIdx >= 32 && frameIdx <= 42) {
+				if (myText.style.opacity !== '1') {
+					myText.style.display = 'flex';
+					setTimeout(() => { myText.style.opacity = '1'; }, 10);
+				}
+			} else {
+				if (myText.style.opacity !== '0') {
+					myText.style.opacity = '0';
+					setTimeout(() => { if (myText.style.opacity === '0') myText.style.display = 'none'; }, 700);
+				}
+			}
+		}
+		requestAnimationFrame(drawFrame);
+	}
+}
+</script>
 
 
 <script>
