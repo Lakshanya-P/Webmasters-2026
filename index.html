@@ -362,43 +362,43 @@
 							flash.style.opacity = 0;
 							setTimeout(() => {
 								flash.remove();
-									.newsletter-space {
-										position: relative;
-										z-index: 1;
-									}
-									.newsletter-space::before {
-										content: '';
-										position: absolute;
-										top: 50%;
-										left: 50%;
-										transform: translate(-50%, -50%);
-										width: 320%;
-										height: 320%;
-										background: radial-gradient(circle, rgba(170,80,255,0.48) 0%, rgba(140,60,255,0.32) 30%, rgba(200,120,255,0.22) 60%, rgba(120,60,255,0.12) 80%, rgba(120,160,255,0) 100%);
-										filter: blur(90px);
-										z-index: -10;
-										opacity: 0.92;
-										animation: newsletter-glow 1.8s ease-in-out infinite alternate;
-										pointer-events: none;
-										transition: opacity 0.4s, filter 0.4s;
-									}
-									@keyframes newsletter-glow {
-										0% {
-											opacity: 0.82;
-											filter: blur(90px) brightness(1.18);
-											box-shadow: 0 0 180px 90px #a050ff99, 0 0 0 0 #fff0;
-										}
-										50% {
-											opacity: 1;
-											filter: blur(120px) brightness(1.28);
-											box-shadow: 0 0 320px 160px #a050ffff, 0 0 0 0 #fff0;
-										}
-										100% {
-											opacity: 0.82;
-											filter: blur(90px) brightness(1.18);
-											box-shadow: 0 0 180px 90px #a050ff99, 0 0 0 0 #fff0;
-										}
-									}
+								playGalaxyVideo();
+							}, 700);
+						}, 500);
+					}
+				}
+				animateFlash();
+			}
+
+			function resizeCanvas() {
+				canvas.width = window.innerWidth;
+				canvas.height = window.innerHeight;
+			}
+		}
+
+		function playGalaxyVideo() {
+			// Second white flash before video appears
+			let flash = document.createElement('div');
+			flash.id = 'white-flash-video';
+			flash.style.position = 'absolute';
+			flash.style.top = 0;
+			flash.style.left = 0;
+			flash.style.width = '100%';
+			flash.style.height = '100%';
+			flash.style.background = 'white';
+			flash.style.opacity = 0;
+			flash.style.zIndex = 3500;
+			flash.style.pointerEvents = 'none';
+			const landingSection2 = document.getElementById('landing-animation-section');
+			if (landingSection2) {
+				landingSection2.appendChild(flash);
+			} else {
+				document.body.appendChild(flash);
+			}
+
+			let flashProgress = 0;
+			function animateFlashVideo() {
+				flashProgress += 0.07;
 				flash.style.opacity = Math.min(1, flashProgress * 2);
 				flash.style.transform = `scale(${1 + flashProgress * 2})`;
 				if (flashProgress < 0.5) {
