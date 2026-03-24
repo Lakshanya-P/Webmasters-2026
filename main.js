@@ -1,7 +1,13 @@
+// --- Login/Logout Button Logic (Universal) ---
+// (Moved to <script type="module"> in HTML for compatibility)
 // --- Heart Button Hold-to-Fill Logic (Universal) ---
 document.addEventListener('DOMContentLoaded', function() {
   const heart = document.querySelector('#topnav .heart');
-  if (!heart) return;
+  console.debug('[Heart] DOMContentLoaded, heart:', heart);
+  if (!heart) {
+    console.warn('[Heart] Heart element not found!');
+    return;
+  }
   const tank = heart.querySelector('.tank');
   const curve = heart.querySelector('.curve');
   const complimentEl = document.getElementById('compliment');
@@ -16,25 +22,43 @@ document.addEventListener('DOMContentLoaded', function() {
   let filled = false;
   function setFill(p) {
     progress = Math.max(0, Math.min(1, p));
+    // Animate tank height with a wavy top using a sine wave
     if (tank) {
-      tank.style.height = (progress * 100) + '%';
+      // Use a sine wave to modulate the fill height for a wavy effect
+      const baseHeight = progress * 100;
+      // Amplitude of the wave (in percent of tank height)
+      const amplitude = 6; // 6% wave height
+      // Frequency of the wave (how many waves across the width)
+      const frequency = 2; // 2 full waves
+      // Animate the background position to create a moving wave
+      const now = Date.now();
+      // Use a CSS gradient for a wavy top illusion
+      tank.style.height = baseHeight + '%';
       tank.style.background = progress === 1 ? 'red' : 'rgba(220, 53, 69, 0.6)';
+      tank.style.backgroundImage = `repeating-linear-gradient(to top, rgba(220,53,69,0.6) 0%, rgba(220,53,69,0.6) ${baseHeight - amplitude * Math.sin((now/250) + frequency)}%, transparent ${baseHeight - amplitude * Math.sin((now/250) + frequency)}%, transparent 100%)`;
+      tank.style.backgroundSize = '100% 100%';
+      tank.style.backgroundRepeat = 'no-repeat';
     }
-    // Optionally animate the curve if needed
+    // Animate the curve SVG to move up and down like a wave
     if (curve) {
       const crhStr = getComputedStyle(heart).getPropertyValue('--cruve-height') || '8px';
       const crh = parseFloat(crhStr);
-      curve.style.bottom = (-crh + progress * crh) + 'px';
+      // Add a sine wave offset to the curve's bottom position
+      const now = Date.now();
+      const waveOffset = Math.sin(now / 200) * (crh * 0.4); // 40% of curve height
+      curve.style.bottom = (-crh + progress * crh + waveOffset) + 'px';
     }
+    console.debug('[Heart] setFill', p, 'progress:', progress);
   }
   function showCompliment() {
+    console.debug('[Heart] showCompliment called');
     if (complimentEl) {
       const text = compliments[Math.floor(Math.random() * compliments.length)];
       complimentEl.textContent = text;
       complimentEl.classList.add('show');
       setTimeout(() => complimentEl.classList.remove('show'), 3000);
     }
-    setTimeout(() => { window.location.href = 'selfcare.html'; }, 1500);
+    setTimeout(() => { console.debug('[Heart] Redirecting to selfcare.html'); window.location.href = 'selfcare.html'; }, 1500);
     setTimeout(() => { heart.classList.remove('full'); setFill(0); filled = false; }, 3500);
   }
   function step(ts) {
@@ -47,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
       filled = true;
       isHeld = false;
       heart.classList.add('full');
+      console.debug('[Heart] Animation complete, calling showCompliment');
       showCompliment();
       raf = null;
       return;
@@ -56,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   function startHold() {
+    console.debug('[Heart] startHold called, filled:', filled);
     if (filled) return;
     isHeld = true;
     startTime = 0;
@@ -63,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     raf = requestAnimationFrame(step);
   }
   function endHold() {
+    console.debug('[Heart] endHold called');
     isHeld = false;
     if (raf) cancelAnimationFrame(raf);
     if (!filled) {
@@ -79,16 +106,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   heart.addEventListener('pointerdown', function(e) {
+    console.debug('[Heart] pointerdown event', e);
     e.preventDefault();
-    try { if (e.pointerId != null && heart.setPointerCapture) heart.setPointerCapture(e.pointerId); } catch (err) {}
+    try { if (e.pointerId != null && heart.setPointerCapture) heart.setPointerCapture(e.pointerId); } catch (err) {console.warn('[Heart] setPointerCapture error', err);}
     startHold();
   });
   ['pointerup', 'pointercancel', 'pointerleave'].forEach(evt => heart.addEventListener(evt, function(e) {
-    try { if (e.pointerId != null && heart.releasePointerCapture) heart.releasePointerCapture(e.pointerId); } catch (err) {}
+    console.debug('[Heart]', evt, 'event', e);
+    try { if (e.pointerId != null && heart.releasePointerCapture) heart.releasePointerCapture(e.pointerId); } catch (err) {console.warn('[Heart] releasePointerCapture error', err);}
     endHold(e);
   }));
-  heart.addEventListener('keydown', function(e) { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); startHold(); } });
-  heart.addEventListener('keyup', function(e) { if (e.key === ' ' || e.key === 'Enter') { endHold(e); } });
+  heart.addEventListener('keydown', function(e) { if (e.key === ' ' || e.key === 'Enter') { console.debug('[Heart] keydown', e.key); e.preventDefault(); startHold(); } });
+  heart.addEventListener('keyup', function(e) { if (e.key === ' ' || e.key === 'Enter') { console.debug('[Heart] keyup', e.key); endHold(e); } });
 });
 // --- Big Dipper Constellation Section (A Look Through Our Site) ---
 window.addEventListener('DOMContentLoaded', function() {

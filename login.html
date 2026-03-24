@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Galaxy Q&A</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
     <style>
         body {
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             color: #fff;
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
             min-height: 100vh;
             margin: 0;
         }
         .login-container {
             max-width: 400px;
-            margin: 6vh auto 0 auto;
+            margin: 28vh auto 0 auto;
             background: rgba(30, 34, 54, 0.97);
             border-radius: 18px;
             box-shadow: 0 4px 32px 0 #000a;
@@ -25,11 +29,13 @@
             text-align: center;
             margin-bottom: 1.5rem;
             color: #e0e6f6;
+            font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
         }
         .login-container label {
             display: block;
             margin-bottom: 0.5rem;
             color: #b0b8d1;
+            font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
         }
         .login-container input {
             width: 100%;
@@ -40,6 +46,7 @@
             background: #232946;
             color: #fff;
             font-size: 1rem;
+            font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
         }
         .login-container button {
             width: 100%;
@@ -51,6 +58,7 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: background 0.2s;
+            font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
         }
         .login-container button:hover {
             background: #3b4cca;
@@ -59,6 +67,7 @@
             text-align: center;
             margin-top: 1.2rem;
             color: #b0b8d1;
+            font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
         }
         .login-container .switch a {
             color: #5c7aff;
@@ -73,7 +82,84 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
+
+<header>
+        <div id="topnav">
+                <img id="activepg" src="assets/hotbar logo.PNG">
+                <button class="navbuttons" onclick="home()">Home</button>
+                <button class="navbuttons" onclick="resource()">Resource Hub</button>
+                <button class="navbuttons" onclick="highlights()">Highlights</button>
+                <button class="navbuttons" onclick="window.location.href='posts.html'">Posts</button>
+                <!-- clipPath for heart shape (kept hidden) -->
+                <svg style="width:0;height:0;position:absolute" aria-hidden="true">
+                    <defs>
+                        <clipPath id="myPath" clipPathUnits="objectBoundingBox">
+                            <path d="M0.373,0.967 S0.616,0.866,0.768,0.644 S0.912,0.107,0.739,0 S0.373,0.108,0.373,0.108 S0.166,-0.113,0,-0.002 S-0.159,0.432,-0.021,0.644 S0.373,0.967,0.373,0.967"></path>
+                        </clipPath>
+                    </defs>
+                </svg>
+                <!-- Heart (existing) placed between More and O to match requested position -->
+                <div class="heart" role="button" tabindex="0" title="Heart">
+                    <div class="tank"></div>
+                    <svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                        <defs>
+                            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                        </defs>
+                        <g>
+                            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(103, 130, 191, 0.5)" />
+                            <use xlink:href="#gentle-wave" x="48" y="1" fill="rgba(103, 130, 191, 0.3)" />
+                            <use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(103, 130, 191, 1)" />
+                        </g>
+                    </svg>
+                </div>
+                <div class="dropdown">
+                        <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+                        <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+                                <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+                                <button class="dropdown-item" onclick="window.location.href='refs.html'">References</button>
+                                <button class="dropdown-item" id="loginDropdownBtn" onclick="window.location.href='login.html'">Login</button>
+                        </div>
+                </div>
+        </div>
+        <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
+</header>
+
+        <!-- Firebase Login/Logout Button Logic -->
+        <script src="main.js"></script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+            import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyCEjbKjo7bLbXsLm2FFS3nb5TjXNXMg2lc",
+                authDomain: "mhig-edde5.firebaseapp.com",
+                projectId: "mhig-edde5",
+                storageBucket: "mhig-edde5.appspot.com",
+                messagingSenderId: "855050639590",
+                appId: "1:855050639590:web:84c985fb7c8e066681c327"
+            };
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            window.addEventListener('DOMContentLoaded', function() {
+                const loginBtn = document.getElementById('loginDropdownBtn');
+                if (!loginBtn) return;
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        loginBtn.textContent = 'Log Out';
+                        loginBtn.onclick = async function() {
+                            await signOut(auth);
+                            window.location.reload();
+                        };
+                    } else {
+                        loginBtn.textContent = 'Login';
+                        loginBtn.onclick = function() {
+                            window.location.href = 'login.html';
+                        };
+                    }
+                });
+            });
+        </script>
+
+        <div class="login-container">
         <h2>Login to Galaxy Q&A</h2>
         <div id="loginError" class="login-error" style="display:none;"></div>
         <form id="loginForm">

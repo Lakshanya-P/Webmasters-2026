@@ -55,13 +55,14 @@
 			</svg>
 		</div>
 
-		 <div class="dropdown">
-		   <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
-		   <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
-			 <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
-			 <button class="dropdown-item" onclick="window.location.href='refs.html'">References</button>
-		   </div>
-		 </div>
+			 <div class="dropdown">
+				 <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+				 <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+					 <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+					 <button class="dropdown-item" onclick="window.location.href='refs.html'">References</button>
+					 <button class="dropdown-item" id="loginDropdownBtn" onclick="window.location.href='login.html'">Login</button>
+				 </div>
+			 </div>
 
 		 
 	</div>
@@ -74,10 +75,44 @@
 	</div>
 
 	<!-- Add inline style to force no margin/padding below animation -->
-	<style>
-	#wormhole-container { margin-bottom: 0 !important; padding-bottom: 0 !important; }
-	#galaxy-welcome-section { margin-top: 0 !important; padding-top: 0 !important; }
-	</style>
+		<style>
+		#wormhole-container { margin-bottom: 0 !important; padding-bottom: 0 !important; }
+		#galaxy-welcome-section { margin-top: 0 !important; padding-top: 0 !important; }
+		</style>
+
+		<!-- Firebase Login/Logout Button Logic -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+			const firebaseConfig = {
+				apiKey: "AIzaSyCEjbKjo7bLbXsLm2FFS3nb5TjXNXMg2lc",
+				authDomain: "mhig-edde5.firebaseapp.com",
+				projectId: "mhig-edde5",
+				storageBucket: "mhig-edde5.appspot.com",
+				messagingSenderId: "855050639590",
+				appId: "1:855050639590:web:84c985fb7c8e066681c327"
+			};
+			const app = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			window.addEventListener('DOMContentLoaded', function() {
+				const loginBtn = document.getElementById('loginDropdownBtn');
+				if (!loginBtn) return;
+				onAuthStateChanged(auth, (user) => {
+					if (user) {
+						loginBtn.textContent = 'Log Out';
+						loginBtn.onclick = async function() {
+							await signOut(auth);
+							window.location.reload();
+						};
+					} else {
+						loginBtn.textContent = 'Login';
+						loginBtn.onclick = function() {
+							window.location.href = 'login.html';
+						};
+					}
+				});
+			});
+		</script>
 	<!-- Galaxy Video (hidden initially) -->
 	<video id="galaxy-video" src="assets/final_home.MP4" preload="auto" playsinline style="display:none" muted></video>
 

@@ -264,58 +264,58 @@
             </svg>
         </div>
 
-         <div class="dropdown">
-           <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
-           <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
-             <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
-             <button class="dropdown-item" onclick="window.location.href='refs.html'">References</button>
-           </div>
-         </div>
+                 <div class="dropdown">
+                     <button id="moreBtn" class="navbuttons" aria-expanded="false" aria-controls="moreMenu">More ▾</button>
+                     <div id="moreMenu" class="dropdown-menu" aria-hidden="true">
+                         <button class="dropdown-item" onclick="window.location.href='faqs.html'">FAQs</button>
+                         <button class="dropdown-item" onclick="window.location.href='refs.html'">References</button>
+                         <button class="dropdown-item" id="loginDropdownBtn" style="display:none;" onclick="window.location.href='login.html'">Login</button>
+                     </div>
+                 </div>
 	</div>
     <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
 </header>
-    <div class="galaxy-header">
-        <h1>Galaxy Q&A</h1>
-        <p>Ask questions, share knowledge, and help each other out! 🌌</p>
-    </div>
-    <div class="search-container">
-        <div class="search-bar-wrapper" style="position:relative;display:inline-block;">
-            <input type="text" id="searchBar" class="search-bar" placeholder="Search questions or tags...">
-            <div id="searchTagSuggestions" class="search-suggestions"></div>
+    <div style="margin-top:120px">
+        <div class="galaxy-header">
+            <h1>Galaxy Q&A</h1>
+            <p>Ask questions, share knowledge, and help each other out! 🌌</p>
         </div>
-        <button class="search-btn" id="searchBtn">Search</button>
-        <div id="activeTagFilter" style="margin-top:0.5rem;text-align:center;"></div>
-    </div>
-    <form class="post-form" id="postForm" style="display:none;">
-        <label for="postTitle">Title</label>
-        <input type="text" id="postTitle" required maxlength="80" placeholder="Enter your question or topic">
-        <label for="postBody">Details</label>
-        <textarea id="postBody" rows="4" required maxlength="1000" placeholder="Describe your question or share helpful info..."></textarea>
-        <label>Key Tags:</label>
-        <div class="tags-input-container">
-            <div id="tagsDisplay" class="tags-display"></div>
-            <input 
-                type="text" 
-                id="tagsInput" 
-                class="tags-input" 
-                placeholder="type #niche about your extracurricular (hit space to add more)"
-                autocomplete="off"
-            >
-            <div id="tagsAutocomplete" class="tags-autocomplete"></div>
+        <div class="search-container">
+            <div class="search-bar-wrapper" style="position:relative;display:inline-block;">
+                <input type="text" id="searchBar" class="search-bar" placeholder="Search questions or tags...">
+                <div id="searchTagSuggestions" class="search-suggestions"></div>
+            </div>
+            <button class="search-btn" id="searchBtn">Search</button>
+            <div id="activeTagFilter" style="margin-top:0.5rem;text-align:center;"></div>
         </div>
-        <input type="hidden" id="tagsValue" required style="display:none;">
-        <button type="submit">Post</button>
-    </form>
-    <div id="loginPrompt" style="display:none;text-align:center;margin:2rem 0;color:#b0b8d1;font-size:1.1rem;">
-        <span>You must <a href="login.html" style="color:#5c7aff;text-decoration:underline;">log in</a> to post or comment.</span>
+        <form class="post-form" id="postForm" style="display:none;">
+            <label for="postTitle">Title</label>
+            <input type="text" id="postTitle" required maxlength="80" placeholder="Enter your question or topic">
+            <label for="postBody">Details</label>
+            <textarea id="postBody" rows="4" required maxlength="1000" placeholder="Describe your question or share helpful info..."></textarea>
+            <label>Key Tags:</label>
+            <div class="tags-input-container">
+                <div id="tagsDisplay" class="tags-display"></div>
+                <input 
+                    type="text" 
+                    id="tagsInput" 
+                    class="tags-input" 
+                    placeholder="type #niche about your extracurricular (hit space to add more)"
+                    autocomplete="off"
+                >
+                <div id="tagsAutocomplete" class="tags-autocomplete"></div>
+            </div>
+            <input type="hidden" id="tagsValue" required style="display:none;">
+            <button type="submit">Post</button>
+        </form>
+        <div id="loginPrompt" style="display:none;text-align:center;margin:2rem 0;color:#b0b8d1;font-size:1.1rem;">
+            <span>You must <a href="login.html" style="color:#5c7aff;text-decoration:underline;">log in</a> to post or comment.</span>
+        </div>
+        <!-- Login button now in More dropdown -->
+        <div id="signOutBtnContainer" style="display:none;position:fixed;top:1.2rem;right:2rem;z-index:100;">
+            <button id="signOutBtn" style="background:#5c7aff;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;">Sign Out</button>
+        </div>
     </div>
-    <div id="loginBtnContainer" style="display:none;position:fixed;top:1.2rem;right:2rem;z-index:100;">
-        <a href="login.html" id="loginBtn" style="background:#5c7aff;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;text-decoration:none;">Login</a>
-    </div>
-    <div id="signOutBtnContainer" style="display:none;position:fixed;top:1.2rem;right:2rem;z-index:100;">
-        <button id="signOutBtn" style="background:#5c7aff;color:#fff;border:none;padding:0.5rem 1.2rem;border-radius:8px;font-size:1rem;cursor:pointer;">Sign Out</button>
-    </div>
-    <!-- Move script tag to just before closing body tag -->
     <div class="posts-list" id="postsList"></div>
     <script type="module" src="posts.js"></script>
 </body>

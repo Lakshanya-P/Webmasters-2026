@@ -22,18 +22,18 @@ function requireAuthForPosting() {
         console.debug('[AuthStateChanged] user:', user);
         const postForm = document.getElementById('postForm');
         const signOutBtnContainer = document.getElementById('signOutBtnContainer');
-        const loginBtnContainer = document.getElementById('loginBtnContainer');
         const loginPrompt = document.getElementById('loginPrompt');
+        const loginDropdownBtn = document.getElementById('loginDropdownBtn');
         if (!user) {
             if (postForm) { postForm.style.display = 'none'; console.debug('Hiding postForm'); }
             if (signOutBtnContainer) { signOutBtnContainer.style.display = 'none'; console.debug('Hiding signOutBtnContainer'); }
-            if (loginBtnContainer) { loginBtnContainer.style.display = ''; console.debug('Showing loginBtnContainer'); }
+            if (loginDropdownBtn) { loginDropdownBtn.style.display = ''; console.debug('Showing loginDropdownBtn'); }
             if (loginPrompt) { loginPrompt.style.display = ''; console.debug('Showing loginPrompt'); }
             document.querySelectorAll('.comment-form').forEach(f => { f.style.display = 'none'; });
         } else {
             if (postForm) { postForm.style.display = ''; console.debug('Showing postForm'); }
             if (signOutBtnContainer) { signOutBtnContainer.style.display = ''; console.debug('Showing signOutBtnContainer'); }
-            if (loginBtnContainer) { loginBtnContainer.style.display = 'none'; console.debug('Hiding loginBtnContainer'); }
+            if (loginDropdownBtn) { loginDropdownBtn.style.display = 'none'; console.debug('Hiding loginDropdownBtn'); }
             if (loginPrompt) { loginPrompt.style.display = 'none'; console.debug('Hiding loginPrompt'); }
             document.querySelectorAll('.comment-form').forEach(f => { f.style.display = ''; });
         }
