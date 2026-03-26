@@ -1,3 +1,176 @@
+		<!-- TopoJSON for D3 map rendering -->
+		<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+		<script type="module">
+		import { getEntriesByState } from './map-data.js';
+		// State color mapping (same as before)
+		const stateColors = {
+			'Washington': '#8a87b3', 'Oregon': '#8792b8', 'California': '#b7cdf2', 'Nevada': '#bbb6de', 'Idaho': '#dce4fb',
+			'Montana': '#5f73a0', 'Wyoming': '#c3bfe9', 'Utah': '#9fb3e3', 'Arizona': '#5b6fa3', 'Colorado': '#c3bfe9',
+			'New Mexico': '#8fa3cf', 'North Dakota': '#f1f3ff', 'South Dakota': '#ada6de', 'Nebraska': '#6f86b8',
+			'Kansas': '#8a8db3', 'Oklahoma': '#a39bdb', 'Texas': '#b4c7eb', 'Minnesota': '#b1b2cf', 'Iowa': '#6c6a86',
+			'Missouri': '#7f97c7', 'Arkansas': '#9db3e0', 'Louisiana': '#8a89ad', 'Wisconsin': '#9f94d2', 'Illinois': '#9bb0dc',
+			'Michigan': '#a5a3c6', 'Indiana': '#7c74ad', 'Ohio': '#d3defa', 'Kentucky': '#7e7ba2', 'Tennessee': '#8f86c2',
+			'Alabama': '#8a87b3', 'Mississippi': '#8792b8', 'Georgia': '#b7cdf2', 'South Carolina': '#bbb6de',
+			'North Carolina': '#dce4fb', 'Virginia': '#5f73a0', 'West Virginia': '#c3bfe9', 'Pennsylvania': '#9fb3e3',
+			'New York': '#5b6fa3', 'Vermont': '#c3bfe9', 'New Hampshire': '#8fa3cf', 'Maine': '#f1f3ff',
+			'Massachusetts': '#ada6de', 'Rhode Island': '#6f86b8', 'Connecticut': '#8a8db3', 'New Jersey': '#a39bdb',
+			'Delaware': '#b4c7eb', 'Maryland': '#b1b2cf', 'Florida': '#6c6a86', 'Alaska': '#7f97c7', 'Hawaii': '#9db3e0'
+		};
+
+		// Modal logic (reuse existing)
+		const popup = document.getElementById('state-popup');
+		const popupBackdrop = document.getElementById('state-popup-backdrop');
+		const popupTitle = document.getElementById('state-popup-title');
+		const popupContent = document.getElementById('state-popup-content');
+		const closeBtn = document.getElementById('close-state-popup');
+		function showStatePopup(stateName) {
+			popupTitle.textContent = stateName;
+			popupContent.innerHTML = 'Loading...';
+			popup.setAttribute('aria-hidden', 'false');
+			popup.style.display = 'block';
+			popupBackdrop.style.display = 'block';
+			fetchStateData(stateName);
+		}
+		function closeStatePopup() {
+			popup.setAttribute('aria-hidden', 'true');
+			popup.style.display = 'none';
+			popupBackdrop.style.display = 'none';
+		}
+		closeBtn.addEventListener('click', closeStatePopup);
+		popupBackdrop.addEventListener('click', closeStatePopup);
+		async function fetchStateData(stateName) {
+			try {
+				const entries = await getEntriesByState(stateName);
+				if (!entries || entries.length === 0) {
+					popupContent.innerHTML = '<p style="color:#ccc;">No posts found for this state.</p>';
+					return;
+				}
+				const entry = entries[entries.length - 1];
+				let html = '';
+				if (entry.pictures && entry.pictures.length > 0) {
+					html += `<img class="carousel-image" src="${entry.pictures[0]}" alt="Program image" />`;
+				}
+				html += `<h3 style="margin-top:0;">${entry.title}</h3>`;
+				html += `<p><strong>Grade Levels:</strong> ${Array.isArray(entry.gradeLevels) ? entry.gradeLevels.join(', ') : entry.gradeLevels}</p>`;
+				html += `<p><strong>Tags:</strong> ${Array.isArray(entry.tags) ? entry.tags.map(t => '#' + t).join(', ') : entry.tags}</p>`;
+				html += `<p><strong>Helpful Info:</strong> ${entry.helpfulInfo || ''}</p>`;
+				if (entry.links && entry.links.length > 0) {
+					html += `<div style="margin-top:10px;"><strong>Links:</strong><br>` + entry.links.map(link => `<a href="${link}" target="_blank" style="color:#4CAF50;word-break:break-all;">${link}</a>`).join('<br>') + '</div>';
+				}
+				popupContent.innerHTML = html;
+			} catch (e) {
+				popupContent.innerHTML = '<p style="color:#f88;">Error loading data.</p>';
+			}
+		}
+
+		// D3.js map rendering
+		import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+		const canvas = document.getElementById('us-map-canvas');
+		const ctx = canvas.getContext('2d');
+		const width = canvas.width;
+		const height = canvas.height;
+		let statesGeo = null;
+		let stateFeatures = [];
+		let hoveredState = null;
+
+		// US States GeoJSON (public URL)
+		const geoUrl = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
+
+		// D3 projection and path
+		const projection = d3.geoAlbersUsa().translate([width/2, height/2]).scale(1050);
+		const path = d3.geoPath(projection, ctx);
+
+		// State id to name mapping (from us-atlas)
+		const idToName = {
+			'01': 'Alabama', '02': 'Alaska', '04': 'Arizona', '05': 'Arkansas', '06': 'California', '08': 'Colorado', '09': 'Connecticut',
+			'10': 'Delaware', '11': 'District of Columbia', '12': 'Florida', '13': 'Georgia', '15': 'Hawaii', '16': 'Idaho',
+			'17': 'Illinois', '18': 'Indiana', '19': 'Iowa', '20': 'Kansas', '21': 'Kentucky', '22': 'Louisiana', '23': 'Maine',
+			'24': 'Maryland', '25': 'Massachusetts', '26': 'Michigan', '27': 'Minnesota', '28': 'Mississippi', '29': 'Missouri',
+			'30': 'Montana', '31': 'Nebraska', '32': 'Nevada', '33': 'New Hampshire', '34': 'New Jersey', '35': 'New Mexico',
+			'36': 'New York', '37': 'North Carolina', '38': 'North Dakota', '39': 'Ohio', '40': 'Oklahoma', '41': 'Oregon',
+			'42': 'Pennsylvania', '44': 'Rhode Island', '45': 'South Carolina', '46': 'South Dakota', '47': 'Tennessee',
+			'48': 'Texas', '49': 'Utah', '50': 'Vermont', '51': 'Virginia', '53': 'Washington', '54': 'West Virginia',
+			'55': 'Wisconsin', '56': 'Wyoming'
+		};
+
+		// Load and draw the map
+		d3.json(geoUrl).then(us => {
+			statesGeo = us;
+			stateFeatures = topojson.feature(us, us.objects.states).features;
+			drawMap();
+		});
+
+		function drawMap() {
+			ctx.clearRect(0, 0, width, height);
+			stateFeatures.forEach(f => {
+				const stateName = idToName[f.id];
+				ctx.save();
+				ctx.beginPath();
+				path(f);
+				let fillColor = '#eee';
+				let label = stateName;
+				if (!stateName) {
+					// Log the full feature for undefined state names
+					console.warn('Undefined state name for ID:', f.id, f);
+					label = `ID ${f.id}`;
+				} else if (!stateColors[stateName]) {
+					console.warn('No color for state:', stateName);
+				} else {
+					fillColor = stateColors[stateName];
+				}
+				ctx.fillStyle = fillColor;
+				ctx.globalAlpha = (hoveredState && hoveredState === stateName) ? 0.85 : 1.0;
+				ctx.fill();
+				ctx.lineWidth = (hoveredState && hoveredState === stateName) ? 3 : 1.2;
+				ctx.strokeStyle = (hoveredState && hoveredState === stateName) ? '#fff' : '#fff';
+				ctx.shadowColor = (hoveredState && hoveredState === stateName) ? '#fff' : 'transparent';
+				ctx.shadowBlur = (hoveredState && hoveredState === stateName) ? 12 : 0;
+				ctx.stroke();
+				// Draw the label for undefined states
+				if (!stateName) {
+					const centroid = path.centroid(f);
+					ctx.save();
+					ctx.font = 'bold 10px sans-serif';
+					ctx.fillStyle = '#333';
+					ctx.textAlign = 'center';
+					ctx.textBaseline = 'middle';
+					ctx.fillText(label, centroid[0], centroid[1]);
+					ctx.restore();
+				}
+				ctx.restore();
+			});
+		}
+
+		// Hit detection for hover/click
+		canvas.addEventListener('mousemove', e => {
+			const rect = canvas.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			let found = null;
+			for (const f of stateFeatures) {
+				ctx.beginPath();
+				path(f);
+				if (ctx.isPointInPath(x, y)) {
+					found = idToName[f.id];
+					break;
+				}
+			}
+			if (found !== hoveredState) {
+				hoveredState = found;
+				drawMap();
+				canvas.style.cursor = found ? 'pointer' : 'default';
+			}
+		});
+		canvas.addEventListener('mouseleave', () => {
+			hoveredState = null;
+			drawMap();
+			canvas.style.cursor = 'default';
+		});
+		canvas.addEventListener('click', e => {
+			if (!hoveredState) return;
+			showStatePopup(hoveredState);
+		});
+		</script>
 </html>
 <style>
 	#map {
@@ -722,7 +895,8 @@
 			'North Carolina': '#dce4fb', 'Virginia': '#5f73a0', 'West Virginia': '#c3bfe9', 'Pennsylvania': '#9fb3e3',
 			'New York': '#5b6fa3', 'Vermont': '#c3bfe9', 'New Hampshire': '#8fa3cf', 'Maine': '#f1f3ff',
 			'Massachusetts': '#ada6de', 'Rhode Island': '#6f86b8', 'Connecticut': '#8a8db3', 'New Jersey': '#a39bdb',
-			'Delaware': '#b4c7eb', 'Maryland': '#b1b2cf', 'Florida': '#6c6a86', 'Alaska': '#7f97c7', 'Hawaii': '#9db3e0'
+			'Delaware': '#b4c7eb', 'Maryland': '#b1b2cf', 'Florida': '#6c6a86', 'Alaska': '#7f97c7', 'Hawaii': '#9db3e0',
+			'District of Columbia': '#e0b3c2'
 		};
 		// Map SVG id to state name
 		const idToName = {
@@ -1129,7 +1303,7 @@ drawStaticReviewsGalaxy(reviewsGalaxyCanvas.getContext('2d'), reviewsGalaxyCanva
 				// Add planet-specific overlays
 				if (i === 0) { // Mercury: craters
 					let mercuryImg = document.createElement('img');
-					mercuryImg.src = './assets/planets/1.png';
+					mercuryImg.src = './assets/planets/1.PNG';
 					mercuryImg.alt = 'Mercury';
 					mercuryImg.style.position = 'absolute';
 					mercuryImg.style.left = '-3px';
