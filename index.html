@@ -47,9 +47,6 @@
 				}
 				const entry = entries[entries.length - 1];
 				let html = '';
-				if (entry.pictures && entry.pictures.length > 0) {
-					html += `<img class="carousel-image" src="${entry.pictures[0]}" alt="Program image" />`;
-				}
 				html += `<h3 style="margin-top:0;">${entry.title}</h3>`;
 				html += `<p><strong>Grade Levels:</strong> ${Array.isArray(entry.gradeLevels) ? entry.gradeLevels.join(', ') : entry.gradeLevels}</p>`;
 				html += `<p><strong>Tags:</strong> ${Array.isArray(entry.tags) ? entry.tags.map(t => '#' + t).join(', ') : entry.tags}</p>`;
@@ -981,7 +978,7 @@
 			font-weight: 700;
 		}
 		#state-popup-content a {
-			color: #4a3ca7;
+			color: #f2f2f2;
 			text-decoration: underline;
 			word-break: break-all;
 			transition: color 0.15s;
