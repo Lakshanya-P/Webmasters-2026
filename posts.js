@@ -24,21 +24,38 @@ function requireAuthForPosting() {
         const signOutBtnContainer = document.getElementById('signOutBtnContainer');
         const loginPrompt = document.getElementById('loginPrompt');
         const loginDropdownBtn = document.getElementById('loginDropdownBtn');
+        const addPostBtn = document.getElementById('addPostBtn');
         if (!user) {
             if (postForm) { postForm.style.display = 'none'; console.debug('Hiding postForm'); }
             if (signOutBtnContainer) { signOutBtnContainer.style.display = 'none'; console.debug('Hiding signOutBtnContainer'); }
             if (loginDropdownBtn) { loginDropdownBtn.style.display = ''; console.debug('Showing loginDropdownBtn'); }
             if (loginPrompt) { loginPrompt.style.display = ''; console.debug('Showing loginPrompt'); }
+            if (addPostBtn) { addPostBtn.style.display = 'none'; }
             document.querySelectorAll('.comment-form').forEach(f => { f.style.display = 'none'; });
         } else {
-            if (postForm) { postForm.style.display = ''; console.debug('Showing postForm'); }
+            if (postForm) { postForm.style.display = 'none'; console.debug('Hiding postForm'); }
             if (signOutBtnContainer) { signOutBtnContainer.style.display = ''; console.debug('Showing signOutBtnContainer'); }
             if (loginDropdownBtn) { loginDropdownBtn.style.display = 'none'; console.debug('Hiding loginDropdownBtn'); }
             if (loginPrompt) { loginPrompt.style.display = 'none'; console.debug('Hiding loginPrompt'); }
+            if (addPostBtn) { addPostBtn.style.display = ''; }
             document.querySelectorAll('.comment-form').forEach(f => { f.style.display = ''; });
         }
     });
 }
+
+// Add click handler for Add Post button
+document.addEventListener('DOMContentLoaded', function() {
+    const addPostBtn = document.getElementById('addPostBtn');
+    if (addPostBtn) {
+        addPostBtn.addEventListener('click', function() {
+            const postForm = document.getElementById('postForm');
+            if (postForm) {
+                postForm.style.display = '';
+                postForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+});
 const preloadedTags = [
     "Mathematics",
     "ComputerScience",
@@ -509,7 +526,7 @@ function renderTagSuggestions(input) {
 
 function renderActiveTagFilter() {
     if (activeTagFilter) {
-        activeTagFilterDiv.innerHTML = `Filtering by tag: <span style='background:#5c7aff;color:#fff;border-radius:12px;padding:0.2rem 0.8rem;'>#${activeTagFilter}</span> <button id='clearTagFilterBtn' style='margin-left:0.5rem;background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:1.1em;' title='Clear tag filter'>&times;</button>`;
+        activeTagFilterDiv.innerHTML = `Filtering by tag:<div style='margin-top:0.3em;display:flex;justify-content:center;'><span style='background:#5c7aff;color:#fff;border-radius:12px;padding:0.2rem 0.8rem;display:inline-flex;align-items:center;'>#${activeTagFilter}<button id='clearTagFilterBtn' style='margin-left:0.2rem;background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:1.1em;line-height:1;padding:0 0.2em;' title='Clear tag filter'>&times;</button></span></div>`;
         activeTagFilterDiv.style.display = '';
         document.getElementById('clearTagFilterBtn').onclick = () => {
             activeTagFilter = null;
@@ -517,8 +534,9 @@ function renderActiveTagFilter() {
             loadPosts();
         };
     } else {
-        activeTagFilterDiv.innerHTML = '';
-        activeTagFilterDiv.style.display = 'none';
+        // Always show the tag filter section, even when empty
+        activeTagFilterDiv.innerHTML = `<span style='color:#b0b8d1;font-size:0.98em;display:flex;align-items:center;justify-content:center;width:100%;height:100%;'>No tag filter selected</span>`;
+        activeTagFilterDiv.style.display = '';
     }
 }
 

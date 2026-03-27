@@ -9,6 +9,41 @@
     <!-- Google Fonts for Google Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
+                #addPostBtn {
+                    font-family: 'Google Sans', Arial, sans-serif !important;
+                }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 1.5rem 0 1rem 0;
+        }
+        #activeTagFilter {
+            position: static;
+            width: 180px;
+            height: 65px;
+            background: #232946;
+            color: #fff;
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 2px 8px #0004;
+            margin-left: 0.7rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+                        input, textarea, select {
+                            font-family: 'Google Sans', Arial, sans-serif !important;
+                        }
+                .tags-input-container {
+                    background: #232946;
+                    border-radius: 8px;
+                    padding: 0.5rem 0.7rem;
+                }
         body {
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             color: #fff;
@@ -96,12 +131,56 @@
             outline: 2px solid #5c7aff;
         }
         .post-form {
-            background: rgba(30, 34, 54, 0.95);
+            background: rgba(30, 34, 54, 0.98);
             border-radius: 16px;
             max-width: 600px;
-            margin: 2rem auto 1.5rem auto;
+            width: 95vw;
             padding: 2rem 2rem 1.5rem 2rem;
-            box-shadow: 0 4px 32px 0 #000a  ;
+            box-shadow: 0 8px 40px 0 #000c;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2147483647;
+            display: none;
+        }
+        .post-form.show {
+            display: block;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.55);
+            z-index: 2147483646;
+            display: none;
+        }
+        .modal-overlay.show {
+            display: block;
+        }
+        .post-form .close-btn {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.7rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            line-height: 1;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.15s;
+        }
+        .post-form .close-btn:hover {
+            background: rgba(255,255,255,0.08);
         }
         .post-form label {
             display: block;
@@ -115,7 +194,7 @@
             border-radius: 8px;
             border: none;
             background: #232946;
-            color: #fff;
+            color: #232946;
             font-size: 1rem;
         }
         .post-form .tags-input {
@@ -276,19 +355,9 @@
     <div id="compliment" class="compliment" aria-live="polite" aria-atomic="true"></div>
 </header>
     <div style="margin-top:120px">
-        <div class="galaxy-header">
-            <h1>Posts & Helpful Questions</h1>
-            <p>Ask questions, share knowledge, and help each other out! <br> Feel free to search for any advice about classes, programs, or extracurriculars!</p>
-        </div>
-        <div class="search-container">
-            <div class="search-bar-wrapper" style="position:relative;display:inline-block;">
-                <input type="text" id="searchBar" class="search-bar" placeholder="Search questions or tags...">
-                <div id="searchTagSuggestions" class="search-suggestions"></div>
-            </div>
-            <button class="search-btn" id="searchBtn">Search</button>
-            <div id="activeTagFilter" style="margin-top:0.5rem;text-align:center;"></div>
-        </div>
-        <form class="post-form" id="postForm" style="display:none;">
+        <div class="modal-overlay" id="postModalOverlay"></div>
+        <form class="post-form" id="postForm">
+            <button type="button" class="close-btn" id="closePostForm" title="Close">&times;</button>
             <label for="postTitle">Title</label>
             <input type="text" id="postTitle" required maxlength="80" placeholder="Enter your question or topic">
             <label for="postBody">Details</label>
@@ -306,8 +375,24 @@
                 <div id="tagsAutocomplete" class="tags-autocomplete"></div>
             </div>
             <input type="hidden" id="tagsValue" required style="display:none;">
-            <button type="submit">Post</button>
+            <button type="submit" style="margin-top: 10px;">Post</button>
         </form>
+        <div class="galaxy-header">
+            <h1>Posts & Helpful Questions</h1>
+            <p>Ask questions, share knowledge, and help each other out! <br> Feel free to search for any advice about classes, programs, or extracurriculars!</p>
+        </div>
+        <div class="search-container">
+            <button id="addPostBtn" style="display:none;margin-right:1rem;background:#5c7aff;color:#fff;border:none;padding:0.7rem 1.5rem;border-radius:8px;font-size:1rem;cursor:pointer;transition:background 0.2s;height:55px;">Add a Post</button>
+            <div class="search-bar-wrapper" style="position:relative;display:inline-block;">
+                <input type="text" id="searchBar" class="search-bar" placeholder="Search questions or tags...">
+                <div id="searchTagSuggestions" class="search-suggestions"></div>
+            </div>
+            <button class="search-btn" id="searchBtn">Search</button>
+            <div id="activeTagFilter">
+                <!-- Tag filter section is always present. Content will be updated by JS. -->
+            </div>
+        </div>
+        <!-- post-form moved to modal above -->
         <div id="loginPrompt" style="display:none;text-align:center;margin:2rem 0;color:#b0b8d1;font-size:1.1rem;">
             <span>You must <a href="login.html" style="color:#5c7aff;text-decoration:underline;">log in</a> to post or comment.</span>
         </div>
@@ -317,6 +402,43 @@
         </div>
     </div>
     <div class="posts-list" id="postsList"></div>
-    <script type="module" src="posts.js"></script>
+<script type="module" src="posts.js"></script>
+<script>
+// Popup modal logic for post form
+document.addEventListener('DOMContentLoaded', function() {
+    const addPostBtn = document.getElementById('addPostBtn');
+    const postForm = document.getElementById('postForm');
+    const overlay = document.getElementById('postModalOverlay');
+    const closeBtn = document.getElementById('closePostForm');
+    function showModal() {
+        postForm.classList.add('show');
+        overlay.classList.add('show');
+    }
+    function hideModal() {
+        postForm.classList.remove('show');
+        overlay.classList.remove('show');
+        postForm.reset();
+        if (window.selectedTags) { window.selectedTags = []; }
+        if (window.updateTagsDisplay) { window.updateTagsDisplay(); }
+    }
+    if (addPostBtn) {
+        addPostBtn.addEventListener('click', showModal);
+    }
+    if (closeBtn) {
+        closeBtn.addEventListener('click', hideModal);
+    }
+    if (overlay) {
+        overlay.addEventListener('click', hideModal);
+    }
+    // Prevent form submit from closing modal on error
+    postForm.addEventListener('submit', function(e) {
+        if (!postForm.checkValidity()) {
+            e.preventDefault();
+        } else {
+            hideModal();
+        }
+    });
+});
+</script>
 </body>
 </html>
