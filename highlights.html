@@ -136,7 +136,7 @@
 
         .folder-label {
             color: #8c5f14;
-            font-size: 48px;
+            font-size: 55px;
             letter-spacing: 3px;
             text-transform: uppercase;
             opacity: 0.7;
@@ -148,11 +148,12 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 			width: 100%;
+            font-family: 'Astroz', sans-serif;
         }
 
         .folder-subtitle {
             color: #8c5f14;
-            font-size: 28px;
+            font-size: 24px;
             font-family: 'Google Sans', sans-serif; 
             opacity: 0.6;
             text-align: center;
@@ -187,8 +188,7 @@
             position: relative;
             width: 100%;
             background: #ffd6e8;
-            color: #333;
-            border: 2px solid rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(0, 0, 0, 0);
             border-bottom: none;
             padding: 10px 8px;
             border-radius: 12px 12px 0 0;
@@ -196,8 +196,7 @@
             font-size: 12px;
             cursor: pointer;
             pointer-events: auto;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease, background 0.2s ease;
+            transition: transform 0.05s ease, background 0.05s ease;
             z-index: 10;
         }
 
@@ -231,8 +230,7 @@
             border-radius: 0 0 18px 18px;
             padding: 24px;
             padding-top: 32px;
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-            border: 2px solid rgba(0, 0, 0, 0.2);
+
             border-top: none;
             color: #333;
             z-index: 2;
@@ -256,15 +254,19 @@
         }
 
         .scrap-title {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 35px;
+            font-weight: 750;
             margin-bottom: 10px;
             letter-spacing: 1px;
+            text-align: center;
+            font-family: 'Suika', sans-serif;
         }
 
         .scrap-desc {
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 17px;
+            line-height: 1.1;
+            text-align: center;
+            font-family: 'Google Sans', sans-serif;
             margin-bottom: 16px;
         }
 
@@ -277,7 +279,8 @@
 
         .carousel-frame {
             flex: 1;
-            height: 160px;
+            height: 200px;
+            width: 150px !important;
             background: #d5d3e8;
             border-radius: 14px;
             overflow: hidden;
@@ -290,7 +293,7 @@
         .carousel-frame img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit:contain;
         }
 
         .carousel-btn {
@@ -306,8 +309,10 @@
 
         .carousel-dots {
             display: flex;
+            justify-content: center;
             gap: 6px;
             margin-bottom: 12px;
+            align-self: center;
         }
 
         .carousel-dot {
@@ -330,13 +335,17 @@
         }
 
         .scrap-link {
-            background: #f2d5c8;
-            color: #5b2b1f;
+            background: #b7cdf2;
+            color: #54487e;;
             padding: 6px 12px;
             border-radius: 14px;
             text-decoration: none;
             font-size: 12px;
-            border: 1px dashed #b18276;
+            display: flex;
+            align-self: center;
+            justify-content: center;
+            font-family: 'Google Sans', sans-serif;
+            border: 1px dashed #9bb0e2;;
         }
 
         @media (max-width: 760px) {
@@ -425,12 +434,6 @@
                     <div class="card-sheet" style="--index: 4;">
                         <button class="card-tab" data-index="4" style="--index: 4;">#5</button>
                     </div>
-                    <div class="card-sheet" style="--index: 5;">
-                        <button class="card-tab" data-index="5" style="--index: 5;">#6</button>
-                    </div>
-                    <div class="card-sheet" style="--index: 6;">
-                        <button class="card-tab" data-index="6" style="--index: 6;">#7</button>
-                    </div>
                 </div>
                 <div class="scrapbook" id="scrapbook">
                     <div class="scrap-title" id="scrapTitle"></div>
@@ -447,7 +450,7 @@
                 </div>
                 <div class="folder-front">
                     <div class="folder-label">Highlights Folder</div>
-                    <div class="folder-subtitle">Click on the folder to discover!</div>
+                    <div class="folder-subtitle">Click on the folder to <br>discover our most popular resources!</div>
                 </div>
             </div>
         </div>
@@ -698,17 +701,18 @@
 
             const scrapbookData = [
                 {
-                    title: 'Collegeboard',
-                    description: 'A common website known to many students across the nation who are interested in SAT and AP courses. ',
+                    title: 'Council of Foundations',
+                    description: 'Check different organizations and communities that offer scholarships and opportunities available to you.',
                     images: [
-                        'assets/h1.jpg',
-                        'assets/h1.2.jpg',
-                        'assets/h1.3.png'
+                        'assets/h4.png',
+                        'assets/h4.1.png',
+                        'assets/h4.2.png'
                     ],
                     links: [
-                        { label: 'collegeboard.org', url: 'https://www.collegeboard.org/' },
+                        { label: 'cof.org', url: 'https://cof.org/' }
                     ]
                 },
+        
                 {
                     title: 'Khan Academy ',
                     description: 'Provides free courses and tutorials covering many topics along with quizzes and other resources to help students learn effectively.',
@@ -723,67 +727,44 @@
                 },
                 {
                     title: 'MIT OpenCourseWare',
-                    description: 'Lecture notes, exams, and videos all from MIT, posted by MIT. A great source for students after graduation and high school students enrolled in college leveled courses. ',
+                    description: 'Lecture notes, exams, and videos all from MIT. Great source for students enrolled in college leveled courses. ',
                     images: [
-                        makeImage('Highlight 3A', '#1b366d', '#a29dd7'),
-                        makeImage('Highlight 3B', '#404471', '#bccafb'),
-                        makeImage('Highlight 3C', '#3b3074', '#7a99da')
+                        'assets/h3.1.png',
+                        'assets/h3.2.png',
+                        'assets/h3.png'
                     ],
                     links: [
                         { label: 'ocw.mit.edu', url: 'https://ocw.mit.edu/' },
                         {  }
                     ]
                 },
-                {
-                    title: 'Council of Foundations',
-                    description: 'Check different organizations and communities that offer scholarships and opportunities available to you.',
-                    images: [
-                        makeImage('Council of Foundations', '#171431', '#5677ba'),
-                        makeImage('Scholarships', '#2c225f', '#8aaceb'),
-                        makeImage('Opportunities', '#36355d', '#dee2fd')
-                    ],
-                    links: [
-                        { label: 'cof.org', url: 'https://cof.org/' }
-                    ]
-                },
+                
                 {
                     title: 'Horatio Alger Scholarship',
                     description: 'Provides many different scholarships that focus on more than just merit.',
                     images: [
-                        makeImage('Horatio Alger', '#0e2654', '#7b74c1'),
-                        makeImage('Scholarships', '#28457f', '#bccafb'),
-                        makeImage('Merit Based', '#272646', '#a29dd7')
+                        'assets/h5.png',
+                        'assets/h5.1.png',
+                        'assets/h5.2.png'
                     ],
                     links: [
                         { label: 'scholars.horatioalger.org', url: 'https://scholars.horatioalger.org/scholarships/' }
                     ]
                 },
                 {
-                    title: 'NY Times Games',
-                    description: 'A collection of daily games, including the daily Wordle.',
+                    title: 'Collegeboard',
+                    description: 'A common website known to many students across the nation who are interested in SAT and AP courses. ',
                     images: [
-                        makeImage('NY Times Games', '#1b366d', '#7a99da'),
-                        makeImage('Daily Wordle', '#36355d', '#8d88ca'),
-                        makeImage('Puzzles', '#2c225f', '#dee2fd')
+                        'assets/h1.jpg',
+                        'assets/h1.2.jpg',
+                        'assets/h1.3.png'
                     ],
                     links: [
-                        { label: 'nytco.com/games', url: 'https://www.nytco.com/games/' },
-                        { label: '2048game.com', url: 'https://2048game.com' }
-                    ]
-                },
-                {
-                    title: '2048',
-                    description: 'The classic tile game, join numbers to get 2048.',
-                    images: [
-                        makeImage('2048 Game', '#171431', '#a5baf3'),
-                        makeImage('Join Tiles', '#404471', '#bccafb'),
-                        makeImage('Classic Puzzle', '#272646', '#7b74c1')
-                    ],
-                    links: [
-                        { label: '2048game.com', url: 'https://2048game.com' },
-                        { label: 'Tetris', url: 'https://play.tetris.com' }
+                        { label: 'collegeboard.org', url: 'https://www.collegeboard.org/' },
                     ]
                 }
+
+                
             ];
 
             let activeCard = 0;
