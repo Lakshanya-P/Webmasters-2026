@@ -30,20 +30,31 @@ document.getElementById('showLogin').onclick = () => {
 const loginForm = document.getElementById('loginForm');
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value.trim();
+    const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
     const errorDiv = document.getElementById('loginError');
     errorDiv.style.display = 'none';
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        // Fetch name from database
-        const snap = await get(child(ref(database), 'users/' + user.uid));
-        if (snap.exists() && snap.val().name) {
-            localStorage.setItem('userName', snap.val().name);
-        } else {
-            localStorage.removeItem('userName');
+        // Find user by username in database
+        const usersSnap = await get(child(ref(database), 'users'));
+        let foundUser = null;
+        let foundUid = null;
+        if (usersSnap.exists()) {
+            const users = usersSnap.val();
+            for (const [uid, userObj] of Object.entries(users)) {
+                if (userObj.username && userObj.username.toLowerCase() === username.toLowerCase()) {
+                    foundUser = userObj;
+                    foundUid = uid;
+                    break;
+                }
+            }
         }
+        if (!foundUser) throw new Error('Username not found.');
+        // Now sign in with email/password using foundUid as email (simulate email as username@fake.com)
+        const fakeEmail = `${username}@fake.com`;
+        const userCredential = await signInWithEmailAndPassword(auth, fakeEmail, password);
+        const user = userCredential.user;
+        localStorage.setItem('userName', username);
         window.location.href = 'posts.html';
     } catch (error) {
         errorDiv.textContent = error.message;
@@ -55,17 +66,28 @@ loginForm.addEventListener('submit', async (e) => {
 const registerForm = document.getElementById('registerForm');
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('regName').value.trim();
-    const email = document.getElementById('regEmail').value.trim();
+    const username = document.getElementById('regUsername').value.trim();
     const password = document.getElementById('regPassword').value;
     const errorDiv = document.getElementById('registerError');
     errorDiv.style.display = 'none';
     try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // Check if username already exists
+        const usersSnap = await get(child(ref(database), 'users'));
+        if (usersSnap.exists()) {
+            const users = usersSnap.val();
+            for (const userObj of Object.values(users)) {
+                if (userObj.username && userObj.username.toLowerCase() === username.toLowerCase()) {
+                    throw new Error('Username already taken.');
+                }
+            }
+        }
+        // Use username as fake email for Firebase Auth
+        const fakeEmail = `${username}@fake.com`;
+        const userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
         const user = userCredential.user;
-        // Save name to database
-        await set(ref(database, 'users/' + user.uid), { name });
-        localStorage.setItem('userName', name);
+        // Save username to database
+        await set(ref(database, 'users/' + user.uid), { username });
+        localStorage.setItem('userName', username);
         window.location.href = 'posts.html';
     } catch (error) {
         errorDiv.textContent = error.message;

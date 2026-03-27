@@ -278,13 +278,24 @@ if (postForm) {
             tags = [];
         }
         if (!title || !body) return;
+        // Get username from localStorage or database
+        let author = localStorage.getItem('userName');
+        if (!author) {
+            // fallback: fetch from database
+            const snap = await get(child(ref(database), 'users/' + user.uid));
+            if (snap.exists() && snap.val().username) {
+                author = snap.val().username;
+            } else {
+                author = user.uid;
+            }
+        }
         const postData = {
             title,
             body,
             tags,
             timestamp: Date.now(),
             comments: [],
-            author: user.email || user.uid
+            author
         };
         try {
             const newPostRef = push(ref(database, 'posts'));

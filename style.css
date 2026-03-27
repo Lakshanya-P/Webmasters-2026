@@ -1243,7 +1243,7 @@ body:has(.directory-container)::after {
 }
 
 .search-submit-btn:hover {
-  color: #45a049;
+  color: #58488c;
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -1387,6 +1387,9 @@ body:has(.directory-container)::after {
   box-shadow: 0 0 5px rgba(200, 180, 255, 0.3);
 }
 
+
+/* DEBUG: Always show state dropdown for debugging and increase z-index */
+
 .state-dropdown-list {
   display: none;
   position: absolute;
@@ -1407,6 +1410,8 @@ body:has(.directory-container)::after {
   display: flex;
   flex-direction: column;
 }
+
+/* .state-dropdown-list.active { display: flex; flex-direction: column; } */
 
 .state-filter-input {
   padding: 10px 15px;
@@ -1446,7 +1451,7 @@ body:has(.directory-container)::after {
 
 .state-option:hover,
 .state-option.highlight {
-  background-color: #e8f5e9;
+  background-color: #c6d1ff;
 }
 
 .state-option:last-child {
@@ -1541,7 +1546,7 @@ body:has(.directory-container)::after {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
+  z-index: 99999;
   justify-content: center;
   align-items: center;
 }
@@ -1551,17 +1556,144 @@ body:has(.directory-container)::after {
 }
 
 /* Modal Content */
+
+/* Cosmic/modern Add Entry Modal Styling */
 .modal-content {
-  background: white;
-  border-radius: 12px;
-  padding: 15px 20px;
-  max-width: 500px;
-  width: 90%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background: #d0d8fe;
+  border-radius: 28px;
+  padding: 38px 36px 32px 36px;
+  max-width: 540px;
+  width: 95%;
+  box-shadow: 0 12px 40px 0 rgba(40, 60, 120, 0.40), 0 0 0 2px #6e7fdc33;
+  border: 2px solid #6e7fdc55;
   animation: slideIn 0.3s ease;
-  max-height: 85vh;
+  max-height: 87vh;
   overflow-y: auto;
   margin-top: 75px;
+  color: #e0e6ff;
+  font-family: 'Google Sans', Arial, sans-serif;
+  position: relative;
+  z-index: 100000;
+}
+
+.modal-header h2 {
+  font-family: 'Suika', 'Google Sans', Arial, sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: 0.045em;
+  color: #e0e6ff;
+  margin: 0 0 22px 0;
+  text-align: center;
+  text-shadow: 0 2px 16px #d3daff;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 1003;
+}
+.modal-close:hover {
+  color: #a6b6ff;
+}
+
+/* Form group styling */
+.modal-content .form-group {
+  margin-bottom: 22px;
+}
+.modal-content label {
+  color: #a6b6ff;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 7px;
+  display: block;
+  letter-spacing: 0.01em;
+}
+.modal-content input[type="text"],
+.modal-content input[type="file"],
+.modal-content textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: #d0d8fe;
+  color: #232a4d;
+  font-size: 1.2rem;
+  font-family: 'Google Sans', Arial, sans-serif;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.modal-content input[type="text"]:focus,
+.modal-content textarea:focus {
+  outline: none;
+  border-color: #a6b6ff;
+  box-shadow: 0 0 0 2px #a6b6ff44;
+}
+.modal-content textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+.modal-content .submit-button {
+  background: linear-gradient(90deg, #6e7fdc 0%, #a6b6ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-family: 'Google Sans', Arial, sans-serif;
+  font-weight: 600;
+  box-shadow: 0 2px 8px 0 #6e7fdc33;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+}
+.modal-content .submit-button:hover {
+  background: linear-gradient(90deg, #a6b6ff 0%, #6e7fdc 100%);
+  box-shadow: 0 4px 16px 0 #a6b6ff44;
+}
+.modal-content .multiselect-container,
+.modal-content .tags-input-container,
+.modal-content .form-state-dropdown-container {
+  background: #d0d8fe;
+  border-radius: 8px;
+  padding: 8px 6px;
+}
+.modal-content .multiselect-dropdown,
+.modal-content .form-state-dropdown-list {
+  background: #d0d8fe;
+  border-radius: 8px;
+  border: 2px solid #6e7fdc55;
+}
+.modal-content .grade-bubble {
+  background: #d0d8fe;
+  border: 1px solid #a6b6ff;
+  color: #232a4d;
+  color: #232a4d;
+  border-radius: 16px;
+  padding: 4px 12px;
+  margin: 2px 4px 2px 0;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+.modal-content .grade-bubble-close {
+  background: none;
+  border: none;
+  color: #232a4d;
+  font-size: 1.1rem;
+  margin-left: 6px;
+  cursor: pointer;
 }
 
 .modal-content.detail-modal {
@@ -1617,7 +1749,7 @@ body:has(.directory-container)::after {
 }
 
 .carousel-nav:hover {
-  background-color: #388E3C;
+  background-color: #784a90;
   transform: scale(1.1);
 }
 
@@ -1739,7 +1871,8 @@ body:has(.directory-container)::after {
   border-radius: 6px;
   font-size: 13px;
   font-family: 'Josefin Sans', sans-serif;
-  background-color: white;
+  background-color: #d0d8fe;
+  color: #232a4d;
   cursor: pointer;
   text-align: left;
   transition: border-color 0.3s ease;
@@ -2035,7 +2168,7 @@ body:has(.directory-container)::after {
 }
 
 .file-bubble-close:hover {
-  color: #b71c1c;
+  color: #641e89;
   transform: scale(1.1);
 }
 
@@ -2055,7 +2188,7 @@ body:has(.directory-container)::after {
 }
 
 .submit-button:hover {
-  background-color: #45a049;
+  background-color: #522768;
 }
 
 /* Detail Content */
@@ -2078,7 +2211,7 @@ body:has(.directory-container)::after {
 .delete-button {
   width: 100%;
   padding: 12px;
-  background-color: #f44336;
+  background-color: #e189ff;
   color: white;
   border: none;
   border-radius: 8px;
@@ -2091,7 +2224,7 @@ body:has(.directory-container)::after {
 }
 
 .delete-button:hover {
-  background-color: #da190b;
+  background-color: #de9bff;
 }
 
 /* Responsive Design */
@@ -2110,7 +2243,8 @@ body:has(.directory-container)::after {
   font-family: 'Josefin Sans', sans-serif;
   cursor: pointer;
   transition: border-color 0.3s ease;
-  background-color: white;
+  background-color: #d0d8fe;
+  color: #232a4d;
   box-sizing: border-box;
 }
 
