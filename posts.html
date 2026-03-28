@@ -40,9 +40,53 @@
                             font-family: 'Google Sans', Arial, sans-serif !important;
                         }
                 .tags-input-container {
-                    background: #232946;
-                    border-radius: 8px;
-                    padding: 0.5rem 0.7rem;
+                        .tags-display {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 0.3rem;
+                            margin-bottom: 0.3rem;
+                        }
+                        .tag-bubble {
+                            display: inline-block;
+                            background: #5c7aff;
+                            color: #fff;
+                            border-radius: 12px;
+                            padding: 0.2rem 0.8rem;
+                            margin: 0.1rem 0.2rem 0.1rem 0;
+                            font-size: 1em;
+                            transition: background 0.15s, color 0.15s, outline 0.15s;
+                            cursor: pointer;
+                            position: relative;
+                        }
+                        .tag-bubble .remove-tag {
+                            margin-left: 0.4em;
+                            color: #fff;
+                            font-weight: bold;
+                            cursor: pointer;
+                            font-size: 1.1em;
+                            opacity: 0.7;
+                            transition: opacity 0.15s;
+                        }
+                        .tag-bubble .remove-tag:hover {
+                            opacity: 1;
+                        }
+                background: #232946;
+                border-radius: 8px;
+                padding: 0.5rem 0.7rem;
+                position: relative;
+                        #tagsAutocomplete.autofill {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            pointer-events: none;
+                        }
+                        .tag-autocomplete-option.autofill {
+                            opacity: 0.5;
+                            font-style: italic;
+                            background: none !important;
+                            pointer-events: none;
+                        }
                 }
         body {
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
@@ -194,8 +238,9 @@
             border-radius: 8px;
             border: none;
             background: #232946;
-            color: #232946;
+            color: #fff;
             font-size: 1rem;
+            caret-color: #fff;
         }
         .post-form .tags-input {
             margin-bottom: 1rem;
@@ -365,14 +410,17 @@
             <label>Key Tags:</label>
             <div class="tags-input-container">
                 <div id="tagsDisplay" class="tags-display"></div>
-                <input 
-                    type="text" 
-                    id="tagsInput" 
-                    class="tags-input" 
-                    placeholder="type #niche about your extracurricular (hit space to add more)"
-                    autocomplete="off"
-                >
-                <div id="tagsAutocomplete" class="tags-autocomplete"></div>
+                <div style="position:relative;width:100%;">
+                  <input 
+                      type="text" 
+                      id="tagsInput" 
+                      class="tags-input" 
+                      placeholder="type #niche about your extracurricular (hit space to add more)"
+                      autocomplete="off"
+                      style="position:relative;background:transparent;z-index:2;"
+                  >
+                  <span id="tagsGhostSpan" style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;opacity:0.5;color:#b0b8d1;background:none;z-index:1;font-family:'Google Sans',Arial,sans-serif;font-size:1rem;padding:0.7rem;border-radius:8px;border:none;white-space:pre;overflow:hidden;display:block;"></span>
+                </div>
             </div>
             <input type="hidden" id="tagsValue" required style="display:none;">
             <button type="submit" style="margin-top: 10px;">Post</button>

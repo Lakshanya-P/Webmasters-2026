@@ -79,23 +79,110 @@ const preloadedTags = [
 let selectedTags = [];
 
 function initializeTagsInput() {
+        // Render tags as bubbles in the tagsDisplay div
+        function renderTagsBubbles() {
+            const tagsDisplay = document.getElementById('tagsDisplay');
+            tagsDisplay.innerHTML = '';
+            (window.selectedTags || []).forEach((tag, idx) => {
+                const bubble = document.createElement('span');
+                bubble.className = 'tag-bubble';
+                bubble.textContent = tag;
+                // Add remove button
+                const remove = document.createElement('span');
+                remove.className = 'remove-tag';
+                remove.textContent = '×';
+                remove.title = 'Remove tag';
+                remove.onclick = function(e) {
+                    e.stopPropagation();
+                    window.selectedTags.splice(idx, 1);
+                    renderTagsBubbles();
+                    updateTagsValue();
+                };
+                bubble.appendChild(remove);
+                tagsDisplay.appendChild(bubble);
+            });
+        }
+
+        // Update hidden input with tags
+        function updateTagsValue() {
+            document.getElementById('tagsValue').value = (window.selectedTags || []).join(',');
+        }
+
+        // Add tag on space or comma
+        document.getElementById('tagsInput').addEventListener('keydown', function(e) {
+            if ((e.key === ' ' || e.key === ',' || e.key === 'Enter') && this.value.trim().length > 0) {
+                e.preventDefault();
+                let value = this.value.trim();
+                if (value.startsWith('#')) value = value.substring(1);
+                if (!window.selectedTags) window.selectedTags = [];
+                if (value && !window.selectedTags.includes(value)) {
+                    window.selectedTags.push(value);
+                    renderTagsBubbles();
+                    updateTagsValue();
+                }
+                this.value = '';
+                document.getElementById('tagsGhostSpan').textContent = '';
+            }
+        });
+
+        // Initialize selectedTags and render if any
+        if (!window.selectedTags) window.selectedTags = [];
+        renderTagsBubbles();
+        updateTagsValue();
     const tagsInput = document.getElementById('tagsInput');
     const tagsAutocomplete = document.getElementById('tagsAutocomplete');
     let selectedOptionIndex = -1;
     if (!tagsInput) return;
+    const tagsGhostSpan = document.getElementById('tagsGhostSpan');
     tagsInput.addEventListener('input', function(e) {
         const value = e.target.value;
         selectedOptionIndex = -1;
-        if (value.includes('#')) {
-            const parts = value.split('#');
-            const lastPart = parts[parts.length - 1].trim();
+        let ghostValue = '';
+        let displayGhost = '';
+        // Find the last tag being typed
+        let hashIdx = value.lastIndexOf('#');
+        console.log('[tagsInput] value:', value);
+        if (hashIdx !== -1) {
+            const before = value.substring(0, hashIdx + 1);
+            const lastPart = value.substring(hashIdx + 1);
+            console.log('[tagsInput] lastPart:', lastPart);
             if (lastPart.length > 0) {
-                showTagAutocomplete(lastPart, tagsAutocomplete);
+                const filtered = preloadedTags.filter(tag => tag.toLowerCase().startsWith(lastPart.toLowerCase()));
+                console.log('[tagsInput] filtered:', filtered);
+                if (filtered.length > 0) {
+                    // Only show the suggestion for the part being typed
+                    ghostValue = before + filtered[0];
+                    // Show only the suggested part as ghost
+                    displayGhost = value + filtered[0].substring(lastPart.length);
+                } else {
+                    displayGhost = '';
+                }
             } else {
-                tagsAutocomplete.innerHTML = '';
+                displayGhost = '';
             }
         } else {
-            tagsAutocomplete.innerHTML = '';
+            displayGhost = '';
+        }
+        // Show ghost only if suggestion exists and is not identical to input
+        if (displayGhost && displayGhost !== value) {
+            tagsGhostSpan.textContent = displayGhost;
+            console.log('[tagsInput] ghost shown:', displayGhost);
+        } else {
+            tagsGhostSpan.textContent = '';
+            console.log('[tagsInput] ghost cleared');
+        }
+        tagsInput.setAttribute('autocomplete', 'off');
+    });
+
+    // Tab to accept suggestion
+    tagsInput.addEventListener('keydown', function(e) {
+        const ghostText = tagsGhostSpan.textContent;
+        if (e.key === 'Tab' && ghostText && ghostText !== tagsInput.value) {
+            e.preventDefault();
+            tagsInput.value = ghostText;
+            tagsGhostSpan.textContent = '';
+            tagsInput.dispatchEvent(new Event('input'));
+            console.log('[tagsInput] Tab pressed, autocompleted to:', ghostText);
         }
     });
     tagsInput.addEventListener('keydown', function(e) {
@@ -150,27 +237,8 @@ function updateSelectedOption(options, index) {
 }
 
 function showTagAutocomplete(input, container) {
-    const filtered = preloadedTags.filter(tag => 
-        tag.toLowerCase().includes(input.toLowerCase())
-    );
+    // No dropdown needed for inline autocomplete
     container.innerHTML = '';
-    if (filtered.length === 0) return;
-    const tagsInput = document.getElementById('tagsInput');
-    const rect = tagsInput.getBoundingClientRect();
-    container.style.top = (rect.bottom + 4) + 'px';
-    container.style.left = rect.left + 'px';
-    container.style.width = (rect.width - 24) + 'px';
-    filtered.forEach(tag => {
-        const option = document.createElement('div');
-        option.className = 'tag-autocomplete-option';
-        option.textContent = tag;
-        option.addEventListener('click', function() {
-            addTag(tag);
-            document.getElementById('tagsInput').value = '';
-            container.innerHTML = '';
-        });
-        container.appendChild(option);
-    });
 }
 
 function handleTagInput(input) {
