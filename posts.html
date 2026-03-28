@@ -9,6 +9,15 @@
     <!-- Google Fonts for Google Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        #galaxy-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
                 #addPostBtn {
                     font-family: 'Google Sans', Arial, sans-serif !important;
                 }
@@ -104,6 +113,7 @@
             letter-spacing: 2px;
             color: #e0e6f6;
             margin-bottom: 0.5rem;
+            font-family: 'Suika', 'Google Sans', Arial, sans-serif;
         }
         .galaxy-header p {
             color: #b0b8d1;
@@ -355,6 +365,12 @@
       function highlights() { window.location.href = 'highlights.html'; }
     </script>
     <script src="main.js"></script>
+    <script type="module">
+        import { initGalaxyBackground } from './assets/galaxy-bg.js';
+        window.addEventListener('DOMContentLoaded', () => {
+            initGalaxyBackground();
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -374,8 +390,9 @@
 		</svg>
 
         <!-- Heart (existing) placed between More and O to match requested position -->
-        <div class="heart" role="button" tabindex="0" title="Heart">
+        <div class="heart" role="button" tabindex="0" title="hold down!">
             <div class="tank"></div>
+            <span class="heart-hold-tooltip" style="display:none;position:absolute;top:110%;left:50%;transform:translateX(-50%);background:rgba(30,34,54,0.97);color:#fff;padding:4px 12px;border-radius:6px;font-size:0.98em;white-space:nowrap;z-index:10002;box-shadow:0 2px 8px #0005;pointer-events:none;">hold down!</span>
             <svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                 <defs>
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />

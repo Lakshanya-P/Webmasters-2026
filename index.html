@@ -63,7 +63,7 @@
 		// D3.js map rendering
 		import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 		const canvas = document.getElementById('us-map-canvas');
-		const ctx = canvas.getContext('2d');
+		const mapCtx = canvas.getContext('2d');
 		const width = canvas.width;
 		const height = canvas.height;
 		let statesGeo = null;
@@ -75,7 +75,7 @@
 
 		// D3 projection and path
 		const projection = d3.geoAlbersUsa().translate([width/2, height/2]).scale(1050);
-		const path = d3.geoPath(projection, ctx);
+		const path = d3.geoPath(projection, mapCtx);
 
 		// State id to name mapping (from us-atlas)
 		const idToName = {
@@ -98,11 +98,11 @@
 		});
 
 		function drawMap() {
-			ctx.clearRect(0, 0, width, height);
+			mapCtx.clearRect(0, 0, width, height);
 			stateFeatures.forEach(f => {
 				const stateName = idToName[f.id];
-				ctx.save();
-				ctx.beginPath();
+				mapCtx.save();
+				mapCtx.beginPath();
 				path(f);
 				let fillColor = '#eee';
 				let label = stateName;
@@ -115,26 +115,26 @@
 				} else {
 					fillColor = stateColors[stateName];
 				}
-				ctx.fillStyle = fillColor;
-				ctx.globalAlpha = (hoveredState && hoveredState === stateName) ? 0.85 : 1.0;
-				ctx.fill();
-				ctx.lineWidth = (hoveredState && hoveredState === stateName) ? 3 : 1.2;
-				ctx.strokeStyle = (hoveredState && hoveredState === stateName) ? '#fff' : '#fff';
-				ctx.shadowColor = (hoveredState && hoveredState === stateName) ? '#fff' : 'transparent';
-				ctx.shadowBlur = (hoveredState && hoveredState === stateName) ? 12 : 0;
-				ctx.stroke();
+				mapCtx.fillStyle = fillColor;
+				mapCtx.globalAlpha = (hoveredState && hoveredState === stateName) ? 0.85 : 1.0;
+				mapCtx.fill();
+				mapCtx.lineWidth = (hoveredState && hoveredState === stateName) ? 3 : 1.2;
+				mapCtx.strokeStyle = (hoveredState && hoveredState === stateName) ? '#fff' : '#fff';
+				mapCtx.shadowColor = (hoveredState && hoveredState === stateName) ? '#fff' : 'transparent';
+				mapCtx.shadowBlur = (hoveredState && hoveredState === stateName) ? 12 : 0;
+				mapCtx.stroke();
 				// Draw the label for undefined states
 				if (!stateName) {
 					const centroid = path.centroid(f);
-					ctx.save();
-					ctx.font = 'bold 10px sans-serif';
-					ctx.fillStyle = '#333';
-					ctx.textAlign = 'center';
-					ctx.textBaseline = 'middle';
-					ctx.fillText(label, centroid[0], centroid[1]);
-					ctx.restore();
+					mapCtx.save();
+					mapCtx.font = 'bold 10px sans-serif';
+					mapCtx.fillStyle = '#333';
+					mapCtx.textAlign = 'center';
+					mapCtx.textBaseline = 'middle';
+					mapCtx.fillText(label, centroid[0], centroid[1]);
+					mapCtx.restore();
 				}
-				ctx.restore();
+				mapCtx.restore();
 			});
 		}
 
@@ -145,9 +145,9 @@
 			const y = e.clientY - rect.top;
 			let found = null;
 			for (const f of stateFeatures) {
-				ctx.beginPath();
+				mapCtx.beginPath();
 				path(f);
-				if (ctx.isPointInPath(x, y)) {
+				if (mapCtx.isPointInPath(x, y)) {
 					found = idToName[f.id];
 					break;
 				}
@@ -267,7 +267,7 @@
 		</svg>
 
 		<!-- Heart (existing) placed between More and O to match requested position -->
-		<div class="heart" role="button" tabindex="0" title="Heart">
+		<div class="heart" role="button" tabindex="0" title="hold down!">
 			<!-- fill element -->
 			<div class="tank"></div>
 			<!-- wave curve -->
@@ -856,6 +856,7 @@
 							z-index: 9999;
 							opacity: 0;
 							pointer-events: none;
+							display: none;
 							transition: opacity 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1);
 							animation: popup-bounce 0.7s cubic-bezier(.4,2,.6,1);
 							text-shadow: 0 0 12px #b87eff, 0 0 2px #fff, 0 0 24px #4b2e7a;
@@ -868,6 +869,7 @@
 							100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 						}
 						.floating-popup.show {
+							display: block;
 							opacity: 1;
 							pointer-events: auto;
 						}
@@ -892,6 +894,12 @@
 						}
 						</style>
 						<div id="newsletter-popup" class="floating-popup">
+						<script>
+						document.addEventListener('DOMContentLoaded', function() {
+							var popup = document.getElementById('newsletter-popup');
+							console.log('[DEBUG] newsletter-popup classes on load:', popup.className);
+						});
+						</script>
 							<span style="position:relative;z-index:2;">Email received! 🚀</span>
 							<div class="popup-stars">
 								<div class="popup-star" style="top:12%;left:18%;width:5px;height:5px;"></div>
@@ -901,39 +909,9 @@
 								<div class="popup-star" style="top:85%;left:50%;width:3px;height:3px;"></div>
 							</div>
 						</div>
-						<script>
-						// Newsletter popup logic
-						document.addEventListener('DOMContentLoaded', function() {
-							const form = document.querySelector('.newsletter-form');
-							const input = form.querySelector('.newsletter-input');
-							const popup = document.getElementById('newsletter-popup');
-							form.addEventListener('submit', function(e) {
-								e.preventDefault();
-								popup.classList.add('show');
-								input.value = '';
-								setTimeout(() => {
-									popup.classList.remove('show');
-								}, 2000);
-							});
-						});
-						</script>
+						<!-- Removed duplicate newsletter popup logic to prevent notification on page load -->
 						</form>
 </style>
-<script>
-// Newsletter notification logic
-document.addEventListener('DOMContentLoaded', function() {
-	const form = document.querySelector('.newsletter-form');
-	const input = form.querySelector('.newsletter-input');
-	const notification = form.querySelector('.newsletter-notification');
-	form.addEventListener('submit', function(e) {
-		e.preventDefault();
-		notification.textContent = 'Email received!';
-		notification.style.display = 'block';
-		input.value = '';
-		setTimeout(() => { notification.style.display = 'none'; }, 2500);
-	});
-});
-</script>
 
 					</div>
 				</div>
@@ -1124,9 +1102,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	</div>
 
 	<script type="module">
-		import { getEntriesByState } from './map-data.js';
-		// State color mapping
-		const stateColors = {
+	import { getEntriesByState } from './map-data.js';
+	// State color mapping
+	const stateColors = {
 			'Washington': '#8a87b3', 'Oregon': '#8792b8', 'California': '#b7cdf2', 'Nevada': '#bbb6de', 'Idaho': '#dce4fb',
 			'Montana': '#5f73a0', 'Wyoming': '#c3bfe9', 'Utah': '#9fb3e3', 'Arizona': '#5b6fa3', 'Colorado': '#c3bfe9',
 			'New Mexico': '#8fa3cf', 'North Dakota': '#f1f3ff', 'South Dakota': '#ada6de', 'Nebraska': '#6f86b8',
@@ -1140,8 +1118,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			'Delaware': '#b4c7eb', 'Maryland': '#b1b2cf', 'Florida': '#6c6a86', 'Alaska': '#7f97c7', 'Hawaii': '#9db3e0',
 			'District of Columbia': '#e0b3c2'
 		};
-		// Map SVG id to state name
-		const idToName = {
+	// Map SVG id to state name
+	const idToName = {
 			'WA': 'Washington', 'OR': 'Oregon', 'CA': 'California', 'NV': 'Nevada', 'ID': 'Idaho',
 			'MT': 'Montana', 'WY': 'Wyoming', 'UT': 'Utah', 'AZ': 'Arizona', 'CO': 'Colorado',
 			'NM': 'New Mexico', 'ND': 'North Dakota', 'SD': 'South Dakota', 'NE': 'Nebraska',
@@ -1154,64 +1132,65 @@ document.addEventListener('DOMContentLoaded', function() {
 			'MA': 'Massachusetts', 'RI': 'Rhode Island', 'CT': 'Connecticut', 'NJ': 'New Jersey',
 			'DE': 'Delaware', 'MD': 'Maryland', 'FL': 'Florida', 'AK': 'Alaska', 'HI': 'Hawaii'
 		};
-		// Color states
-		document.querySelectorAll('#us-map .state-shape').forEach(path => {
-			const stateName = path.getAttribute('data-name');
-			if (stateColors[stateName]) path.setAttribute('fill', stateColors[stateName]);
-			else path.setAttribute('fill', '#eee');
-			path.addEventListener('mouseenter', () => path.classList.add('glow'));
-			path.addEventListener('mouseleave', () => path.classList.remove('glow'));
-			path.addEventListener('click', async () => {
-				showStatePopup(stateName);
-			});
+	</script>
+	// Color states
+	document.querySelectorAll('#us-map .state-shape').forEach(path => {
+		const stateName = path.getAttribute('data-name');
+		if (stateColors[stateName]) path.setAttribute('fill', stateColors[stateName]);
+		else path.setAttribute('fill', '#eee');
+		path.addEventListener('mouseenter', () => path.classList.add('glow'));
+		path.addEventListener('mouseleave', () => path.classList.remove('glow'));
+		path.addEventListener('click', async () => {
+			showStatePopup(stateName);
 		});
+	});
 
-		// Popup/modal logic
-		const popup = document.getElementById('state-popup');
-		const popupBackdrop = document.getElementById('state-popup-backdrop');
-		const popupTitle = document.getElementById('state-popup-title');
-		const popupContent = document.getElementById('state-popup-content');
-		const closeBtn = document.getElementById('close-state-popup');
+	// Popup/modal logic
+	const popup = document.getElementById('state-popup');
+	const popupBackdrop = document.getElementById('state-popup-backdrop');
+	const popupTitle = document.getElementById('state-popup-title');
+	const popupContent = document.getElementById('state-popup-content');
+	const closeBtn = document.getElementById('close-state-popup');
 
-		function showStatePopup(stateName) {
-			popupTitle.textContent = stateName;
-			popupContent.innerHTML = 'Loading...';
-			popup.setAttribute('aria-hidden', 'false');
-			popup.style.display = 'block';
-			popupBackdrop.style.display = 'block';
-			fetchStateData(stateName);
-		}
-		function closeStatePopup() {
-			popup.setAttribute('aria-hidden', 'true');
-			popup.style.display = 'none';
-			popupBackdrop.style.display = 'none';
-		}
-		closeBtn.addEventListener('click', closeStatePopup);
-		popupBackdrop.addEventListener('click', closeStatePopup);
+	function showStatePopup(stateName) {
+		popupTitle.textContent = stateName;
+		popupContent.innerHTML = 'Loading...';
+		popup.setAttribute('aria-hidden', 'false');
+		popup.style.display = 'block';
+		popupBackdrop.style.display = 'block';
+		fetchStateData(stateName);
+	}
+	function closeStatePopup() {
+		popup.setAttribute('aria-hidden', 'true');
+		popup.style.display = 'none';
+		popupBackdrop.style.display = 'none';
+	}
+	closeBtn.addEventListener('click', closeStatePopup);
+	popupBackdrop.addEventListener('click', closeStatePopup);
 
-		async function fetchStateData(stateName) {
-			try {
-				const entries = await getEntriesByState(stateName);
-				if (!entries || entries.length === 0) {
-					popupContent.innerHTML = '<p style="color:#ccc;">No posts found for this state.</p>';
-					return;
-				}
-				// Show the latest (most recently added) entry
-				const entry = entries[entries.length - 1];
-				let html = '';
-				// No images shown
-				html += `<h3 style="margin-top:0;">${entry.title}</h3>`;
-				html += `<p><strong>Grade Levels:</strong> ${Array.isArray(entry.gradeLevels) ? entry.gradeLevels.join(', ') : entry.gradeLevels}</p>`;
-				html += `<p><strong>Tags:</strong> ${Array.isArray(entry.tags) ? entry.tags.map(t => '#' + t).join(', ') : entry.tags}</p>`;
-				html += `<p><strong>Helpful Info:</strong> ${entry.helpfulInfo || ''}</p>`;
-				if (entry.links && entry.links.length > 0) {
-					html += `<div style="margin-top:10px;"><strong>Links:</strong><br>` + entry.links.map(link => `<a href="${link}" target="_blank" style="color:#4CAF50;word-break:break-all;">${link}</a>`).join('<br>') + '</div>';
-				}
-				popupContent.innerHTML = html;
-			} catch (e) {
-				popupContent.innerHTML = '<p style="color:#f88;">Error loading data.</p>';
+	async function fetchStateData(stateName) {
+		try {
+			const entries = await getEntriesByState(stateName);
+			if (!entries || entries.length === 0) {
+				popupContent.innerHTML = '<p style="color:#ccc;">No posts found for this state.</p>';
+				return;
 			}
+			// Show the latest (most recently added) entry
+			const entry = entries[entries.length - 1];
+			let html = '';
+			// No images shown
+			html += `<h3 style="margin-top:0;">${entry.title}</h3>`;
+			html += `<p><strong>Grade Levels:</strong> ${Array.isArray(entry.gradeLevels) ? entry.gradeLevels.join(', ') : entry.gradeLevels}</p>`;
+			html += `<p><strong>Tags:</strong> ${Array.isArray(entry.tags) ? entry.tags.map(t => '#' + t).join(', ') : entry.tags}</p>`;
+			html += `<p><strong>Helpful Info:</strong> ${entry.helpfulInfo || ''}</p>`;
+			if (entry.links && entry.links.length > 0) {
+				html += `<div style="margin-top:10px;"><strong>Links:</strong><br>` + entry.links.map(link => `<a href="${link}" target="_blank" style="color:#4CAF50;word-break:break-all;">${link}</a>`).join('<br>') + '</div>';
+			}
+			popupContent.innerHTML = html;
+		} catch (e) {
+			popupContent.innerHTML = '<p style="color:#f88;">Error loading data.</p>';
 		}
+	}
 	</script>
 	</section>
 

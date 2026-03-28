@@ -1,3 +1,55 @@
+.scrap-link {
+  background: #b7cdf2;
+  color: #54487e;
+  padding: 6px 12px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 12px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  font-family: 'Google Sans', sans-serif;
+  border: 1px dashed #9bb0e2;
+  position: relative;
+  overflow: hidden;
+}
+
+.scrap-link::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -40%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.0) 100%);
+  transform: skewX(-24deg);
+  pointer-events: none;
+  opacity: 0.7;
+  animation: scrapLinkShine 3.5s cubic-bezier(.4,0,.2,1) infinite;
+  animation-delay: calc(0.5s + 2s * var(--scrap-link-index, 0));
+}
+
+@keyframes scrapLinkShine {
+  0% {
+    left: -60%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.7;
+  }
+  18% {
+    left: 110%;
+    opacity: 0.7;
+  }
+  22% {
+    left: 120%;
+    opacity: 0;
+  }
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
+}
 /* --- State Popup Themed Styling --- */
 .state-popup {
   background: rgba(24, 28, 44, 0.98);

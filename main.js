@@ -3,6 +3,15 @@
 // --- Heart Button Hold-to-Fill Logic (Universal) ---
 document.addEventListener('DOMContentLoaded', function() {
   const heart = document.querySelector('#topnav .heart');
+  const heartTooltip = heart ? heart.querySelector('.heart-hold-tooltip') : null;
+    if (heart && heartTooltip) {
+      heart.addEventListener('mouseenter', () => {
+        heartTooltip.style.display = 'block';
+      });
+      heart.addEventListener('mouseleave', () => {
+        heartTooltip.style.display = 'none';
+      });
+    }
   console.debug('[Heart] DOMContentLoaded, heart:', heart);
   if (!heart) {
     console.warn('[Heart] Heart element not found!');
@@ -433,13 +442,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // --- Meteor Animation for Newsletter Subscribe ---
+
+// Newsletter popup notification logic
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('.newsletter-form');
-  if (!form) return;
+  const input = form ? form.querySelector('.newsletter-input') : null;
+  const popup = document.getElementById('newsletter-popup');
+  if (!form || !input || !popup) return;
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     showMeteorAnimation();
-    // Optionally, handle form submission here (AJAX, etc.)
+    // Show popup
+    popup.classList.add('show');
+    // Clear input
+    input.value = '';
+    // Hide popup after 2.5s
+    setTimeout(() => {
+      popup.classList.remove('show');
+    }, 2500);
   });
 });
 

@@ -16,6 +16,17 @@
             font-family: 'Google Sans', 'SN Pro', Arial, sans-serif;
             min-height: 100vh;
             margin: 0;
+            /* Ensure content is above the canvas */
+            position: relative;
+        }
+        #space-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
         }
         .login-container {
             max-width: 400px;
@@ -24,6 +35,8 @@
             border-radius: 18px;
             box-shadow: 0 4px 32px 0 #000a;
             padding: 2.5rem 2.5rem 2rem 2.5rem;
+            position: relative;
+            z-index: 2;
         }
         .login-container h2 {
             text-align: center;
@@ -99,7 +112,7 @@
                     </defs>
                 </svg>
                 <!-- Heart (existing) placed between More and O to match requested position -->
-                <div class="heart" role="button" tabindex="0" title="Heart">
+                <div class="heart" role="button" tabindex="0" title="hold down!">
                     <div class="tank"></div>
                     <svg class="curve" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
                         <defs>
@@ -161,6 +174,8 @@
 
         <div class="login-container">
         <h2>Login to <br>Contribute to Our Posts!</h2>
+        <h3 style="text-align:center;color:#b0b8d1;font-family:'Google Sans', 'SN Pro', Arial, sans-serif;margin-top:-0.5rem;margin-bottom:1.5rem; font-size: 0.85rem;
+        ">Example Login: <br> Username: test123 <br> Password: testpass</h3>
         <div id="loginError" class="login-error" style="display:none;"></div>
         <form id="loginForm">
             <label for="username">Username</label>
@@ -184,5 +199,65 @@
         <div class="switch">Already have an account? <a id="showLogin">Login</a></div>
     </div>
     <script type="module" src="login.js"></script>
+    <script type="module">
+        import { initSpaceBackground, triggerSun, triggerMoon } from './assets/space-bg.js';
+        window.addEventListener('DOMContentLoaded', () => {
+            initSpaceBackground();
+            // Username and password input triggers
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            if (username) {
+                let sunTriggered = false;
+                username.addEventListener('input', (e) => {
+                    if (!sunTriggered && e.target.value.length === 1) {
+                        triggerSun();
+                        sunTriggered = true;
+                    }
+                    if (e.target.value.length === 0) {
+                        sunTriggered = false;
+                    }
+                });
+            }
+            if (password) {
+                let moonTriggered = false;
+                password.addEventListener('input', (e) => {
+                    if (!moonTriggered && e.target.value.length === 1) {
+                        triggerMoon();
+                        moonTriggered = true;
+                    }
+                    if (e.target.value.length === 0) {
+                        moonTriggered = false;
+                    }
+                });
+            }
+            // Register form triggers
+            const regUsername = document.getElementById('regUsername');
+            const regPassword = document.getElementById('regPassword');
+            if (regUsername) {
+                let regSunTriggered = false;
+                regUsername.addEventListener('input', (e) => {
+                    if (!regSunTriggered && e.target.value.length === 1) {
+                        triggerSun();
+                        regSunTriggered = true;
+                    }
+                    if (e.target.value.length === 0) {
+                        regSunTriggered = false;
+                    }
+                });
+            }
+            if (regPassword) {
+                let regMoonTriggered = false;
+                regPassword.addEventListener('input', (e) => {
+                    if (!regMoonTriggered && e.target.value.length === 1) {
+                        triggerMoon();
+                        regMoonTriggered = true;
+                    }
+                    if (e.target.value.length === 0) {
+                        regMoonTriggered = false;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

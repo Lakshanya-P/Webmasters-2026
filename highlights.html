@@ -254,7 +254,7 @@
         }
 
         .scrap-title {
-            font-size: 35px;
+            font-size: 1.47rem;
             font-weight: 750;
             margin-bottom: 10px;
             letter-spacing: 1px;
@@ -263,7 +263,7 @@
         }
 
         .scrap-desc {
-            font-size: 17px;
+            font-size: 0.95rem;
             line-height: 1.1;
             text-align: center;
             font-family: 'Google Sans', sans-serif;
@@ -332,6 +332,11 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .scrap-link {
@@ -345,7 +350,7 @@
             align-self: center;
             justify-content: center;
             font-family: 'Google Sans', sans-serif;
-            border: 1px dashed #9bb0e2;;
+            border: 1px solid #9bb0e2;
         }
 
         @media (max-width: 760px) {
@@ -382,7 +387,7 @@
 		</svg>
 
 		<!-- Heart (existing) placed between More and O to match requested position -->
-		<div class="heart" role="button" tabindex="0" title="Heart">
+        <div class="heart" role="button" tabindex="0" title="hold down!">
 			<!-- fill element -->
 			<div class="tank"></div>
 			<!-- wave curve -->
@@ -418,20 +423,20 @@
         <div class="folder-stage">
             <div class="folder" id="mainFolder" aria-expanded="false">
                 <div class="folder-back"></div>
-                <div class="folder-cards" aria-label="Highlights tabs">
-                    <div class="card-sheet" style="--index: 0;">
+                <div class="folder-cards" aria-label="Highlights tabs" style="display:flex;justify-content:center;gap:0.5vw;">
+                    <div class="card-sheet" style="--index: 0;display:flex;justify-content:center;align-items:flex-end;">
                         <button class="card-tab active" data-index="0" style="--index: 0;">#1</button>
                     </div>
-                    <div class="card-sheet" style="--index: 1;">
+                    <div class="card-sheet" style="--index: 1;display:flex;justify-content:center;align-items:flex-end;">
                         <button class="card-tab" data-index="1" style="--index: 1;">#2</button>
                     </div>
-                    <div class="card-sheet" style="--index: 2;">
+                    <div class="card-sheet" style="--index: 2;display:flex;justify-content:center;align-items:flex-end;">
                         <button class="card-tab" data-index="2" style="--index: 2;">#3</button>
                     </div>
-                    <div class="card-sheet" style="--index: 3;">
+                    <div class="card-sheet" style="--index: 3;display:flex;justify-content:center;align-items:flex-end;">
                         <button class="card-tab" data-index="3" style="--index: 3;">#4</button>
                     </div>
-                    <div class="card-sheet" style="--index: 4;">
+                    <div class="card-sheet" style="--index: 4;display:flex;justify-content:center;align-items:flex-end;">
                         <button class="card-tab" data-index="4" style="--index: 4;">#5</button>
                     </div>
                 </div>
@@ -734,8 +739,7 @@
                         'assets/h3.png'
                     ],
                     links: [
-                        { label: 'ocw.mit.edu', url: 'https://ocw.mit.edu/' },
-                        {  }
+                        { label: 'ocw.mit.edu', url: 'https://ocw.mit.edu/' }
                     ]
                 },
                 
@@ -796,13 +800,14 @@
                 renderDots(data.images);
 
                 linksEl.innerHTML = '';
-                data.links.forEach(link => {
+                data.links.forEach((link, idx) => {
                     const anchor = document.createElement('a');
                     anchor.className = 'scrap-link';
                     anchor.href = link.url;
                     anchor.textContent = link.label;
                     anchor.target = '_blank';
                     anchor.rel = 'noopener noreferrer';
+                    anchor.style.setProperty('--scrap-link-index', idx);
                     linksEl.appendChild(anchor);
                 });
             };
