@@ -742,9 +742,14 @@
 									<span class="star-label">Self Care</span>
 									<span class="star-desc">Recharge your rocket: wellness for every explorer.</span>
 								</a>
-								<!-- Extra small stars for the Big Dipper shape (not interactive) -->
-								<span class="bigdipper-star extra-star" data-star="5"></span>
-								<span class="bigdipper-star extra-star" data-star="6"></span>
+								<a href="posts.html" class="bigdipper-star main-star" data-star="5">
+									<span class="star-label">Posts</span>
+									<span class="star-desc">Share and explore student posts from across the galaxy.</span>
+								</a>
+								<a href="index.html" class="bigdipper-star main-star" data-star="6">
+									<span class="star-label">Home</span>
+									<span class="star-desc">Return to the homepage and explore the galaxy of student resources.</span>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -824,12 +829,111 @@
 							<h2>Subscribe to Our Newsletter</h2>
 						</div>
 						<div class="newsletter-desc">
-							Get monthly updates about programs, opportunities, and cosmic events. Join our crew and never miss a launch!
+							Get monthly updates about programs, opportunities, and cosmic events. Join our crew and never miss a launch! <br>
+							(Enter test@gmail.com)
 						</div>
 						<form class="newsletter-form" autocomplete="off">
-							<input class="newsletter-input" type="email" name="email" placeholder="Your email address" required />
+							<input class="newsletter-input" type="email" name="email" placeholder="Your email address" required>
 							<button class="newsletter-btn" type="submit">Subscribe 🚀</button>
+							<!-- Notification handled globally, no inline notification here -->
+						</style>
+						<style>
+							.floating-popup {
+							position: fixed;
+							top: 50%;
+							left: 50%;
+							transform: translate(-50%, -50%) scale(1);
+							background: linear-gradient(135deg, #1a1e3a 60%, #4b2e7a 100%);
+							color: #ffe6ff;
+							border-radius: 22px;
+							box-shadow: 0 0 32px 8px #b87eff55, 0 0 0 0 #fff0, 0 0 80px 10px #4b2e7a44;
+							border: 3px solid #fff;
+							padding: 36px 56px;
+							font-size: 1.7rem;
+							font-family: 'Google Sans', 'SN Pro', 'Segoe UI', sans-serif;
+							font-weight: 800;
+							letter-spacing: 1.5px;
+							z-index: 9999;
+							opacity: 0;
+							pointer-events: none;
+							transition: opacity 0.4s cubic-bezier(.4,2,.6,1), transform 0.4s cubic-bezier(.4,2,.6,1);
+							animation: popup-bounce 0.7s cubic-bezier(.4,2,.6,1);
+							text-shadow: 0 0 12px #b87eff, 0 0 2px #fff, 0 0 24px #4b2e7a;
+							overflow: visible;
+						}
+						@keyframes popup-bounce {
+							0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+							60% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+							80% { transform: translate(-50%, -50%) scale(0.97); }
+							100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+						}
+						.floating-popup.show {
+							opacity: 1;
+							pointer-events: auto;
+						}
+						.floating-popup .popup-stars {
+							position: absolute;
+							top: 0; left: 0; width: 100%; height: 100%;
+							pointer-events: none;
+							z-index: 1;
+						}
+						.floating-popup .popup-star {
+							position: absolute;
+							width: 6px; height: 6px;
+							border-radius: 50%;
+							background: linear-gradient(135deg, #fff 60%, #b87eff 100%);
+							opacity: 0.7;
+							filter: blur(0.5px);
+							animation: star-twinkle 1.8s infinite alternate;
+						}
+						@keyframes star-twinkle {
+							0% { opacity: 0.5; }
+							100% { opacity: 1; }
+						}
+						</style>
+						<div id="newsletter-popup" class="floating-popup">
+							<span style="position:relative;z-index:2;">Email received! 🚀</span>
+							<div class="popup-stars">
+								<div class="popup-star" style="top:12%;left:18%;width:5px;height:5px;"></div>
+								<div class="popup-star" style="top:30%;left:80%;width:7px;height:7px;"></div>
+								<div class="popup-star" style="top:70%;left:60%;width:4px;height:4px;"></div>
+								<div class="popup-star" style="top:60%;left:25%;width:6px;height:6px;"></div>
+								<div class="popup-star" style="top:85%;left:50%;width:3px;height:3px;"></div>
+							</div>
+						</div>
+						<script>
+						// Newsletter popup logic
+						document.addEventListener('DOMContentLoaded', function() {
+							const form = document.querySelector('.newsletter-form');
+							const input = form.querySelector('.newsletter-input');
+							const popup = document.getElementById('newsletter-popup');
+							form.addEventListener('submit', function(e) {
+								e.preventDefault();
+								popup.classList.add('show');
+								input.value = '';
+								setTimeout(() => {
+									popup.classList.remove('show');
+								}, 2000);
+							});
+						});
+						</script>
 						</form>
+</style>
+<script>
+// Newsletter notification logic
+document.addEventListener('DOMContentLoaded', function() {
+	const form = document.querySelector('.newsletter-form');
+	const input = form.querySelector('.newsletter-input');
+	const notification = form.querySelector('.newsletter-notification');
+	form.addEventListener('submit', function(e) {
+		e.preventDefault();
+		notification.textContent = 'Email received!';
+		notification.style.display = 'block';
+		input.value = '';
+		setTimeout(() => { notification.style.display = 'none'; }, 2500);
+	});
+});
+</script>
 
 					</div>
 				</div>
